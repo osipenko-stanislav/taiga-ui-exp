@@ -17,6 +17,7 @@ jobs:
     if: github.repository == 'osipenko-stanislav/taiga-ui-exp'
     runs-on: ubuntu-latest
     env:
+      CYPRESS_INSTALL_BINARY: '0'
       NX_DAEMON: 'false'
       NX_ISOLATE_PLUGINS: 'false'
       NX_NO_CLOUD: 'true'
@@ -28,11 +29,11 @@ jobs:
           node-version: 26
           cache: npm
       - run: npm ci
+      - run: npm run build:storybook
       - run:
           npx jest --config package.json --runInBand --coverage=false --runTestsByPath
           projects/core/tokens/test/otus-defaults.spec.ts
           projects/core/components/button/test/button-motion.directive.spec.ts projects/icons/test/otus-icons.spec.ts
-      - run: npm run build:storybook
       - uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
         with:
           path: dist/storybook
