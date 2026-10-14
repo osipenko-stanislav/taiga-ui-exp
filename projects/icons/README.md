@@ -1,26 +1,33 @@
-# Taiga UI — Icons
+# OTUS — Icons
 
-[![npm version](https://img.shields.io/npm/v/@taiga-ui/icons.svg)](https://npmjs.com/package/@taiga-ui/icons)
-[![npm bundle size](https://img.shields.io/bundlephobia/minzip/@taiga-ui/icons)](https://bundlephobia.com/result?p=@taiga-ui/icons)
-[![Discord](https://img.shields.io/discord/748677963142135818?color=7289DA&label=%23taiga-ui&logo=discord&logoColor=white)](https://discord.gg/Us8d8JVaTg)
+Исходники SVG находятся в `assets/`:
 
-[Website](https://taiga-ui.dev) • [Documentation](https://taiga-ui.dev/getting-started) •
-[Core team](https://github.com/taiga-family/taiga-ui/#core-team)
+- `outline/` — контурные иконки;
+- `flat/` — залитые иконки;
+- `level/` — уровни;
+- `syntax/` — технологии.
 
-> A set of vector icons used by Taiga UI
+Добавляйте новые иконки в соответствующую папку `assets/`. Папка `src/` генерируется и полностью пересоздаётся командой
+`npx nx run icons:prepare-icons`. Storybook выполняет эту подготовку при запуске.
 
-It's a part of [**Taiga UI**](https://github.com/taiga-family/taiga-ui) that is fully-treeshakable Angular UI Kit
-consisting of multiple base libraries and several add-ons
-
-## How to install
-
-```bash
-npm i @taiga-ui/icons
+```html
+<tui-icon icon="@otus.outline.search-md-lined" />
+<button
+  tuiButton
+  iconStart="@otus.outline.plus-lined"
+>
+  Добавить
+</button>
+<tui-icon icon="@otus.flat.heart-filled" />
+<tui-icon icon="@otus.level.Level-01-lined" />
+<tui-icon icon="@otus.syntax.Angular-filled" />
 ```
 
-Don't forget that Taiga UI is fully-treeshakable. **You can import even just one entity from our library** and be sure
-that there is no redundant code in your bundle. Bundlphobia badge shows size of the whole library.
+Имена файлов сохраняются с учётом регистра. Точки после `@otus.` обозначают папки.
 
-## Docs
+При подготовке SVG со stroke из Outline и Level получают поддержку `--tui-stroke-width` в компонентах Taiga. Исходники в
+`assets/` сохраняют оригинальную толщину; обычное отображение квадратных SVG как изображений тоже сохраняется.
 
-See our [Documentation](https://taiga-ui.dev/getting-started)
+Встроенные иконки компонентов используют набор OTUS через стандартный `TUI_ICON_RESOLVER` библиотеки. Дополнительный
+провайдер в приложении не нужен. Путь к SVG задаётся через `TUI_ASSETS_PATH`. Таблица совместимости со старыми именами
+находится в `otus-icons.ts`; она направляет обращения к иконкам Taiga на SVG из наборов OTUS.

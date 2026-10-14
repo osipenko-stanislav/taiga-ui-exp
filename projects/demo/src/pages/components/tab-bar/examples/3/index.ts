@@ -14,15 +14,15 @@ export default class Example {
     protected readonly items = [
         {
             text: 'Home',
-            icon: '@tui.home',
+            icon: '@otus.outline.home-01-lined',
         },
         {
             text: 'Photos',
-            icon: '@tui.image',
+            icon: '@otus.outline.image-01-lined',
         },
         {
             text: 'Navigation',
-            icon: '@tui.map-pin',
+            icon: '@otus.outline.marker-pin-01-lined',
         },
     ];
 }

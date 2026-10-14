@@ -18,7 +18,7 @@ export default class Page {
     protected readonly notifications = inject(TuiNotificationService);
     protected readonly options = inject(TUI_NOTIFICATION_OPTIONS);
     protected readonly sizes = ['s', 'm', 'l'] as const;
-    protected readonly icons = [this.options.icon, '@tui.clock', ''];
+    protected readonly icons = [this.options.icon, '@otus.outline.clock-lined', ''];
     protected readonly autoCloseVariants = [0, 3000, 5000, 1000, 500];
     protected readonly inlineVariants = ['start', 'center', 'end'] as const;
     protected readonly blockVariants = ['start', 'end'] as const;

@@ -11,12 +11,12 @@ import {TuiTitle} from '@taiga-ui/core';
 export class TuiDocIcons {
     protected readonly icons = [
         '',
-        '@tui.search',
-        '@tui.heart',
-        '@tui.settings',
-        '@tui.chevron-down',
-        '@tui.euro',
-        '@tui.dollar-sign',
+        '@otus.outline.search-md-lined',
+        '@otus.outline.heart-lined',
+        '@otus.outline.settings-01-lined',
+        '@otus.outline.chevron-down-lined',
+        '@otus.outline.currency-euro-lined',
+        '@otus.outline.currency-dollar-lined',
     ];
 
     public readonly hiddenOptions = input<Array<string | keyof TuiDocIcons>>([]);

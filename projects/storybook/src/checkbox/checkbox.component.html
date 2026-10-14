@@ -1,0 +1,12 @@
+<label class="t-checkbox">
+    <input
+        tuiCheckbox
+        type="checkbox"
+        [formControl]="control"
+        [required]="required()"
+        [size]="size()"
+        [tuiAppearanceFocus]="focus()"
+        [tuiAppearanceState]="state()"
+    />
+    {{ label() }}
+</label>

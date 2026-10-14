@@ -1,41 +1,14 @@
-<p>
-    <b>Material Symbols Outlined</b>
-    has user friendly naming, the actual word
-    <code>home</code>
-    gets turned into a house icon:
-</p>
-<tui-icon
-    icon="@font.home"
-    class="material"
-/>
-<p>
-    <b>FontAwesome</b>
-    uses Private Use Area of Unicode to turn
-    <code>\f004</code>
-    into a heart icon, which you can pass as the icon name:
-</p>
-<tui-icon
-    icon="@font.\f004"
-    class="awesome"
-/>
-<p>
-    Alternatively, you can pass empty icon name and use
-    <b>FontAwesome</b>
-    classes to get the same result for the basic case, because it also uses
-    <code>::before</code>
-    pseudo-element:
-</p>
-<tui-icon
-    icon="@font."
-    class="awesome fa-heart"
-/>
-<p>
-    Ultimately, what you put after
-    <code>&commat;font.</code>
-    goes into CSS
-    <code>content</code>
-    and gets displayed using font defined via
-    <code>--tui-font-icon</code>
-    variable.
-</p>
-<p>The rest is determined by the font you use and you should consult its documentation.</p>
+<p>Outline · контурные иконки</p>
+<tui-icon icon="@otus.outline.heart-lined" />
+<tui-icon icon="@otus.outline.home-01-lined" />
+<p>Flat · залитые иконки</p>
+<tui-icon icon="@otus.flat.heart-filled" />
+<tui-icon icon="@otus.flat.home-01-filled" />
+<p>Level · уровни</p>
+<tui-icon icon="@otus.level.Level-01-lined" />
+<tui-icon icon="@otus.level.Level-02-lined" />
+<tui-icon icon="@otus.level.Level-03-lined" />
+<p>Syntax · технологии</p>
+<tui-icon icon="@otus.syntax.Angular-filled" />
+<tui-icon icon="@otus.syntax.Typescript-filled" />
+<tui-icon icon="@otus.syntax.React-filled" />

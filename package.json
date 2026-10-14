@@ -53,7 +53,9 @@
         "pretest": "npx tsc --project tsconfig.spec.json",
         "test": "nx run-many --target test --all --output-style=stream",
         "test:e2e": "nx e2e-ui demo-playwright",
-        "typecheck": "tsc --noEmit --strict --incremental false --tsBuildInfoFile null --project tsconfig.spec.json"
+        "typecheck": "tsc --noEmit --strict --incremental false --tsBuildInfoFile null --project tsconfig.spec.json",
+        "storybook": "nx run storybook:storybook",
+        "build:storybook": "nx run storybook:build-storybook"
     },
     "commitlint": {
         "extends": [
@@ -119,6 +121,7 @@
         "@angular-devkit/build-angular": "19.2.27",
         "@angular-devkit/core": "19.2.27",
         "@angular-devkit/schematics": "19.2.27",
+        "@angular/animations": "19.2.25",
         "@angular/build": "19.2.27",
         "@angular/cdk": "19.2.19",
         "@angular/cli": "19.2.27",
@@ -139,9 +142,12 @@
         "@ng-web-apis/universal": "5.3.0",
         "@nx/angular": "22.1.1",
         "@nx/jest": "22.1.1",
+        "@nx/storybook": "22.1.1",
         "@nx/workspace": "22.1.1",
         "@schematics/angular": "19.2.27",
         "@stackblitz/sdk": "1.11.1",
+        "@storybook/addon-docs": "10.0.0",
+        "@storybook/angular": "10.0.0",
         "@taiga-ui/configs": "0.563.0",
         "@taiga-ui/event-plugins": "5.0.0",
         "@types/express": "4.17.25",
@@ -161,9 +167,11 @@
         "nx": "22.1.1",
         "rxjs": "7.8.2",
         "standard-version": "9.5.0",
+        "storybook": "10.0.0",
         "ts-mockito": "2.6.1",
         "ts-node": "10.9.2",
-        "typescript": "5.8.3"
+        "typescript": "5.8.3",
+        "zone.js": "0.15.1"
     },
     "engines": {
         "node": ">= 26",

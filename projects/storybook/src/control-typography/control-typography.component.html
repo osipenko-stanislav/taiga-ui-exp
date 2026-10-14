@@ -1,0 +1,240 @@
+<h1>Типографика контролов</h1>
+<p>Живые образцы текста из компонентов. Параметры считываются с элементов и обновляются при смене модов.</p>
+<div
+    aria-label="Типографика контролов"
+    role="region"
+    tabindex="0"
+    class="t-table"
+>
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">Контрол / роль</th>
+                <th scope="col">Образец</th>
+                <th scope="col">Токен / переопределение</th>
+                <th scope="col">Шрифт</th>
+                <th scope="col">Вес</th>
+                <th scope="col">Размер</th>
+                <th scope="col">Интерлиньяж</th>
+                <th scope="col">Трекинг</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (sample of samples; track sample.id) {
+                @let text = metrics()[sample.id];
+                <tr [attr.data-sample]="sample.id">
+                    <th scope="row">
+                        {{ sample.name }}
+                        @if (sample.context) {
+                            <small class="t-context">{{ sample.context }}</small>
+                        }
+                    </th>
+                    <td class="t-preview">
+                        @switch (sample.kind) {
+                            @case ('button') {
+                                <button
+                                    tuiButton
+                                    type="button"
+                                    [size]="sample.size"
+                                >
+                                    Продолжить
+                                </button>
+                            }
+                            @case ('input') {
+                                <tui-textfield
+                                    [tuiTextfieldCleaner]="false"
+                                    [tuiTextfieldSize]="sample.size"
+                                >
+                                    <input
+                                        aria-label="Значение поля"
+                                        tuiInput
+                                        [formControl]="fieldControls[sample.id]"
+                                    />
+                                </tui-textfield>
+                            }
+                            @case ('placeholder') {
+                                <tui-textfield
+                                    [tuiTextfieldCleaner]="false"
+                                    [tuiTextfieldSize]="sample.size"
+                                >
+                                    <input
+                                        aria-label="Поле с плейсхолдером"
+                                        placeholder="Введите имя"
+                                        tuiInput
+                                        [formControl]="fieldControls[sample.id]"
+                                    />
+                                </tui-textfield>
+                            }
+                            @case ('field-label') {
+                                <tui-textfield
+                                    [tuiTextfieldCleaner]="false"
+                                    [tuiTextfieldSize]="sample.size"
+                                >
+                                    <label tuiLabel>Имя</label>
+                                    <input
+                                        tuiInput
+                                        [formControl]="fieldControls[sample.id]"
+                                    />
+                                </tui-textfield>
+                            }
+                            @case ('floating-label') {
+                                <tui-textfield
+                                    [tuiTextfieldCleaner]="false"
+                                    [tuiTextfieldSize]="sample.size"
+                                >
+                                    <label tuiLabel>Имя</label>
+                                    <input
+                                        tuiInput
+                                        [formControl]="fieldControls[sample.id]"
+                                    />
+                                </tui-textfield>
+                            }
+                            @case ('checkbox') {
+                                <label tuiLabel>
+                                    <input
+                                        tuiCheckbox
+                                        type="checkbox"
+                                        [size]="sample.size"
+                                    />
+                                    <span>Получать уведомления</span>
+                                </label>
+                            }
+                            @case ('radio') {
+                                <label tuiLabel>
+                                    <input
+                                        tuiRadio
+                                        type="radio"
+                                        [attr.name]="sample.id"
+                                        [size]="sample.size"
+                                    />
+                                    <span>Дневное обучение</span>
+                                </label>
+                            }
+                            @case ('switch') {
+                                <label tuiLabel>
+                                    <input
+                                        tuiSwitch
+                                        type="checkbox"
+                                        [size]="sample.size"
+                                    />
+                                    <span>Показывать подсказки</span>
+                                </label>
+                            }
+                            @case ('badge') {
+                                <span
+                                    appearance="neutral"
+                                    tuiBadge
+                                    [size]="sample.size"
+                                >
+                                    Новый
+                                </span>
+                            }
+                            @case ('chip') {
+                                <span
+                                    tuiChip
+                                    [size]="sample.size"
+                                >
+                                    Дизайн
+                                </span>
+                            }
+                            @case ('segmented') {
+                                <tui-segmented [size]="sample.size">
+                                    <button type="button">Все</button>
+                                    <button type="button">Избранные</button>
+                                </tui-segmented>
+                            }
+                            @case ('link') {
+                                <a
+                                    href="#control-typography"
+                                    tuiLink
+                                >
+                                    Подробнее
+                                </a>
+                            }
+                            @case ('tab') {
+                                <tui-tabs>
+                                    <button
+                                        tuiTab
+                                        type="button"
+                                    >
+                                        Обзор
+                                    </button>
+                                    <button
+                                        tuiTab
+                                        type="button"
+                                    >
+                                        Материалы
+                                    </button>
+                                </tui-tabs>
+                            }
+                            @case ('option') {
+                                <tui-data-list>
+                                    <button
+                                        tuiOption
+                                        type="button"
+                                    >
+                                        Математика
+                                    </button>
+                                </tui-data-list>
+                            }
+                            @case ('group-label') {
+                                <tui-data-list>
+                                    <tui-opt-group label="Дисциплины">
+                                        <button
+                                            tuiOption
+                                            type="button"
+                                        >
+                                            Математика
+                                        </button>
+                                    </tui-opt-group>
+                                </tui-data-list>
+                            }
+                            @case ('label') {
+                                <label
+                                    data-orientation="vertical"
+                                    tuiLabel
+                                >
+                                    <span>Имя</span>
+                                    <tui-textfield
+                                        tuiTextfieldSize="m"
+                                        [tuiTextfieldCleaner]="false"
+                                    >
+                                        <input
+                                            placeholder="Введите имя"
+                                            tuiInput
+                                            [formControl]="fieldControls[sample.id]"
+                                        />
+                                    </tui-textfield>
+                                </label>
+                            }
+                            @case ('description') {
+                                <label tuiLabel>
+                                    <input
+                                        tuiCheckbox
+                                        type="checkbox"
+                                        [formControl]="descriptionControl"
+                                    />
+                                    <span tuiTitle>
+                                        Получать уведомления
+                                        <span tuiSubtitle>Новости и важные объявления</span>
+                                    </span>
+                                </label>
+                            }
+                        }
+                    </td>
+                    <td>
+                        <code class="t-token">{{ text?.token ?? sample.token }}</code>
+                        @if (sample.override) {
+                            <small class="t-override">{{ sample.override }}</small>
+                        }
+                    </td>
+                    <td class="t-family">{{ text?.family ?? '—' }}</td>
+                    <td class="t-weight">{{ text?.weight ?? '—' }}</td>
+                    <td class="t-size">{{ text?.size ?? '—' }}</td>
+                    <td class="t-line-height">{{ text?.lineHeight ?? '—' }}</td>
+                    <td class="t-tracking">{{ text?.letterSpacing ?? '—' }}</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

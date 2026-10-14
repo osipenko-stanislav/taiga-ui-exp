@@ -1,0 +1,32 @@
+<tui-textfield
+    [iconEnd]="iconEnd()"
+    [iconStart]="iconStart()"
+    [invalid]="invalid()"
+    [tuiAppearanceFocus]="focus()"
+    [tuiAppearanceState]="state()"
+    [tuiTextfieldAppearance]="appearance()"
+    [tuiTextfieldCleaner]="cleaner()"
+    [tuiTextfieldSize]="size()"
+>
+    <label tuiLabel>{{ label() }}</label>
+    <input
+        tuiInput
+        [attr.aria-label]="label()"
+        [formControl]="control"
+        [placeholder]="placeholder()"
+        [readonly]="readonly()"
+    />
+    @if (dropdown()) {
+        <tui-data-list *tuiDropdown>
+            @for (suggestion of suggestions; track suggestion) {
+                <button
+                    tuiOption
+                    type="button"
+                    [value]="suggestion"
+                >
+                    {{ suggestion }}
+                </button>
+            }
+        </tui-data-list>
+    }
+</tui-textfield>

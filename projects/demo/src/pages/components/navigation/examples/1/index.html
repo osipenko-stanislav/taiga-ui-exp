@@ -44,7 +44,7 @@
         </tui-data-list>
     </button>
     <span tuiNavigationLogo>
-        <tui-icon icon="@tui.home" />
+        <tui-icon icon="@otus.outline.home-01-lined" />
         <span tuiFade>A very very long product name</span>
         <div tuiBadge>Test</div>
     </span>
@@ -85,7 +85,7 @@
                     >
                         A very very long project
                         <tui-icon
-                            icon="@tui.check"
+                            icon="@otus.outline.check-lined"
                             [style.font-size.em]="1"
                             [style.margin-inline-start.rem]="0.5"
                         />
@@ -103,14 +103,14 @@
     <hr />
     <button
         appearance="secondary-grayscale"
-        iconStart="@tui.plus"
+        iconStart="@otus.outline.plus-lined"
         tuiButton
         type="button"
     >
         Create
     </button>
     <button
-        iconStart="@tui.bell"
+        iconStart="@otus.outline.bell-01-lined"
         tuiIconButton
         type="button"
     >
@@ -118,7 +118,7 @@
         <tui-badge-notification />
     </button>
     <button
-        iconStart="@tui.ellipsis"
+        iconStart="@otus.outline.dots-horizontal-lined"
         tuiIconButton
         type="button"
     >
@@ -133,7 +133,7 @@
     >
         <header>
             <button
-                iconStart="@tui.home"
+                iconStart="@otus.outline.home-01-lined"
                 type="button"
                 [tuiAsideItem]="hint"
             >
@@ -150,7 +150,7 @@
             </button>
         </header>
         <button
-            iconStart="@tui.search"
+            iconStart="@otus.outline.search-md-lined"
             tuiAsideItem
             type="button"
         >
@@ -166,7 +166,7 @@
             }
         </button>
         <a
-            iconStart="@tui.users"
+            iconStart="@otus.outline.users-01-lined"
             tuiAsideItem
             [routerLink]="routes.Navigation"
         >
@@ -175,7 +175,7 @@
         <tui-aside-group>
             <button
                 automation-id="setting"
-                iconStart="@tui.settings"
+                iconStart="@otus.outline.settings-01-lined"
                 tuiAsideItem
                 tuiChevron
                 type="button"
@@ -205,15 +205,15 @@
         </tui-aside-group>
         <button
             automation-id="hint"
-            iconStart="@tui.heart"
+            iconStart="@otus.outline.heart-lined"
             tuiAsideItem
             type="button"
         >
             <span tuiFade>By default ellipsis is used but you can use fade too</span>
         </button>
         <button
-            iconEnd="@tui.chevron-right"
-            iconStart="@tui.ellipsis"
+            iconEnd="@otus.outline.chevron-right-lined"
+            iconStart="@otus.outline.dots-horizontal-lined"
             tuiAsideItem
             tuiDropdownAuto
             tuiDropdownHover
@@ -227,14 +227,14 @@
             >
                 <tui-data-list tuiDataListDropdownManager>
                     <button
-                        iconStart="@tui.pencil"
+                        iconStart="@otus.outline.pencil-01-lined"
                         tuiAsideItem
                         type="button"
                     >
                         Write
                     </button>
                     <button
-                        iconStart="@tui.pie-chart"
+                        iconStart="@otus.outline.pie-chart-01-lined"
                         tuiAsideItem
                         type="button"
                         [tuiDropdown]="submenu"
@@ -269,7 +269,7 @@
         </button>
         <hr />
         <button
-            iconStart="@tui.plus"
+            iconStart="@otus.outline.plus-lined"
             tuiAsideItem
             type="button"
         >
@@ -277,7 +277,7 @@
         </button>
         <footer>
             <button
-                iconStart="@tui.star"
+                iconStart="@otus.outline.star-01-lined"
                 tuiAsideItem
                 type="button"
             >
@@ -286,7 +286,7 @@
             <button
                 tuiAsideItem
                 type="button"
-                [iconStart]="expanded() ? '@tui.chevron-left' : '@tui.chevron-right'"
+                [iconStart]="expanded() ? '@otus.outline.chevron-left-lined' : '@otus.outline.chevron-right-lined'"
                 (click)="handleToggle()"
             >
                 {{ expanded() ? 'Collapse' : 'Expand' }}

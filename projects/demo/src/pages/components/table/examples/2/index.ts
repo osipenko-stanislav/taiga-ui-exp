@@ -65,7 +65,7 @@ export default class Example {
                 subtitle: 'The first element',
             },
             title: {
-                icon: '@tui.file',
+                icon: '@otus.outline.file-01-lined',
                 title: 'This is title',
                 chip: 'Chip',
                 subtitle: 'More information ・ Data',
@@ -87,7 +87,7 @@ export default class Example {
                 subtitle: 'Some more text',
             },
             title: {
-                icon: '@tui.heart',
+                icon: '@otus.outline.heart-lined',
                 title: 'More info',
                 chip: 'Chips can be here',
             },
@@ -108,7 +108,7 @@ export default class Example {
                 subtitle: 'Completely different',
             },
             title: {
-                icon: '@tui.star',
+                icon: '@otus.outline.star-01-lined',
                 title: 'Wow',
             },
             cell: {

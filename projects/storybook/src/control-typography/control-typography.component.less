@@ -1,0 +1,83 @@
+@import '@taiga-ui/styles/utils';
+
+:host {
+    display: block;
+    font: var(--tui-typography-body-m);
+    letter-spacing: normal;
+}
+
+h1 {
+    margin: 0 0 1rem;
+    .heading(3);
+}
+
+p {
+    max-inline-size: 70ch;
+    margin: 0 0 2rem;
+}
+
+.t-table {
+    overflow: auto;
+}
+
+table {
+    inline-size: 100%;
+    border-collapse: collapse;
+    font: var(--tui-typography-body-s);
+    letter-spacing: normal;
+    font-variant-numeric: tabular-nums;
+}
+
+th,
+td {
+    border-block-end: 1px solid var(--tui-border-normal);
+    padding: 1rem;
+    text-align: start;
+    vertical-align: middle;
+}
+
+th {
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.t-context {
+    display: block;
+    max-inline-size: 24ch;
+    margin-block-start: 0.375rem;
+    color: var(--tui-text-secondary);
+    font: var(--tui-typography-body-xs);
+    white-space: normal;
+}
+
+.t-token {
+    white-space: nowrap;
+    font-size: 0.75rem;
+}
+
+.t-override {
+    display: block;
+    max-inline-size: 28ch;
+    margin-block-start: 0.375rem;
+    color: var(--tui-text-secondary);
+    font: var(--tui-typography-body-xs);
+}
+
+.t-family {
+    max-inline-size: 7rem;
+}
+
+.t-preview {
+    min-inline-size: 20rem;
+    font: var(--tui-typography-body-m);
+    letter-spacing: normal;
+
+    tui-textfield {
+        inline-size: 20rem;
+    }
+
+    tui-segmented {
+        inline-size: max-content;
+        max-inline-size: 100%;
+    }
+}

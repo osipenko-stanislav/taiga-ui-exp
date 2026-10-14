@@ -17,7 +17,7 @@
             >
                 <span>
                     <tui-icon
-                        icon="@tui.send"
+                        icon="@otus.outline.send-01-lined"
                         class="tui-space_right-3"
                     />
                     Send
@@ -30,7 +30,7 @@
             >
                 <span>
                     <tui-icon
-                        icon="@tui.trash"
+                        icon="@otus.outline.trash-01-lined"
                         class="tui-space_right-3"
                     />
                     Delete
@@ -48,7 +48,7 @@
             >
                 <span>
                     <tui-icon
-                        icon="@tui.layout-grid"
+                        icon="@otus.outline.layout-grid-01-lined"
                         class="tui-space_right-3"
                     />
                     Select all
@@ -62,7 +62,7 @@
             >
                 <span>
                     <tui-icon
-                        icon="@tui.x"
+                        icon="@otus.outline.x-lined"
                         class="tui-space_right-3"
                     />
                     Select none and close
@@ -79,7 +79,7 @@
                 >
                     <span>
                         <tui-icon
-                            icon="@tui.star"
+                            icon="@otus.outline.star-01-lined"
                             class="tui-space_right-3"
                         />
                         Action {{ $index + 1 }}
@@ -109,7 +109,7 @@
         @for (_ of '-'.repeat(5); track $index) {
             <button
                 *tuiItem
-                iconStart="@tui.star"
+                iconStart="@otus.outline.star-01-lined"
                 tuiButton
                 type="button"
             >
@@ -121,7 +121,7 @@
             tuiMore
         >
             <button
-                iconStart="@tui.ellipsis"
+                iconStart="@otus.outline.dots-horizontal-lined"
                 tuiButton
                 tuiDropdownAlign="end"
                 tuiDropdownAuto
@@ -149,7 +149,7 @@
 
     @if (!isMobile()) {
         <button
-            iconStart="@tui.send"
+            iconStart="@otus.outline.send-01-lined"
             tuiButton
             type="button"
         >
@@ -158,7 +158,7 @@
     }
     @if (!isMobile()) {
         <button
-            iconStart="@tui.trash"
+            iconStart="@otus.outline.trash-01-lined"
             tuiButton
             type="button"
             (click)="close()"
@@ -169,7 +169,7 @@
 
     @if (isMobile()) {
         <button
-            iconStart="@tui.send"
+            iconStart="@otus.outline.send-01-lined"
             tuiIconButton
             type="button"
         >
@@ -178,7 +178,7 @@
     }
     @if (isMobile()) {
         <button
-            iconStart="@tui.ellipsis"
+            iconStart="@otus.outline.dots-horizontal-lined"
             tuiIconButton
             type="button"
             (click)="expanded = !expanded"
@@ -190,7 +190,7 @@
     @if (!isMobile()) {
         <button
             appearance="icon"
-            iconStart="@tui.x"
+            iconStart="@otus.outline.x-lined"
             tuiIconButton
             type="button"
             (click)="close()"

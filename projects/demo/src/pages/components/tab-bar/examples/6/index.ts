@@ -28,23 +28,23 @@ export default class Example {
     protected readonly items = [
         {
             text: 'Home',
-            icon: '@tui.house',
+            icon: '@otus.outline.home-01-lined',
         },
         {
             text: 'Search',
-            icon: '@tui.search',
+            icon: '@otus.outline.search-md-lined',
         },
         {
             text: 'Favorites',
-            icon: '@tui.heart',
+            icon: '@otus.outline.heart-lined',
         },
         {
             text: 'Notifications',
-            icon: '@tui.bell',
+            icon: '@otus.outline.bell-01-lined',
         },
         {
             text: 'Profile',
-            icon: '@tui.user',
+            icon: '@otus.outline.user-01-lined',
         },
     ];
 }

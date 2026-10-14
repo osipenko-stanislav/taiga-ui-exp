@@ -16,7 +16,7 @@ import {SEARCH_CONFIG} from './env';
     styleUrl: './index.less',
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [{provide: TUI_ICON_START, useValue: '@tui.search'}],
+    providers: [{provide: TUI_ICON_START, useValue: '@otus.outline.search-md-lined'}],
     hostDirectives: [TuiIcons],
     host: {'[attr.id]': "'docsearch'"},
 })

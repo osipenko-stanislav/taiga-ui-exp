@@ -14,7 +14,8 @@
 [![Code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-[Website](https://taiga-ui.dev) • [Documentation](https://taiga-ui.dev/getting-started) • [Core team](#core-team)
+[OTUS Storybook](https://osipenko-stanislav.github.io/taiga-ui-exp/) • [Website](https://taiga-ui.dev) •
+[Documentation](https://taiga-ui.dev/getting-started) • [Core team](#core-team)
 
 </div>
 

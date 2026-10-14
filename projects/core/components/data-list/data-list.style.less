@@ -12,6 +12,7 @@ tui-data-list:where(*&) {
     &[data-size='s'] [tuiOption] {
         min-block-size: 0;
         font: var(--tui-typography-ui-s);
+        letter-spacing: normal;
         padding: 0.375rem ~'max(var(--tui-padding-inline, 0px), 0.375rem)';
 
         &::before,
@@ -23,6 +24,7 @@ tui-data-list:where(*&) {
     &[data-size='m'] [tuiOption] {
         min-block-size: 2.25rem;
         font: var(--tui-typography-ui-s);
+        letter-spacing: normal;
         padding: 0.5rem ~'max(var(--tui-padding-inline, 0px), 0.375rem)';
     }
 
@@ -33,6 +35,7 @@ tui-data-list:where(*&) {
         [tuiOption] {
             min-block-size: 2.5rem;
             font: var(--tui-typography-ui-m);
+            letter-spacing: normal;
             padding: 0.5rem ~'max(var(--tui-padding-inline, 0px), 0.5rem)';
         }
 
@@ -118,6 +121,7 @@ tui-opt-group:where(*&) {
 
     tui-data-list[data-size='s'] & {
         font: var(--tui-typography-body-s);
+        letter-spacing: normal;
 
         &::before {
             padding: 0.1875rem 0.375rem;
@@ -126,6 +130,7 @@ tui-opt-group:where(*&) {
 
     tui-data-list[data-size='m'] & {
         font: var(--tui-typography-ui-m);
+        letter-spacing: normal;
 
         &::before {
             padding: 0.375rem;
@@ -134,6 +139,7 @@ tui-opt-group:where(*&) {
 
     tui-data-list[data-size='l'] & {
         font: var(--tui-typography-ui-l);
+        letter-spacing: normal;
 
         &::before {
             padding: 0.5rem;
@@ -150,7 +156,8 @@ tui-opt-group:where(*&) {
         word-break: break-word;
 
         tui-sheet-dialog & {
-            font: var(--tui-typography-heading-h6);
+            .heading(6);
+
             padding: 0.5rem 0 !important;
         }
     }

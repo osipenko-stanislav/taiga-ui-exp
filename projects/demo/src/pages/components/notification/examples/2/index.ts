@@ -10,7 +10,7 @@ import {TuiNotification, tuiNotificationOptionsProvider} from '@taiga-ui/core';
     changeDetection,
     providers: [
         tuiNotificationOptionsProvider({
-            icon: '@tui.alarm-clock',
+            icon: '@otus.outline.alarm-clock-lined',
             appearance: 'neutral',
             size: 's',
         }),

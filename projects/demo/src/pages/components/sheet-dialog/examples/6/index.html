@@ -39,7 +39,7 @@
     <div class="favorites">
         @for (item of items | slice: 0 : 6; track item) {
             <tui-avatar-labeled [label]="item.name">
-                <div tuiAvatar="@tui.user">
+                <div tuiAvatar="@otus.outline.user-01-lined">
                     <img
                         alt=""
                         [src]="item.avatar"
@@ -56,7 +56,7 @@
                 class="cell"
                 (click)="open.set(false)"
             >
-                <div tuiAvatar="@tui.user">
+                <div tuiAvatar="@otus.outline.user-01-lined">
                     <img
                         alt=""
                         [src]="item.avatar"

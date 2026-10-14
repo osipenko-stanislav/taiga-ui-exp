@@ -1,5 +1,6 @@
 import {inject, InjectionToken, type Provider} from '@angular/core';
 import {type TuiStringHandler} from '@taiga-ui/cdk/types';
+import {tuiResolveOtusIcon} from '@taiga-ui/icons';
 
 import {TUI_ASSETS_PATH} from './assets-path';
 import {TUI_ICON_REGISTRY} from './icons';
@@ -10,9 +11,7 @@ export const TUI_ICON_RESOLVER = new InjectionToken<TuiStringHandler<string>>(
         factory: () => {
             const path = inject(TUI_ASSETS_PATH);
 
-            // regex for @{any text}. used as a default fallback, returns path to svg from icon pack
-            return (icon) =>
-                `${path}/${icon.replace(/@[a-z]+\./i, '').replaceAll('.', '/')}.svg`;
+            return (icon) => tuiResolveOtusIcon(icon, path);
         },
     },
 );

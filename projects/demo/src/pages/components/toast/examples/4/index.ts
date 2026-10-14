@@ -14,7 +14,7 @@ import {injectContext, PolymorpheusComponent} from '@taiga-ui/polymorpheus';
             [attr.data-appearance]="appearance"
         >
             <tui-icon
-                icon="@tui.triangle-alert"
+                icon="@otus.outline.alert-triangle-lined"
                 [style.color]="'var(--tui-status-negative)'"
             />
             Lost connection.

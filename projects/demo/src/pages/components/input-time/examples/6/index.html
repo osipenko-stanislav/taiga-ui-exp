@@ -1,5 +1,5 @@
 <tui-textfield
-    iconStart="@tui.alarm-clock"
+    iconStart="@otus.outline.alarm-clock-lined"
     tuiTextfieldSize="m"
     [tuiTextfieldCleaner]="false"
 >
@@ -12,7 +12,7 @@
     />
 
     @if (value) {
-        <tui-icon [icon]="value.hours < 8 ? '@tui.moon' : '@tui.sun'" />
+        <tui-icon [icon]="value.hours < 8 ? '@otus.outline.moon-01-lined' : '@otus.outline.sun-lined'" />
     }
 
     <tui-icon tuiTooltip="I am a hint" />

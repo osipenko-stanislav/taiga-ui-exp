@@ -1,0 +1,198 @@
+<header class="t-header">
+    <h1>{{ title() }}</h1>
+    @if (section() === 'overview') {
+        <p>
+            {{ exampleCount }} превью в {{ groupCount }} разделах, {{ cssTokenCount }} CSS-токенов и
+            {{ injectionTokenCount }} токенов внедрения зависимостей и {{ iconCount }} иконок.
+        </p>
+        <p>Выберите компонент в каталоге. Светлая и тёмная темы переключаются на панели Storybook.</p>
+    } @else if (section() === 'icons') {
+        <p>Наборы OTUS: Outline, Flat, Level и Syntax.</p>
+    } @else {
+        <p>Образцы используют переменные Taiga UI. Значения соответствуют выбранной теме.</p>
+    }
+    <label class="t-search">
+        Поиск
+        <input
+            placeholder="Название компонента или токена"
+            type="search"
+            [value]="query()"
+            (input)="setQuery($event)"
+        />
+    </label>
+</header>
+
+@switch (section()) {
+    @case ('icons') {
+        <label class="t-search">
+            Набор иконок
+            <select
+                [value]="iconSet()"
+                (change)="setIconSet($event)"
+            >
+                <option value="all">Все наборы</option>
+                @for (set of iconSets; track set) {
+                    <option [value]="set">{{ set }}</option>
+                }
+            </select>
+        </label>
+        <p role="status">Найдено {{ filteredIcons().length }} иконок</p>
+        <div class="t-icons">
+            @for (icon of icons(); track icon) {
+                <figure>
+                    <tui-icon [icon]="`@otus.${icon}`" />
+                    <figcaption>
+                        <code>{{ `@otus.${icon}` }}</code>
+                    </figcaption>
+                </figure>
+            } @empty {
+                <p>Ничего не найдено. Измените запрос.</p>
+            }
+        </div>
+        @if (iconPageCount() > 1) {
+            <nav
+                aria-label="Страницы иконок"
+                class="t-icon-pages"
+            >
+                <button
+                    appearance="secondary"
+                    size="m"
+                    tuiButton
+                    type="button"
+                    [disabled]="iconPage() === 0"
+                    (click)="changeIconPage(-1)"
+                >
+                    Назад
+                </button>
+                <span>{{ iconPage() + 1 }} / {{ iconPageCount() }}</span>
+                <button
+                    appearance="secondary"
+                    size="m"
+                    tuiButton
+                    type="button"
+                    [disabled]="iconPage() + 1 >= iconPageCount()"
+                    (click)="changeIconPage(1)"
+                >
+                    Далее
+                </button>
+            </nav>
+        }
+    }
+    @case ('overview') {
+        <div class="t-table-scroll">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Раздел</th>
+                        <th>Превью</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (group of catalog(); track group.title) {
+                        <tr>
+                            <td>
+                                <a
+                                    target="_top"
+                                    [href]="`/?path=/story/${group.storyId}`"
+                                >
+                                    {{ group.title }}
+                                </a>
+                            </td>
+                            <td>{{ group.examples }}</td>
+                        </tr>
+                    } @empty {
+                        <tr><td colspan="2">Ничего не найдено. Измените запрос.</td></tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    @case ('injection') {
+        <p>
+            Токены настраивают поведение компонентов через Angular providers. Их объявления находятся в указанных
+            исходниках.
+        </p>
+        <div class="t-table-scroll">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Токен</th>
+                        <th>Пакет</th>
+                        <th>Исходник</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (token of injectionTokens(); track token.source + token.name) {
+                        <tr>
+                            <td>
+                                <code>{{ token.name }}</code>
+                            </td>
+                            <td>{{ token.package }}</td>
+                            <td>
+                                <code>{{ token.source }}</code>
+                            </td>
+                        </tr>
+                    } @empty {
+                        <tr><td colspan="3">Ничего не найдено. Измените запрос.</td></tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    @default {
+        <div
+            class="t-tokens"
+            [class.t-typography]="section() === 'typography'"
+        >
+            @for (token of tokens(); track token.name) {
+                <article
+                    class="t-token"
+                    [attr.data-token]="token.name"
+                >
+                    @if (token.available) {
+                        @switch (section()) {
+                            @case ('colors') {
+                                <div
+                                    aria-hidden="true"
+                                    class="t-swatch"
+                                    [style.background]="token.variable"
+                                ></div>
+                            }
+                            @case ('typography') {
+                                <p
+                                    class="t-type-sample"
+                                    [attr.data-font]="token.name"
+                                    [style.font-family]="!token.typography ? token.variable : null"
+                                    [style.font]="token.typography ? token.variable : null"
+                                >
+                                    Съешь ещё этих мягких булок · Graphik Aa 0123456789
+                                </p>
+                            }
+                            @case ('shadows') {
+                                <div
+                                    aria-hidden="true"
+                                    class="t-shadow-sample"
+                                    [style.box-shadow]="token.variable"
+                                ></div>
+                            }
+                            @case ('dimensions') {
+                                <div
+                                    aria-hidden="true"
+                                    class="t-size-sample"
+                                    [style.border-radius]="token.radius ? token.variable : null"
+                                    [style.height]="!token.radius ? token.variable : null"
+                                ></div>
+                            }
+                        }
+                    }
+                    <h2>
+                        <code>{{ token.name }}</code>
+                    </h2>
+                    <p class="t-value">{{ token.value }}</p>
+                </article>
+            } @empty {
+                <p role="status">Ничего не найдено. Измените запрос.</p>
+            }
+        </div>
+    }
+}

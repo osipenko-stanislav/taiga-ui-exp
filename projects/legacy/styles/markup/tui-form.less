@@ -1,3 +1,5 @@
+@import '@taiga-ui/styles/utils';
+
 @fields-space: 1.25rem;
 @fields-space-mobile: 1rem;
 @fields-space-large: 2rem;
@@ -5,12 +7,14 @@
 
 .tui-form {
     &__header {
-        font: var(--tui-typography-heading-h5);
+        .heading(5);
+
         margin-block-start: @fields-space-large;
         margin-block-end: @fields-space;
 
         @media @tui-mobile {
             font: var(--tui-typography-body-l);
+            letter-spacing: normal;
             font-weight: bold;
             margin-block-end: @fields-space-mobile;
         }
@@ -93,6 +97,7 @@
 
     &__field-note {
         font: var(--tui-typography-body-s);
+        letter-spacing: normal;
         margin-block-start: 0.25rem;
         color: var(--tui-text-secondary);
     }

@@ -1,3 +1,5 @@
+@import '@taiga-ui/styles/utils';
+
 /**
  * @name Title
  * @selector [tuiTitle], [tuiSubtitle]
@@ -29,9 +31,11 @@
     padding: 0;
     border: 0;
     font: var(--tui-typography-ui-m);
+    letter-spacing: normal;
 
     :where([tuiSubtitle]) {
         font: var(--tui-typography-ui-s);
+        letter-spacing: normal;
         margin: 0;
         padding: 0;
 
@@ -43,9 +47,11 @@
     &:where([data-size='s']) {
         gap: 0.125rem;
         font: var(--tui-typography-body-s);
+        letter-spacing: normal;
 
         [tuiSubtitle] {
             font: var(--tui-typography-body-xs);
+            letter-spacing: normal;
 
             &:is(legend) {
                 margin-block-end: 0.125rem;
@@ -55,10 +61,11 @@
 
     &:where([data-size='m']) {
         gap: 0.125rem;
-        font: var(--tui-typography-heading-h5);
+        .heading(5);
 
         [tuiSubtitle] {
             font: var(--tui-typography-body-m);
+            letter-spacing: normal;
 
             &:is(legend) {
                 margin-block-end: 0.125rem;
@@ -68,10 +75,11 @@
 
     &:where([data-size='l']) {
         gap: 0.5rem;
-        font: var(--tui-typography-heading-h3);
+        .heading(3);
 
         [tuiSubtitle] {
             font: var(--tui-typography-body-m);
+            letter-spacing: normal;
 
             &:is(legend) {
                 margin-block-end: 0.5rem;

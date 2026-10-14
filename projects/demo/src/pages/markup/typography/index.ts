@@ -12,6 +12,30 @@ import {TuiTable} from '@taiga-ui/addon-table';
 export default class Page {
     protected readonly tabs = ['Headings', 'Body', 'UI'] as const;
 
+    protected readonly sections = {
+        Headings: {
+            title: 'Заголовки',
+            description:
+                'Graphik Semibold 600. Плотность букв настроена по размеру заголовка.',
+        },
+        Body: {
+            title: 'Наборный текст · Regular content',
+            description:
+                'Graphik Regular 400. Более свободный интерлиньяж для абзацев и длинного текста.',
+        },
+        UI: {
+            title: 'UI-текст · Reduced line height',
+            description:
+                'Graphik Regular 400. Тот же размер шрифта, но более компактный интерлиньяж для интерфейса.',
+        },
+    };
+
+    protected readonly comparison = [
+        'Учимся новому каждый день.',
+        'Обмениваемся идеями.',
+        'Находим решения вместе.',
+    ];
+
     protected readonly groups = {
         Headings: [
             '--tui-typography-heading-h1',

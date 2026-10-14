@@ -1,3 +1,5 @@
+@import '@taiga-ui/styles/utils';
+
 [data-appearance~='compact'] {
     padding: 1rem !important;
     border-radius: var(--tui-radius-s) !important;
@@ -17,7 +19,7 @@
 
     > header,
     > ng-component > header {
-        font: var(--tui-typography-heading-h6);
+        .heading(6);
     }
 
     > p,

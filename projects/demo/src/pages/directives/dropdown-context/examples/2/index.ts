@@ -19,10 +19,10 @@ export default class Example {
     protected readonly actionItems = ['Edit', 'Download', 'Rename', 'Delete'];
 
     protected readonly menuItems = [
-        {title: 'View', iconName: '@tui.eye'},
-        {title: 'Copy', iconName: '@tui.copy'},
-        {title: 'Delete', iconName: '@tui.trash'},
-        {title: 'Move', iconName: '@tui.folder'},
+        {title: 'View', iconName: '@otus.outline.eye-lined'},
+        {title: 'Copy', iconName: '@otus.outline.copy-01-lined'},
+        {title: 'Delete', iconName: '@otus.outline.trash-01-lined'},
+        {title: 'Move', iconName: '@otus.outline.folder-lined'},
     ] as const;
 
     protected readonly tableData = [

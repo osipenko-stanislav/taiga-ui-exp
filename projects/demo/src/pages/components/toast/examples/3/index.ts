@@ -10,7 +10,7 @@ import {PolymorpheusComponent} from '@taiga-ui/polymorpheus';
     template: `
         <div tuiToast>
             <tui-icon
-                icon="@tui.triangle-alert"
+                icon="@otus.outline.alert-triangle-lined"
                 [style.color]="'var(--tui-status-negative)'"
             />
             Lost connection.
@@ -37,7 +37,7 @@ export default class Example {
         this.toast
             .open('Alarm is set for next <b>Sunday</b>, March 8, 2026, 10:00', {
                 autoClose: 0,
-                data: '@tui.alarm-clock',
+                data: '@otus.outline.alarm-clock-lined',
             })
             .subscribe();
     }

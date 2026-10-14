@@ -19,13 +19,15 @@
     }
 
     :host-context(tui-sheet-dialog) && {
-        font: var(--tui-typography-heading-h6);
+        .heading(6);
+
         padding: 0.5rem 0;
     }
 }
 
 .t-button {
     font: var(--tui-typography-body-s);
+    letter-spacing: normal;
 
     :host-context(tui-data-list[data-size='l']) & {
         margin-block-start: 0.1875rem;

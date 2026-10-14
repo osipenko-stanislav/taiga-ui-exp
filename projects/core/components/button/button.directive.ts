@@ -15,6 +15,7 @@ import {
 import {TuiWithIcons} from '@taiga-ui/core/directives/icons';
 
 import {TUI_BUTTON_OPTIONS} from './button.options';
+import {TuiButtonMotion} from './button-motion.directive';
 
 @Component({
     template: '',
@@ -33,7 +34,7 @@ class Styles {}
     selector:
         'a[tuiButton],button[tuiButton],label[tuiButton],a[tuiIconButton],button[tuiIconButton],label[tuiIconButton]',
     providers: [tuiAppearanceOptionsProvider(TUI_BUTTON_OPTIONS)],
-    hostDirectives: [TuiWithAppearance, TuiWithIcons],
+    hostDirectives: [TuiWithAppearance, TuiWithIcons, TuiButtonMotion],
     host: {'[attr.data-size]': 'size()'},
 })
 export class TuiButton {

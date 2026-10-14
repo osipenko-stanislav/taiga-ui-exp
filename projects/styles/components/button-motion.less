@@ -1,0 +1,97 @@
+.t-motion-button {
+    isolation: isolate;
+    transition-property: color, opacity, border-color, border-radius;
+
+    &:not(.t-motion-measure) {
+        background: transparent !important;
+        box-shadow: none !important;
+    }
+
+    &.t-motion-measure {
+        transition: none !important;
+    }
+
+    &::before,
+    &::after {
+        position: relative;
+        z-index: 1;
+    }
+
+    > .t-motion-backdrop {
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        opacity: 1;
+        pointer-events: none;
+        transition: var(--otus-button-bg);
+        transition-property: inset, background-color, box-shadow;
+    }
+
+    &.t-motion-hover > .t-motion-backdrop {
+        inset: 2px;
+    }
+
+    &.t-motion-hover .t-motion-letter {
+        transform: translateY(-110%);
+    }
+
+    &[data-button-motion='otus-brand'] .t-motion-source {
+        opacity: 0;
+    }
+
+    .t-motion-label {
+        position: relative;
+        z-index: 1;
+        display: inline-block;
+        overflow: hidden;
+        vertical-align: bottom;
+    }
+
+    .t-motion-source {
+        display: block;
+    }
+
+    .t-motion-letters {
+        position: absolute;
+        inset: 0;
+        white-space: nowrap;
+        pointer-events: none;
+    }
+
+    .t-motion-letter {
+        position: absolute;
+        inset-block-start: 0;
+        inset-inline-start: var(--t-motion-offset);
+        inline-size: var(--t-motion-width);
+        block-size: 100%;
+        clip-path: inset(-150% 0);
+        transition: transform var(--otus-text-roll);
+
+        &::before,
+        &::after {
+            content: attr(data-roll-label);
+            position: absolute;
+            inset-block-start: 0;
+            inset-inline-start: calc(-1 * var(--t-motion-offset));
+            inline-size: var(--t-motion-label-width);
+        }
+
+        &::after {
+            inset-block-start: 110%;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        > .t-motion-backdrop {
+            transition: none;
+        }
+
+        &.t-motion-hover .t-motion-letter {
+            transform: none;
+        }
+
+        .t-motion-letter {
+            transition: none;
+        }
+    }
+}

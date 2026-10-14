@@ -20,7 +20,7 @@ export default class Example {
             .open('This is <strong>heavy</strong>!', {
                 heading: 'Great Scott!',
                 type: 'Quote',
-                icon: '@tui.video',
+                icon: '@otus.outline.video-recorder-lined',
                 buttons: ['Roads?', '1.21 Gigawatts!?!'],
             })
             .pipe(

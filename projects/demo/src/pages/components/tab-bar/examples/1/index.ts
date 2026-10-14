@@ -26,26 +26,26 @@ export default class Example {
     protected readonly items = [
         {
             text: 'Favorites',
-            icon: '@tui.heart',
+            icon: '@otus.outline.heart-lined',
             badge: 3,
         },
         {
             text: 'Calls',
-            icon: '@tui.phone',
+            icon: '@otus.outline.phone-lined',
             badge: 1234,
         },
         {
             text: 'Profile',
-            icon: '@tui.user',
+            icon: '@otus.outline.user-01-lined',
         },
         {
             text: 'Settings and configuration',
-            icon: '@tui.settings',
+            icon: '@otus.outline.settings-01-lined',
             badge: 100,
         },
         {
             text: 'More',
-            icon: '@tui.ellipsis',
+            icon: '@otus.outline.dots-horizontal-lined',
         },
     ];
 

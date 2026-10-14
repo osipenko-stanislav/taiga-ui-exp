@@ -3,7 +3,8 @@
 :host {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
-    font: var(--tui-typography-heading-h6);
+    .heading(6);
+
     place-items: center;
 }
 
@@ -24,7 +25,8 @@ div {
     align-items: center;
     justify-content: center;
     block-size: 3rem;
-    font: var(--tui-typography-heading-h6);
+    .heading(6);
+
     font-variant: tabular-nums;
     scroll-snap-align: start;
     color: var(--tui-text-tertiary);

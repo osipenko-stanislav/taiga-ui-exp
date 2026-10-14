@@ -1,0 +1,32 @@
+.heading(@level) {
+    font: ~'var(--tui-typography-heading-h@{level})';
+    .heading-tracking(@level);
+}
+
+.heading-tracking(@level) when (@level <= 2) {
+    letter-spacing: -0.025em;
+}
+
+.heading-tracking(@level) when (@level = 3) {
+    letter-spacing: -0.02em;
+}
+
+.heading-tracking(@level) when (@level = 4) {
+    letter-spacing: -0.015em;
+}
+
+.heading-tracking(@level) when (@level = 5) {
+    letter-spacing: -0.01em;
+}
+
+.heading-tracking(@level) when (@level = 6) {
+    letter-spacing: -0.005em;
+}
+
+.heading-samples() {
+    each(range(6), {
+        [data-font='--tui-typography-heading-h@{value}'] {
+            .heading-tracking(@value);
+        }
+    });
+}

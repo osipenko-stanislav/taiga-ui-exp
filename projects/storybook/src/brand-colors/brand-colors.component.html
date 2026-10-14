@@ -1,0 +1,34 @@
+<h1>Глобальные цвета OTUS</h1>
+<p>Брендовая палитра · {{ count }} цветов. Исходные названия и значения из брендбука.</p>
+<label class="search">
+    Поиск по названию или HEX
+    <input
+        #search
+        placeholder="Например, graphite или #141414"
+        type="search"
+        [value]="query()"
+        (input)="query.set(search.value)"
+    />
+</label>
+@for (group of groups(); track group.name) {
+    <section>
+        <h2>
+            {{ group.name }}
+            <span>{{ group.colors.length }}</span>
+        </h2>
+        <div class="palette">
+            @for (color of group.colors; track color.name) {
+                <article>
+                    <div
+                        class="swatch"
+                        [style.background-color]="color.hex"
+                    ></div>
+                    <div class="name">{{ color.name }}</div>
+                    <code>{{ color.hex }}</code>
+                </article>
+            }
+        </div>
+    </section>
+} @empty {
+    <p>Цвета не найдены.</p>
+}

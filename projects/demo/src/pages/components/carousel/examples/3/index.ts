@@ -31,7 +31,7 @@ export default class Example {
         {
             title: 'Editor',
             subtitle: 'WYSIWYG',
-            icon: '@tui.pencil',
+            icon: '@otus.outline.pencil-01-lined',
         },
     ];
 

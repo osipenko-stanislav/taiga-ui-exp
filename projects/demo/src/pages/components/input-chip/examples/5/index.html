@@ -1,5 +1,5 @@
 <tui-textfield
-    iconStart="@tui.heart"
+    iconStart="@otus.outline.heart-lined"
     multi
     [style.width.rem]="19"
 >
@@ -13,7 +13,7 @@
         *tuiItem="let context"
         [appearance]="context.item.length > 5 ? 'negative' : 'positive'"
         [editable]="false"
-        [iconStart]="context.item.length > 5 ? '@tui.info' : ''"
+        [iconStart]="context.item.length > 5 ? '@otus.outline.info-circle-lined' : ''"
         [tuiHint]="context.item.length > 5 ? 'Please keep it under 6 chars' : ''"
     />
 </tui-textfield>

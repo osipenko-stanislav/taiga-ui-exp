@@ -1,0 +1,18 @@
+@import '../../styles/utils.less';
+@import '../../styles/taiga-ui-theme.less';
+@import '../../styles/taiga-ui-fonts.less';
+@import '../../addon-mobile/styles/taiga-ui-mobile.less';
+@import '../../legacy/styles/taiga-ui-global.less';
+@import (inline) '@taiga-ui/design-tokens/palette/gradient.css';
+
+// Angular's Webpack builder does not preprocess styles interpolated with TUI_VERSION.
+// Compile those source styles globally with the same version-attribute scope.
+@import './component-styles.less';
+
+html,
+body {
+    margin: 0;
+    font: var(--tui-typography-body-m);
+    background: var(--tui-background-base);
+    color: var(--tui-text-primary);
+}

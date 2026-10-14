@@ -1,0 +1,8 @@
+<tui-root
+    [attr.data-brand]="brand()"
+    [attr.data-breakpoint]="breakpoint()"
+    [attr.data-direction]="direction()"
+>
+    <custom-host ngProjectAs="tuiOverContent" />
+    <main class="t-story"><ng-content /></main>
+</tui-root>

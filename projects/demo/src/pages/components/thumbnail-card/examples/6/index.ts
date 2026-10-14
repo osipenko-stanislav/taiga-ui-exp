@@ -19,8 +19,11 @@ import {
             provide: TUI_THUMBNAIL_CARD_OPTIONS,
             useFactory: (): TuiThumbnailCardOptions => ({
                 size: 'l',
-                // Swap the default monochrome `@tui.visa` for the colored `@img.visa`
-                icons: {...inject(TUI_PAYMENT_SYSTEM_ICONS), visa: '@img.visa'},
+                // Swap the default monochrome `@otus.outline.credit-card-01-lined` for the colored `@otus.outline.credit-card-01-lined`
+                icons: {
+                    ...inject(TUI_PAYMENT_SYSTEM_ICONS),
+                    visa: '@otus.outline.credit-card-01-lined',
+                },
             }),
         },
     ],

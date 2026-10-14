@@ -22,19 +22,19 @@ export default class Example {
                 map(() => [
                     {
                         text: 'Favorites',
-                        icon: '@tui.heart',
+                        icon: '@otus.outline.heart-lined',
                     },
                     {
                         text: 'Calls',
-                        icon: '@tui.phone',
+                        icon: '@otus.outline.phone-lined',
                     },
                     {
                         text: 'Profile',
-                        icon: '@tui.user',
+                        icon: '@otus.outline.user-01-lined',
                     },
                     {
                         text: 'Settings and configuration',
-                        icon: '@tui.settings',
+                        icon: '@otus.outline.settings-01-lined',
                     },
                 ]),
                 startWith([]),

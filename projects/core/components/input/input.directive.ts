@@ -30,10 +30,10 @@ import {type TuiInteractiveState} from '@taiga-ui/core/types';
     hostDirectives: [TuiNativeValidator, TuiId],
     host: {
         tuiInput: '',
+        '[attr.readonly]': 'readOnly() ? "" : null',
         '[attr.role]': 'dropdown.content() && !el.matches("select") ? "combobox" : null',
         '[class._empty]': 'value() === ""',
         '[class._untouched]': 'control?.untouched',
-        '[readOnly]': 'readOnly()',
         '(focusin)': '0',
         '(focusout)': '0',
         '(input)': '0',

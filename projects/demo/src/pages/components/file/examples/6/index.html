@@ -6,7 +6,7 @@
         type="file"
         (change)="select(input.files)"
     />
-    <tui-icon icon="@tui.plus" />
+    <tui-icon icon="@otus.outline.plus-lined" />
     <div tuiTitle>Upload a document</div>
 </div>
 @for (file of files(); track file) {
@@ -17,7 +17,7 @@
                 [src]="file | tuiFile"
             />
         } @else {
-            <tui-icon icon="@tui.file" />
+            <tui-icon icon="@otus.outline.file-01-lined" />
         }
         <div tuiTitle>{{ file.name }}</div>
         <button

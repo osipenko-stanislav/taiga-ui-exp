@@ -1,7 +1,7 @@
 <search tuiSearch>
     <form [formGroup]="form">
         <fieldset tuiTextfieldSize="s">
-            <tui-textfield iconStart="@tui.search">
+            <tui-textfield iconStart="@otus.outline.search-md-lined">
                 <input
                     formControlName="search"
                     placeholder="Search"
@@ -58,7 +58,7 @@
             <hr />
             <button
                 appearance="flat"
-                iconStart="@tui.rotate-cw"
+                iconStart="@otus.outline.refresh-cw-01-lined"
                 size="xs"
                 tuiButton
                 type="reset"
@@ -67,7 +67,7 @@
                 Clear {{ count() ? `(${count()})` : '' }}
             </button>
             <button
-                iconStart="@tui.cloud-download"
+                iconStart="@otus.outline.download-cloud-01-lined"
                 tuiLink
                 type="button"
                 [style.margin-inline-start]="'auto'"

@@ -33,18 +33,18 @@ import {TuiCardLarge} from '@taiga-ui/layout';
 export default class Example {
     protected readonly items = [
         {
-            icon: '@tui.eye',
+            icon: '@otus.outline.eye-lined',
             title: 'Show more',
             subtitle: 'Ctrl + Shift + M',
         },
         {
-            icon: '@tui.mail',
+            icon: '@otus.outline.mail-01-lined',
             title: 'Send message',
             subtitle:
                 'Allow outgoing unusual call that can change your life in an unusual way',
         },
         {
-            icon: '@tui.lock',
+            icon: '@otus.outline.lock-01-lined',
             title: 'Access',
             subtitle: 'Block your account',
         },

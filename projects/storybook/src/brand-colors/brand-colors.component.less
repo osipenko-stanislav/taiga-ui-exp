@@ -1,0 +1,59 @@
+:host {
+    display: block;
+    max-inline-size: 90rem;
+    margin: auto;
+    color: var(--tui-text-primary);
+}
+
+h1 {
+    font: var(--tui-font-heading-3);
+}
+h2 {
+    font: var(--tui-font-heading-5);
+}
+p,
+span {
+    color: var(--tui-text-secondary);
+}
+span {
+    font: var(--tui-font-text-m);
+}
+section {
+    margin-block-start: 2.5rem;
+}
+.search {
+    display: grid;
+    gap: 0.5rem;
+    max-inline-size: 30rem;
+    margin-block-start: 1.5rem;
+}
+input {
+    padding: 0.75rem;
+    border: 1px solid var(--tui-border-normal);
+    border-radius: var(--tui-radius-m);
+    background: var(--tui-background-base);
+    color: inherit;
+    font: inherit;
+}
+.palette {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 12rem), 1fr));
+    gap: 1.5rem 1rem;
+}
+article {
+    min-inline-size: 0;
+}
+.swatch {
+    block-size: 5rem;
+    border-radius: var(--tui-radius-m);
+    border: 1px solid var(--tui-border-normal);
+}
+.name {
+    margin-block: 0.5rem 0.25rem;
+    overflow-wrap: anywhere;
+    font: var(--tui-font-text-s);
+}
+code {
+    font-size: 0.75rem;
+    color: var(--tui-text-secondary);
+}

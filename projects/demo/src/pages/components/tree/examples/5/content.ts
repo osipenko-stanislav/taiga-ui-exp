@@ -6,7 +6,13 @@ import {TuiTreeItemContent} from '@taiga-ui/kit';
 @Component({
     imports: [NgTemplateOutlet, TuiIcon],
     template: `
-        <tui-icon [icon]="isExpandable ? '@tui.folder' : '@tui.file'" />
+        <tui-icon
+            [icon]="
+                isExpandable
+                    ? '@otus.outline.folder-lined'
+                    : '@otus.outline.file-01-lined'
+            "
+        />
         <ng-container *ngTemplateOutlet="context.template" />
     `,
     styleUrl: './content.less',

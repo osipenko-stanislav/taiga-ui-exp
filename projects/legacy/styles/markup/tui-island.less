@@ -1,3 +1,5 @@
+@import '@taiga-ui/styles/utils';
+
 @padding: 1rem;
 @padding-large: 1.25rem;
 
@@ -52,6 +54,7 @@
         --tui-radius-xl: calc(4 * var(--tui-radius-l) / 3);
 
         font: var(--tui-typography-body-s);
+        letter-spacing: normal;
         padding: @padding;
     }
 
@@ -59,11 +62,13 @@
         --tui-radius-xl: calc(5 * var(--tui-radius-l) / 3);
 
         font: var(--tui-typography-body-m);
+        letter-spacing: normal;
         padding: @padding;
     }
 
     &_size_l {
         font: var(--tui-typography-body-m);
+        letter-spacing: normal;
         padding: @padding-large;
     }
 
@@ -107,15 +112,17 @@
 
     &__title {
         font: var(--tui-typography-body-m);
+        letter-spacing: normal;
         margin: 0 0 0.5rem;
 
         .tui-island_size_m & {
-            font: var(--tui-typography-heading-h6);
+            .heading(6);
+
             margin: 0 0 0.75rem;
         }
 
         .tui-island_size_l & {
-            font: var(--tui-typography-heading-h6);
+            .heading(6);
         }
     }
 

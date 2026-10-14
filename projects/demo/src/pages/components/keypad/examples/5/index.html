@@ -1,5 +1,5 @@
 <button
-    iconStart="@tui.calculator"
+    iconStart="@otus.outline.calculator-lined"
     tuiButton
     type="button"
     (click)="open.set(true)"
@@ -47,7 +47,7 @@
                 type="button"
                 (click)="onKey('÷')"
             >
-                <tui-icon icon="@tui.divide" />
+                <tui-icon icon="@otus.outline.divide-01-lined" />
             </button>
 
             @for (digit of ['7', '8', '9']; track digit) {
@@ -63,7 +63,7 @@
                 type="button"
                 (click)="onKey('×')"
             >
-                <tui-icon icon="@tui.x" />
+                <tui-icon icon="@otus.outline.x-lined" />
             </button>
 
             @for (digit of ['4', '5', '6']; track digit) {
@@ -79,7 +79,7 @@
                 type="button"
                 (click)="onKey('-')"
             >
-                <tui-icon icon="@tui.minus" />
+                <tui-icon icon="@otus.outline.minus-lined" />
             </button>
 
             @for (digit of ['1', '2', '3']; track digit) {
@@ -95,7 +95,7 @@
                 type="button"
                 (click)="onKey('+')"
             >
-                <tui-icon icon="@tui.plus" />
+                <tui-icon icon="@otus.outline.plus-lined" />
             </button>
 
             <button
@@ -116,14 +116,14 @@
                 (click)="onKey('backspace')"
                 (longtap)="onKey('clear')"
             >
-                <tui-icon icon="@tui.delete" />
+                <tui-icon icon="@otus.outline.delete-lined" />
             </button>
             <button
                 aria-label="Equals"
                 type="button"
                 (click)="onKey('enter')"
             >
-                <tui-icon icon="@tui.equal" />
+                <tui-icon icon="@otus.outline.equal-lined" />
             </button>
         </tui-keypad>
     </main>

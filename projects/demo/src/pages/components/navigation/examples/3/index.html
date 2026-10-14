@@ -47,17 +47,17 @@
         @if (current === 'basic') {
             <ng-container>
                 <a
-                    iconStart="@tui.chevron-left"
+                    iconStart="@otus.outline.chevron-left-lined"
                     tuiLink
                     [textContent]="'Repositories'"
                 ></a>
                 <h2 tuiHeader>
                     <div tuiTitle>
                         <div tuiNavigationLogo>
-                            <tui-icon icon="@tui.github" />
+                            <tui-icon icon="@otus.outline.code-browser-lined" />
                             <span tuiFade>Research and Development Platform</span>
                             <tui-icon
-                                iconStart="@tui.heart"
+                                iconStart="@otus.outline.heart-lined"
                                 tuiBadge
                             />
                         </div>
@@ -72,12 +72,12 @@
                             [style.gap.rem]="1"
                         >
                             <span>
-                                <tui-icon icon="@tui.user" />
+                                <tui-icon icon="@otus.outline.user-01-lined" />
                                 Alex Inkin
                             </span>
                             Edited 6 minutes ago
                             <span>
-                                <tui-icon icon="@tui.lock" />
+                                <tui-icon icon="@otus.outline.lock-01-lined" />
                                 Private
                             </span>
                         </div>
@@ -97,7 +97,7 @@
                             Button
                         </button>
                         <button
-                            iconStart="@tui.ellipsis"
+                            iconStart="@otus.outline.dots-horizontal-lined"
                             tuiIconButton
                             type="button"
                         >
@@ -121,7 +121,7 @@
                         </button>
                     </div>
                 </h2>
-                <tui-textfield iconStart="@tui.search">
+                <tui-textfield iconStart="@otus.outline.search-md-lined">
                     <input
                         placeholder="Search"
                         tuiInput

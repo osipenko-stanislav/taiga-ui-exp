@@ -24,13 +24,13 @@ export default class Example {
         children: [
             {
                 text: 'Top level 1',
-                icon: '@tui.heart',
+                icon: '@otus.outline.heart-lined',
                 children: [
                     {
                         text: 'Another item',
                         children: [
-                            {text: 'Next level 1', icon: '@tui.heart'},
-                            {text: 'Next level 2', icon: '@tui.heart'},
+                            {text: 'Next level 1', icon: '@otus.outline.heart-lined'},
+                            {text: 'Next level 2', icon: '@otus.outline.heart-lined'},
                             {text: 'Next level 3'},
                         ],
                     },
@@ -39,7 +39,10 @@ export default class Example {
             {text: 'Top level 2'},
             {
                 text: 'Top level 3',
-                children: [{text: 'Test 1'}, {text: 'Test 2', icon: '@tui.heart'}],
+                children: [
+                    {text: 'Test 1'},
+                    {text: 'Test 2', icon: '@otus.outline.heart-lined'},
+                ],
             },
         ],
     };

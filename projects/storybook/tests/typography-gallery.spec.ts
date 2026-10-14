@@ -1,0 +1,58 @@
+import {expect, test} from '@playwright/test';
+
+test('typography has three aligned sections with actual tracking values', async ({
+    page,
+}) => {
+    await page.goto(
+        '/iframe.html?id=documentation-styles-typography--gallery&viewMode=story',
+    );
+    await expect(page.locator('.t-section')).toHaveCount(3);
+    await expect(page.getByRole('columnheader', {name: 'Трекинг'})).toHaveCount(3);
+    const heading = page.locator('tr[data-font="--tui-typography-heading-h1"]');
+
+    await expect(heading.locator('td').last()).toHaveText('-1.25px');
+    const body = page.locator('tr[data-font="--tui-typography-body-m"]');
+
+    await expect(body.locator('td').last()).toHaveText('normal');
+    await page.evaluate(async () => document.fonts.ready);
+    const columns = await page
+        .locator('.t-section table')
+        .evaluateAll((tables) =>
+            tables.map((table) =>
+                Array.from(table.querySelectorAll('thead th')).map(
+                    (cell) => cell.getBoundingClientRect().x,
+                ),
+            ),
+        );
+
+    expect(columns[1]).toEqual(columns[0]);
+    expect(columns[2]).toEqual(columns[0]);
+});
+
+test('Body and UI comparison isolates the real line height difference', async ({
+    page,
+}) => {
+    await page.goto(
+        '/iframe.html?id=documentation-styles-typography--gallery&viewMode=story',
+    );
+    const body = page.locator('.t-comparison-body');
+    const ui = page.locator('.t-comparison-ui');
+
+    await expect(body).toHaveCSS('font-size', '16px');
+    await expect(ui).toHaveCSS('font-size', '16px');
+    await expect(body).toHaveCSS('font-weight', '400');
+    await expect(ui).toHaveCSS('font-weight', '400');
+    await expect(body).toHaveCSS('line-height', '24px');
+    await expect(ui).toHaveCSS('line-height', '20px');
+    expect(await body.innerText()).toBe(await ui.innerText());
+    expect((await body.boundingBox())!.height).toBe(72);
+    expect((await ui.boundingBox())!.height).toBe(60);
+
+    await page.setViewportSize({width: 390, height: 844});
+    await expect(body).toHaveCSS('line-height', '24px');
+    const overflow = await page.evaluate(
+        () => document.documentElement.scrollWidth - innerWidth,
+    );
+
+    expect(overflow).toBe(0);
+});

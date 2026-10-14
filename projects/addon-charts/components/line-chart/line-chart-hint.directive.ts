@@ -5,6 +5,7 @@ import {
     DestroyRef,
     Directive,
     ElementRef,
+    forwardRef,
     inject,
     input,
     NgZone,
@@ -33,8 +34,15 @@ import {TuiLineChart} from './line-chart.component';
     providers: [TuiHoveredService],
 })
 export class TuiLineChartHint implements AfterViewInit {
-    private readonly charts = contentChildren(TuiLineChart);
-    private readonly chartsRef = contentChildren(TuiLineChart, {read: ElementRef});
+    private readonly charts = contentChildren<TuiLineChart>(
+        forwardRef(() => TuiLineChart),
+    );
+
+    private readonly chartsRef = contentChildren(
+        forwardRef(() => TuiLineChart),
+        {read: ElementRef},
+    );
+
     private readonly renderer = inject(Renderer2);
     private readonly destroyRef = inject(DestroyRef);
     private readonly zone = inject(NgZone);

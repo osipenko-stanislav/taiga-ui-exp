@@ -1,0 +1,15 @@
+<td
+    tuiTd
+    [attr.data-font]="tuiFont()"
+>
+    <ng-content />
+</td>
+<td tuiTd>
+    <tui-doc-copy [cdkCopyToClipboard]="tuiFont()">
+        {{ tuiFont() }}
+    </tui-doc-copy>
+</td>
+<td tuiTd>{{ styles().fontWeight }}</td>
+<td tuiTd>{{ styles().fontSize }}</td>
+<td tuiTd>{{ styles().lineHeight }} ({{ ratio() }})</td>
+<td tuiTd>{{ tracking() }}</td>

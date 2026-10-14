@@ -17,7 +17,7 @@ export default class Example {
     protected paused = true;
 
     protected get icon(): string {
-        return this.paused ? '@tui.play' : '@tui.pause';
+        return this.paused ? '@otus.outline.play-lined' : '@otus.outline.pause-lined';
     }
 
     protected getTime(time: number): string {

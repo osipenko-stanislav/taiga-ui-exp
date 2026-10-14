@@ -4,7 +4,7 @@
     tuiLink
     type="button"
     class="link"
-    [iconStart]="ascending ? '@tui.chevron-up' : '@tui.chevron-down'"
+    [iconStart]="ascending ? '@otus.outline.chevron-up-lined' : '@otus.outline.chevron-down-lined'"
     [textContent]="primary"
     [tuiDropdown]="dropdown"
     [(tuiDropdownOpen)]="open"
@@ -23,7 +23,7 @@
                     >
                         {{ item }}
                         @if (itemIsActive(item)) {
-                            <tui-icon icon="@tui.check" />
+                            <tui-icon icon="@otus.outline.check-lined" />
                         }
                     </button>
                 }

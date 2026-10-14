@@ -1,0 +1,26 @@
+@import '@taiga-ui/styles/utils';
+
+[tuiTd] {
+    padding: 1rem;
+    text-align: start;
+    vertical-align: middle;
+    font: var(--tui-typography-body-s);
+    letter-spacing: normal;
+    font-variant-numeric: tabular-nums;
+
+    &:first-child {
+        font: inherit;
+        overflow-wrap: break-word;
+    }
+
+    &:nth-child(n + 3) {
+        white-space: nowrap;
+    }
+}
+
+tui-doc-copy {
+    max-inline-size: 100%;
+    font-size: 0.8125rem;
+}
+
+.heading-samples();

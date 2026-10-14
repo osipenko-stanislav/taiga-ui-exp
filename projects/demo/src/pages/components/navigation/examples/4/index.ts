@@ -27,7 +27,7 @@ import {
     encapsulation,
     changeDetection,
     providers: [
-        tuiLayoutIconsProvider({grid: '@tui.align-justify'}),
+        tuiLayoutIconsProvider({grid: '@otus.outline.align-justify-lined'}),
         // Ignore portal related code, it is only here to position drawer inside the example block
         TuiPopupService,
         tuiProvide(TuiPortalService, TuiPopupService),

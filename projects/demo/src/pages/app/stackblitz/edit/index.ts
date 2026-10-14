@@ -6,7 +6,7 @@ import {TuiButton} from '@taiga-ui/core';
     template: `
         <button
             appearance="flat-grayscale"
-            iconStart="@tui.zap"
+            iconStart="@otus.outline.zap-lined"
             size="xs"
             tuiButton
             type="button"

@@ -29,6 +29,7 @@ tui-block-status:where(*&) {
 
     .t-block-text:not(:empty) {
         font: var(--tui-typography-body-m);
+        letter-spacing: normal;
         color: var(--tui-text-secondary);
         white-space: pre-line;
     }
@@ -47,7 +48,8 @@ tui-block-status:where(*&) {
     h4,
     h5,
     h6 {
-        font: var(--tui-typography-heading-h4);
+        .heading(4);
+
         margin: 0;
 
         & ~ .t-block-text:not(:empty) {
@@ -74,7 +76,8 @@ tui-block-status:where(*&) {
         h4,
         h5,
         h6 {
-            font: var(--tui-typography-heading-h6);
+            .heading(6);
+
             margin-block-start: 0;
 
             & ~ .t-block-text:not(:empty) {
@@ -89,6 +92,7 @@ tui-block-status:where(*&) {
 
         .t-block-text:not(:empty) {
             font: var(--tui-typography-body-s);
+            letter-spacing: normal;
         }
 
         .t-block-actions:not(:empty) {

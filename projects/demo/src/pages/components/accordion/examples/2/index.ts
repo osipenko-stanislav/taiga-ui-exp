@@ -64,10 +64,12 @@ export default class Example {
 
     protected getIcon(operation: Operation): string {
         if (!operation.sum) {
-            return '@tui.triangle-alert';
+            return '@otus.outline.alert-triangle-lined';
         }
 
-        return operation.sum > 0 ? '@tui.thumbs-up' : '@tui.thumbs-down';
+        return operation.sum > 0
+            ? '@otus.outline.thumbs-up-lined'
+            : '@otus.outline.thumbs-down-lined';
     }
 
     protected sum(operations: readonly Operation[]): number {

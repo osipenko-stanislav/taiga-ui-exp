@@ -11,7 +11,10 @@ import {TuiLike, tuiLikeOptionsProvider} from '@taiga-ui/kit';
     changeDetection,
     providers: [
         tuiLikeOptionsProvider({
-            icons: {unchecked: '@tui.star', checked: '@tui.star-filled'},
+            icons: {
+                unchecked: '@otus.outline.star-01-lined',
+                checked: '@otus.flat.star-01-filled',
+            },
         }),
     ],
 })

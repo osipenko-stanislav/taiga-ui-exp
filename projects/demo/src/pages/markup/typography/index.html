@@ -1,34 +1,101 @@
 <tui-doc-page header="Typography">
-    @for (tab of tabs; track $index) {
+    @for (tab of tabs; track tab) {
         <ng-template [pageTab]="tab">
-            <table tuiTable>
-                <thead>
-                    <tr>
-                        <th tuiTh>
-                            @switch (tab) {
-                                @case ('Headings') {
-                                    Section titles
+            <section
+                class="t-section"
+                [attr.aria-label]="sections[tab].title"
+            >
+                <h2>{{ sections[tab].title }}</h2>
+                <p class="t-description">{{ sections[tab].description }}</p>
+                @if (tab === 'UI') {
+                    <div class="t-comparison">
+                        <div>
+                            <h3>Regular content · Body M</h3>
+                            <p class="t-comparison-caption">400 · 16/24 px</p>
+                            <p class="t-comparison-body">
+                                @for (line of comparison; track line) {
+                                    <span>{{ line }}</span>
                                 }
-                                @case ('Body') {
-                                    Regular content
+                            </p>
+                        </div>
+                        <div>
+                            <h3>Reduced line height · UI M</h3>
+                            <p class="t-comparison-caption">400 · 16/20 px</p>
+                            <p class="t-comparison-ui">
+                                @for (line of comparison; track line) {
+                                    <span>{{ line }}</span>
                                 }
-                                @case ('UI') {
-                                    Reduced line height
-                                }
+                            </p>
+                        </div>
+                    </div>
+                    <p class="t-description">
+                        В обоих образцах Graphik 400, размер 16 px и одинаковый текст. Отличается только высота строки:
+                        24 px у Body и 20 px у UI. Три строки занимают 72 и 60 px соответственно.
+                    </p>
+                }
+                <div
+                    role="region"
+                    tabindex="0"
+                    class="t-table"
+                    [attr.aria-label]="sections[tab].title"
+                >
+                    <table tuiTable>
+                        <colgroup>
+                            <col class="t-col-sample" />
+                            <col class="t-col-token" />
+                            <col class="t-col-weight" />
+                            <col class="t-col-size" />
+                            <col class="t-col-line" />
+                            <col class="t-col-tracking" />
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th
+                                    scope="col"
+                                    tuiTh
+                                >
+                                    Образец
+                                </th>
+                                <th
+                                    scope="col"
+                                    tuiTh
+                                >
+                                    Токен
+                                </th>
+                                <th
+                                    scope="col"
+                                    tuiTh
+                                >
+                                    Вес
+                                </th>
+                                <th
+                                    scope="col"
+                                    tuiTh
+                                >
+                                    Размер
+                                </th>
+                                <th
+                                    scope="col"
+                                    tuiTh
+                                >
+                                    Интерлиньяж
+                                </th>
+                                <th
+                                    scope="col"
+                                    tuiTh
+                                >
+                                    Трекинг
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (font of groups[tab]; track font) {
+                                <tr [tuiFont]="font">Образование начинается с&nbsp;любопытства</tr>
                             }
-                        </th>
-                        <th tuiTh>Variable name</th>
-                        <th tuiTh>font-weight</th>
-                        <th tuiTh>font-size</th>
-                        <th tuiTh>line-height</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @for (font of groups[tab]; track $index) {
-                        <tr [tuiFont]="font">Taiga UI is a modern UI kit for Angular</tr>
-                    }
-                </tbody>
-            </table>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
         </ng-template>
     }
 </tui-doc-page>

@@ -8,7 +8,7 @@ import {TuiBlockDetails} from '@taiga-ui/layout';
     imports: [TuiAvatar, TuiBlockDetails, TuiTitle],
     template: `
         <div tuiBlockDetails>
-            <div tuiAvatar="@tui.bell-off"></div>
+            <div tuiAvatar="@otus.outline.bell-off-01-lined"></div>
             <h2
                 tuiTitle
                 [style.align-items]="'center'"

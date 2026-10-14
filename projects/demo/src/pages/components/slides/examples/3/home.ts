@@ -12,7 +12,7 @@ import {TuiCard} from '@taiga-ui/layout';
             tuiCardLarge
             tuiCell
         >
-            <div tuiAvatar="@tui.user">
+            <div tuiAvatar="@otus.outline.user-01-lined">
                 <img
                     alt=""
                     src="assets/images/avatar.jpg"

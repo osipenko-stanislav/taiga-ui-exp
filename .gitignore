@@ -43,3 +43,5 @@ blob-report
 terminalOutput
 projects/demo/src/markdown-pages/**/*.md
 .claude
+
+projects/storybook/src/generated/

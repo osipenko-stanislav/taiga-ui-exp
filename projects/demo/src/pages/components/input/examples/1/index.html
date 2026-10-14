@@ -1,6 +1,6 @@
 <tui-textfield
-    iconEnd="@tui.settings"
-    iconStart="@tui.search"
+    iconEnd="@otus.outline.settings-01-lined"
+    iconStart="@otus.outline.search-md-lined"
 >
     <label tuiLabel>I am a label</label>
     <input
@@ -8,7 +8,7 @@
         tuiInput
         [(ngModel)]="value"
     />
-    <tui-icon icon="@tui.bell" />
+    <tui-icon icon="@otus.outline.bell-01-lined" />
     <tui-icon tuiTooltip="I am a hint" />
 </tui-textfield>
 
@@ -16,8 +16,8 @@
     For long labels it is better to use label outside as it can wrap to multiple lines
     <tui-textfield
         #m
-        iconEnd="@tui.settings"
-        iconStart="@tui.search"
+        iconEnd="@otus.outline.settings-01-lined"
+        iconStart="@otus.outline.search-md-lined"
         tuiTextfieldSize="m"
     >
         <input
@@ -25,15 +25,15 @@
             [placeholder]="m.focused() ? 'I am placeholder' : 'I am a label'"
             [(ngModel)]="value"
         />
-        <tui-icon icon="@tui.bell" />
+        <tui-icon icon="@otus.outline.bell-01-lined" />
         <tui-icon tuiTooltip="I am a hint" />
     </tui-textfield>
 </label>
 
 <tui-textfield
     #s
-    iconEnd="@tui.settings"
-    iconStart="@tui.search"
+    iconEnd="@otus.outline.settings-01-lined"
+    iconStart="@otus.outline.search-md-lined"
     tuiTextfieldSize="s"
 >
     <input
@@ -41,6 +41,6 @@
         [placeholder]="s.focused() ? 'I am placeholder' : 'I am a label'"
         [(ngModel)]="value"
     />
-    <tui-icon icon="@tui.bell" />
+    <tui-icon icon="@otus.outline.bell-01-lined" />
     <tui-icon tuiTooltip="I am a hint" />
 </tui-textfield>

@@ -14,15 +14,15 @@ import {TuiDataListWrapper} from '@taiga-ui/kit';
 export default class Example {
     protected readonly items = [
         {
-            icon: '@tui.phone',
+            icon: '@otus.outline.phone-lined',
             toString: () => 'Call now',
         },
         {
-            icon: '@tui.star',
+            icon: '@otus.outline.star-01-lined',
             toString: () => 'Add to favorites',
         },
         {
-            icon: '@tui.trash',
+            icon: '@otus.outline.trash-01-lined',
             toString: () => 'Remove item',
         },
     ];

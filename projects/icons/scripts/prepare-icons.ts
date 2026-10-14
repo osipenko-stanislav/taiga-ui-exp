@@ -1,73 +1,43 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-import {prepareSvg} from '../../../scripts/prepare-svg';
+import {OTUS_ICON_SETS} from '../otus-icons';
+import {tuiPrepareOtusIcon} from './prepare-otus-icon';
 
-const verbose = !process.env.CI;
-const workspaceRoot = process.cwd();
 const projectRoot = path.resolve(__dirname, '..');
-const lucideSrc = path.join(workspaceRoot, 'node_modules', 'lucide-static', 'icons');
-
-const flagsSrc = path.join(
-    workspaceRoot,
-    'node_modules',
-    '@taiga-ui',
-    'design-tokens',
-    'icons',
-    'flags',
-);
-
 const assetsSrc = path.join(projectRoot, 'assets');
-
 const dest = process.argv[2]
     ? path.resolve(process.argv[2])
     : path.join(projectRoot, 'src');
 
-prepareDest(dest);
-copyLucideIcons({src: lucideSrc, dest});
-copyDirectory({src: assetsSrc, dest});
-copyDirectory({src: flagsSrc, dest: path.join(dest, 'flags')});
-
-function prepareDest(dest: string): void {
-    fs.rmSync(dest, {recursive: true, force: true});
-    fs.mkdirSync(dest, {recursive: true});
+if (dest === assetsSrc || dest.startsWith(`${assetsSrc}${path.sep}`)) {
+    throw new Error('Icon output must not replace the source assets');
 }
 
-function copyLucideIcons(options: {src: string; dest: string}): void {
-    fs.readdirSync(options.src).forEach((filename) => {
-        const content = prepareSvg(
-            fs.readFileSync(path.join(options.src, filename), 'utf-8'),
-        ).replaceAll('stroke-width="2"', 'stroke-width="calc((100vw - 100vh) / 10)"');
-
-        writeFile(path.join(options.dest, filename), content);
-        writeFile(
-            path.join(options.dest, renameToFilled(filename)),
-            getFilledIcon(content),
-        );
-    });
-}
-
-function copyDirectory(options: {src: string; dest: string}): void {
-    if (!fs.existsSync(options.src)) {
-        return;
+for (const set of OTUS_ICON_SETS) {
+    if (!fs.existsSync(path.join(assetsSrc, set))) {
+        throw new Error(`Missing OTUS icon set: ${set}`);
     }
-
-    fs.cpSync(options.src, options.dest, {recursive: true});
-
-    verbose && console.info('copied:', options.src);
 }
 
-function writeFile(filePath: string, content: string): void {
-    fs.mkdirSync(path.dirname(filePath), {recursive: true});
-    fs.writeFileSync(filePath, content);
+fs.rmSync(dest, {recursive: true, force: true});
+fs.mkdirSync(dest, {recursive: true});
 
-    verbose && console.info('copied:', filePath);
+for (const set of OTUS_ICON_SETS) {
+    fs.cpSync(path.join(assetsSrc, set), path.join(dest, set), {recursive: true});
+
+    if (set === 'outline' || set === 'level') {
+        for (const filename of fs.readdirSync(path.join(dest, set))) {
+            if (filename.endsWith('.svg')) {
+                const target = path.join(dest, set, filename);
+
+                fs.writeFileSync(
+                    target,
+                    tuiPrepareOtusIcon(fs.readFileSync(target, 'utf8')),
+                );
+            }
+        }
+    }
 }
 
-function getFilledIcon(content: string): string {
-    return content.replaceAll('fill="none"', 'fill="currentColor"');
-}
-
-function renameToFilled(filename: string): string {
-    return filename.replace(/\.svg$/, '-filled.svg');
-}
+process.stdout.write(`Prepared OTUS icon sets: ${OTUS_ICON_SETS.join(', ')}\n`);

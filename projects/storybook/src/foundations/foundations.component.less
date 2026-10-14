@@ -1,0 +1,181 @@
+@import '@taiga-ui/styles/utils';
+
+:host {
+    display: block;
+    font: var(--tui-typography-body-m);
+    letter-spacing: normal;
+}
+
+.t-header {
+    margin-block-end: 2rem;
+}
+
+h1 {
+    margin: 0 0 1rem;
+    .heading(3);
+}
+
+p {
+    max-inline-size: 75ch;
+    margin: 0 0 1rem;
+}
+
+.t-search {
+    display: grid;
+    gap: 0.5rem;
+    max-inline-size: 32rem;
+    margin-block-start: 1.5rem;
+
+    input,
+    select {
+        box-sizing: border-box;
+        inline-size: 100%;
+        padding: 0.75rem 1rem;
+        border: 1px solid var(--tui-border-normal);
+        border-radius: var(--tui-radius-m);
+        background: var(--tui-background-base);
+        color: var(--tui-text-primary);
+        font: inherit;
+        caret-color: var(--tui-text-action);
+
+        &::placeholder {
+            color: var(--tui-text-secondary);
+        }
+
+        &:focus-visible {
+            outline: 2px solid var(--tui-border-focus);
+            outline-offset: 2px;
+        }
+    }
+}
+
+.t-table-scroll {
+    overflow-x: auto;
+}
+
+table {
+    inline-size: 100%;
+    border-collapse: collapse;
+    text-align: start;
+
+    th,
+    td {
+        padding: 1rem;
+        border-block-end: 1px solid var(--tui-border-normal);
+        text-align: start;
+        vertical-align: top;
+    }
+
+    th {
+        background: var(--tui-background-neutral-1);
+    }
+}
+
+a {
+    color: var(--tui-text-action);
+    text-underline-offset: 0.2em;
+
+    &:hover {
+        color: var(--tui-text-action-hover);
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--tui-border-focus);
+        outline-offset: 2px;
+    }
+}
+
+.t-tokens {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    gap: 2rem;
+}
+
+.t-token {
+    min-inline-size: 0;
+    padding-block-end: 1.5rem;
+    border-block-end: 1px solid var(--tui-border-normal);
+
+    h2 {
+        margin: 1rem 0 0.5rem;
+        font: var(--tui-typography-body-m);
+        letter-spacing: normal;
+        font-weight: 500;
+        overflow-wrap: anywhere;
+    }
+}
+
+.t-value {
+    color: var(--tui-text-secondary);
+    font: var(--tui-typography-body-s);
+    letter-spacing: normal;
+    overflow-wrap: anywhere;
+}
+
+.t-swatch {
+    block-size: 6rem;
+    border: 1px solid var(--tui-border-normal);
+    border-radius: var(--tui-radius-m);
+}
+
+.t-typography {
+    grid-template-columns: 1fr;
+}
+
+.t-type-sample {
+    max-inline-size: 100%;
+    overflow-wrap: anywhere;
+}
+
+.t-shadow-sample,
+.t-size-sample {
+    inline-size: 8rem;
+    block-size: 4rem;
+    background: var(--tui-background-elevation-1);
+    border: 1px solid var(--tui-border-normal);
+    border-radius: var(--tui-radius-m);
+}
+
+.t-size-sample {
+    max-block-size: 8rem;
+    background: var(--tui-background-accent-1);
+}
+
+.t-icons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr));
+    gap: 1.5rem;
+
+    figure {
+        margin: 0;
+        padding: 1rem 0;
+        text-align: center;
+        border-block-end: 1px solid var(--tui-border-normal);
+    }
+
+    tui-icon {
+        font-size: 2rem;
+    }
+
+    figcaption {
+        margin-block-start: 1rem;
+        font: var(--tui-typography-body-s);
+        letter-spacing: normal;
+        overflow-wrap: anywhere;
+    }
+}
+
+.t-icon-pages {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-block-start: 2rem;
+}
+
+::selection {
+    background: var(--tui-background-accent-1);
+    color: var(--tui-text-primary-on-accent-1);
+}
+
+.heading-samples();

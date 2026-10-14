@@ -4,6 +4,7 @@
     position: relative;
     display: flex;
     font: var(--tui-typography-body-m);
+    letter-spacing: normal;
     flex-direction: column;
     box-sizing: border-box;
     margin: 2.5rem;
@@ -35,7 +36,7 @@
         }
 
         .t-heading {
-            font: var(--tui-typography-heading-h5);
+            .heading(5);
         }
     }
 
@@ -63,7 +64,7 @@
         }
 
         .t-heading {
-            font: var(--tui-typography-heading-h3);
+            .heading(3);
         }
     }
 
@@ -87,7 +88,7 @@
             }
 
             .t-heading {
-                font: var(--tui-typography-heading-h5);
+                .heading(5);
             }
         }
 
@@ -112,7 +113,7 @@
 .t-heading {
     margin: 0 0 0.5rem;
     overflow-wrap: break-word;
-    font: var(--tui-typography-heading-h4);
+    .heading(4);
 
     &_closable {
         padding-inline-end: 2rem;

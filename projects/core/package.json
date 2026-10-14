@@ -44,6 +44,7 @@
         "@taiga-ui/cdk": "5.27.0",
         "@taiga-ui/event-plugins": "^5.0.0",
         "@taiga-ui/i18n": "5.27.0",
+        "@taiga-ui/icons": "5.27.0",
         "@taiga-ui/polymorpheus": "^5.0.1",
         "@taiga-ui/styles": "5.27.0",
         "rxjs": ">=7.0.0",

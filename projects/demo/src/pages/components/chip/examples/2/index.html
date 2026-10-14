@@ -13,7 +13,7 @@
 <section>
     @for (size of sizes; track size) {
         <span
-            iconStart="@tui.bell"
+            iconStart="@otus.outline.bell-01-lined"
             tuiChip
             [size]="size"
         >
@@ -25,8 +25,8 @@
 <section>
     @for (size of sizes; track size) {
         <span
-            iconEnd="@tui.circle-help"
-            iconStart="@tui.bell"
+            iconEnd="@otus.outline.help-circle-lined"
+            iconStart="@otus.outline.bell-01-lined"
             tuiChip
             [size]="size"
             [style.border-radius.rem]="5"
@@ -63,7 +63,7 @@
         >
             @if (size === 'm' || size === 's') {
                 <div
-                    tuiAvatar="@tui.user"
+                    tuiAvatar="@otus.outline.user-01-lined"
                     [round]="true"
                 >
                     <img
@@ -84,7 +84,7 @@
     >
         Button
         <button
-            iconStart="@tui.x"
+            iconStart="@otus.outline.x-lined"
             size="s"
             tuiIconButton
             type="button"
@@ -99,7 +99,7 @@
         >
             Button
             <button
-                iconStart="@tui.x"
+                iconStart="@otus.outline.x-lined"
                 tuiIconButton
                 type="button"
             >
@@ -128,7 +128,7 @@
             }
 
             <button
-                iconStart="@tui.x"
+                iconStart="@otus.outline.x-lined"
                 tuiIconButton
                 type="button"
             >

@@ -13,5 +13,5 @@ import {type PolymorpheusContent} from '@taiga-ui/polymorpheus';
 })
 export default class Example {
     protected readonly icon: PolymorpheusContent<TuiRatingContext> = ({filled}) =>
-        filled ? '@tui.star-filled' : '@tui.star';
+        filled ? '@otus.flat.star-01-filled' : '@otus.outline.star-01-lined';
 }

@@ -28,17 +28,17 @@ const DATA: Record<string, readonly Result[]> = {
         {
             title: 'Taiga UI',
             href: 'https://github.com/taiga-family/taiga-ui',
-            icon: '@tui.github',
+            icon: '@otus.outline.code-browser-lined',
         },
         {
             title: 'Maskito',
             href: 'https://github.com/taiga-family/maskito',
-            icon: '@tui.github',
+            icon: '@otus.outline.code-browser-lined',
         },
         {
             title: 'Web APIs with Angular',
             href: 'https://github.com/taiga-family/ng-web-apis',
-            icon: '@tui.github',
+            icon: '@otus.outline.code-browser-lined',
         },
     ],
     Links: [
@@ -51,7 +51,7 @@ const DATA: Record<string, readonly Result[]> = {
         {
             title: 'Maskito',
             href: 'https://maskito.dev',
-            icon: '@tui.external-link',
+            icon: '@otus.outline.link-external-01-lined',
         },
     ],
 };

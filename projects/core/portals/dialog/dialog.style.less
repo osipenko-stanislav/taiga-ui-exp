@@ -1,8 +1,11 @@
+@import '@taiga-ui/styles/utils';
+
 tui-dialog:where(*&) {
     position: relative;
     box-sizing: border-box;
     overflow-wrap: break-word;
     font: var(--tui-typography-body-m);
+    letter-spacing: normal;
     background: var(--tui-background-elevation-1);
     box-shadow: var(--tui-shadow-popup);
 
@@ -17,15 +20,17 @@ tui-dialog:where(*&) {
 
     & > header,
     & > ng-component > header {
-        font: var(--tui-typography-heading-h5);
+        .heading(5);
 
         [tuiTitle] {
             font: inherit;
+            letter-spacing: inherit;
         }
 
         p {
             margin: 0.25rem 0 0;
             font: var(--tui-typography-body-m);
+            letter-spacing: normal;
 
             &:empty {
                 display: none;

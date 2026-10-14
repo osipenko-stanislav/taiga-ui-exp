@@ -47,9 +47,9 @@ export class CopyPage {
     );
 
     protected readonly icons = {
-        copy: '@tui.copy',
-        chevron: '@tui.chevron-down',
-        check: '@tui.check',
+        copy: '@otus.outline.copy-01-lined',
+        chevron: '@otus.outline.chevron-down-lined',
+        check: '@otus.outline.check-lined',
     } as const;
 
     protected readonly icon = computed(() =>

@@ -16,7 +16,7 @@ import {TUI_ICON_RESOLVER, TuiIcon} from '@taiga-ui/core';
             deps: [[new SkipSelf(), TUI_ICON_RESOLVER]],
             useFactory(defaultResolver: TuiStringHandler<string>) {
                 return (name: string) =>
-                    name.startsWith('@tui.')
+                    name.startsWith('@otus.') || name.startsWith('@tui.')
                         ? defaultResolver(name)
                         : `/assets/icons/${name}.svg`;
             },

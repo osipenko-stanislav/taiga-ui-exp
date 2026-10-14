@@ -1,0 +1,63 @@
+{
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "name": "storybook",
+    "projectType": "application",
+    "sourceRoot": "projects/storybook/src",
+    "targets": {
+        "build-storybook": {
+            "cache": true,
+            "dependsOn": ["generate-catalog"],
+            "executor": "@storybook/angular:build-storybook",
+            "inputs": [
+                "default",
+                "^default",
+                {
+                    "env": "STORYBOOK_BASE_HREF"
+                }
+            ],
+            "options": {
+                "compodoc": false,
+                "configDir": "projects/storybook/.storybook",
+                "experimentalZoneless": true,
+                "outputDir": "dist/storybook",
+                "stylePreprocessorOptions": {
+                    "includePaths": ["."]
+                },
+                "styles": ["projects/storybook/src/styles.less"],
+                "tsConfig": "projects/storybook/tsconfig.json"
+            },
+            "outputs": ["{options.outputDir}"]
+        },
+        "generate-catalog": {
+            "dependsOn": [
+                {
+                    "projects": ["icons"],
+                    "target": "prepare-icons"
+                }
+            ],
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "node projects/storybook/scripts/generate-catalog.mjs"
+            }
+        },
+        "storybook": {
+            "continuous": true,
+            "dependsOn": ["generate-catalog"],
+            "executor": "@storybook/angular:start-storybook",
+            "options": {
+                "browserTarget": "storybook:build-storybook",
+                "compodoc": false,
+                "configDir": "projects/storybook/.storybook",
+                "experimentalZoneless": true,
+                "host": "127.0.0.1",
+                "port": 6006
+            }
+        },
+        "test-storybook": {
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "playwright test --config projects/storybook/playwright.config.ts"
+            }
+        }
+    }
+}

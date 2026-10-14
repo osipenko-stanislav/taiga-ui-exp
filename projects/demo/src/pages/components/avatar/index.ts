@@ -34,7 +34,7 @@ export default class Page {
 
     protected readonly srcVariants: readonly string[] = [
         'MW',
-        '@tui.star',
+        '@otus.outline.star-01-lined',
         'https://avatars.githubusercontent.com/u/11832552',
         'https://taiga-ui.dev/assets/images/test-not-found.png',
     ];

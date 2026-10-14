@@ -20,11 +20,11 @@ export default class Example {
     protected readonly icon: PolymorpheusContent<TuiContext<number>> = ({$implicit}) => {
         switch ($implicit) {
             case 1:
-                return '@tui.frown';
+                return '@otus.outline.face-frown-lined';
             case 2:
-                return '@tui.meh';
+                return '@otus.outline.face-neutral-lined';
             default:
-                return '@tui.smile';
+                return '@otus.outline.face-smile-lined';
         }
     };
 }

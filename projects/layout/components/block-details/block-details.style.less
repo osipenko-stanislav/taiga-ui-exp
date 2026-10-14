@@ -1,13 +1,17 @@
+@import '@taiga-ui/styles/utils';
+
 [tuiBlockDetails]:where(*&) {
     display: flex;
     flex-direction: column;
     align-items: center;
-    font: var(--tui-typography-heading-h3);
+    .heading(3);
+
     min-block-size: 2rem;
 
     [tuiTitle] {
         text-align: center;
         font: var(--tui-typography-body-l);
+        letter-spacing: normal;
         gap: 0;
 
         [tuiSubtitle] {
@@ -21,6 +25,7 @@
         align-items: center;
         gap: 0.25rem;
         font: var(--tui-typography-body-m);
+        letter-spacing: normal;
         color: var(--tui-text-secondary);
         margin-block-start: 0.25rem;
     }
