@@ -2,6 +2,28 @@ import {expect, test} from '@playwright/test';
 
 import {CATALOG, ICON_NAMES, INJECTION_TOKENS} from '../src/generated/catalog';
 
+for (const baseHref of ['/', '/taiga-ui-exp/']) {
+    test(`catalog links preserve the deployment base ${baseHref}`, async ({page}) => {
+        await page.goto('/iframe.html?id=overview-catalog--all&viewMode=story');
+        const link = page.locator('tui-foundations-story tbody a').first();
+
+        await expect(link).toBeVisible();
+        await page.evaluate((href) => {
+            const base = document.querySelector<HTMLBaseElement>('base[href]');
+
+            if (!base) {
+                throw new Error('Storybook preview must declare its deployment base');
+            }
+
+            base.href = href;
+        }, baseHref);
+        await expect(link).toHaveJSProperty(
+            'href',
+            new URL(`${baseHref}?path=/story/${CATALOG[0].storyId}`, page.url()).href,
+        );
+    });
+}
+
 test('catalog overview links to every generated section and filters by name', async ({
     page,
 }) => {
@@ -11,7 +33,7 @@ test('catalog overview links to every generated section and filters by name', as
     );
     const link = page.locator('tui-foundations-story tbody a').first();
 
-    await expect(link).toHaveAttribute('href', `/?path=/story/${CATALOG[0].storyId}`);
+    await expect(link).toHaveAttribute('href', `./?path=/story/${CATALOG[0].storyId}`);
     await page.getByRole('searchbox').fill('Accordion');
     await expect(page.locator('tui-foundations-story tbody tr')).toHaveCount(1);
     await expect(page.locator('tui-foundations-story tbody')).toContainText('Accordion');
