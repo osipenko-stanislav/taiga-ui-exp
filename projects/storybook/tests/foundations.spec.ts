@@ -29,11 +29,11 @@ test('catalog overview links to every generated section and filters by name', as
 test('color tokens follow the light and dark themes', async ({page}) => {
     for (const theme of ['light', 'dark']) {
         await page.goto(
-            `/iframe.html?id=foundations-tokens--colors&viewMode=story&globals=theme:${theme}`,
+            `/iframe.html?id=foundations-colors--tokens&viewMode=story&globals=theme:${theme}`,
         );
         const base = page.locator('[data-token="--tui-background-base"]');
-        const value = theme === 'dark' ? '#222' : '#fff';
-        const color = theme === 'dark' ? 'rgb(34, 34, 34)' : 'rgb(255, 255, 255)';
+        const value = theme === 'dark' ? '#0a0a0b' : '#fff';
+        const color = theme === 'dark' ? 'rgb(10, 10, 11)' : 'rgb(255, 255, 255)';
 
         await expect(base.locator('.t-value')).toHaveText(value);
         await expect(base.locator('.t-swatch')).toHaveCSS('background-color', color);
@@ -41,7 +41,7 @@ test('color tokens follow the light and dark themes', async ({page}) => {
 });
 
 test('typography samples use Graphik and the heading weight', async ({page}) => {
-    await page.goto('/iframe.html?id=foundations-tokens--typography&viewMode=story');
+    await page.goto('/iframe.html?id=foundations-typography--tokens&viewMode=story');
     const heading = page.locator(
         '[data-token="--tui-typography-heading-h1"] .t-type-sample',
     );
@@ -51,7 +51,7 @@ test('typography samples use Graphik and the heading weight', async ({page}) => 
 });
 
 test('injection token catalog includes component option tokens', async ({page}) => {
-    await page.goto('/iframe.html?id=foundations-tokens--injection&viewMode=story');
+    await page.goto('/iframe.html?id=foundations-injection--tokens&viewMode=story');
     await expect(page.locator('tui-foundations-story tbody tr')).toHaveCount(
         INJECTION_TOKENS.length,
     );
@@ -61,7 +61,7 @@ test('injection token catalog includes component option tokens', async ({page}) 
 });
 
 test('icons are paginated and searchable', async ({page}) => {
-    await page.goto('/iframe.html?id=foundations-tokens--icons&viewMode=story');
+    await page.goto('/iframe.html?id=foundations-icons--gallery&viewMode=story');
     await expect(page.getByRole('status')).toHaveText(
         `Найдено ${ICON_NAMES.length} иконок`,
     );

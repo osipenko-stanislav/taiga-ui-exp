@@ -76,7 +76,12 @@ export class TuiFoundationsStory {
     private readonly darkMode = inject(TUI_DARK_MODE);
     private readonly values = signal<Readonly<Record<string, string>>>({});
     private readonly selectedTokens = computed(() =>
-        STYLE_TOKENS.filter((token) => tokenSection(token) === this.section()),
+        STYLE_TOKENS.filter(
+            (token) =>
+                !token.startsWith('--otus-dimension-') &&
+                !token.startsWith('--otus-color-') &&
+                tokenSection(token) === this.section(),
+        ),
     );
 
     protected readonly query = signal('');

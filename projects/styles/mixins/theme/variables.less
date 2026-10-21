@@ -1,4 +1,11 @@
+@import 'otus-dimensions.less';
+@import 'otus-colors.generated.less';
+
 .tui-theme-variables() {
+    .otus-global-dimensions();
+    .otus-color-primitives();
+    .otus-color-school('otus-university');
+
     // Motion
     --otus-text-roll: 800ms cubic-bezier(0.625, 0.05, 0, 1);
     --otus-button-bg: var(--tui-duration) var(--tui-curve-productive-standard);
@@ -26,22 +33,22 @@
     --tui-typography-ui-xs: normal calc(var(--tui-font-offset) + 0.75rem) / calc(15 / 12) var(--tui-typography-family-text);
     --tui-typography-ui-2xs: normal calc(var(--tui-font-offset) + 0.6875rem) / calc(12 / 11) var(--tui-typography-family-text);
     // Radii
-    --tui-radius-xs: 0.25rem;
-    --tui-radius-s: 0.5rem;
-    --tui-radius-m: 0.625rem;
-    --tui-radius-l: 0.75rem;
-    --tui-radius-xl: 1.5rem;
+    --tui-radius-xs: var(--otus-dimension-4);
+    --tui-radius-s: var(--otus-dimension-8);
+    --tui-radius-m: var(--otus-dimension-10);
+    --tui-radius-l: var(--otus-dimension-12);
+    --tui-radius-xl: var(--otus-dimension-24);
     // Sizes
-    --tui-height-xs: 1.5rem;
-    --tui-height-s: 2rem;
-    --tui-height-m: 2.75rem;
-    --tui-height-l: 3.5rem;
+    --tui-height-xs: var(--otus-dimension-24);
+    --tui-height-s: var(--otus-dimension-32);
+    --tui-height-m: var(--otus-dimension-44);
+    --tui-height-l: var(--otus-dimension-56);
     // Input padding
-    --tui-padding-s: 0.625rem;
-    --tui-padding-m: 0.75rem;
-    --tui-padding-l: 1rem;
+    --tui-padding-s: var(--otus-dimension-10);
+    --tui-padding-m: var(--otus-dimension-12);
+    --tui-padding-l: var(--otus-dimension-16);
     // Misc
-    --tui-stroke-width: 0.09375rem;
+    --tui-stroke-width: var(--otus-dimension-1-5);
     --tui-disabled-opacity: 0.56;
     --tui-lh: 1.4em;
     // logical

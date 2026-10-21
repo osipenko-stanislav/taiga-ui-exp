@@ -80,7 +80,7 @@ test('OTUS motion tokens configure backdrop and letter transitions', async ({pag
 test('OTUS motion tokens appear beside Taiga tokens in the Animation styles', async ({
     page,
 }) => {
-    await page.goto('/iframe.html?id=foundations-tokens--motion&viewMode=story');
+    await page.goto('/iframe.html?id=foundations-motion--tokens&viewMode=story');
     await expect(page.locator('[data-token="--otus-text-roll"]')).toContainText(
         '800ms cubic-bezier(0.625, 0.05, 0, 1)',
     );
@@ -331,3 +331,31 @@ test('keyboard focus rolls the label without changing the normal Taiga color', a
     await expect(backdrop).toHaveCSS('top', '2px');
     await expect(backdrop).toHaveCSS('background-color', color);
 });
+
+for (const mode of ['otus-core', 'otus-brand']) {
+    test(`floating shadows remain visible before and during hover in ${mode}`, async ({
+        page,
+    }) => {
+        await page.goto(
+            `/iframe.html?id=components-buttons-button--example-2&viewMode=story&globals=direction:${mode}`,
+        );
+        const button = page.locator('button[data-appearance="floating"]').first();
+        const backdrop = button.locator('.t-motion-backdrop');
+
+        await expect(backdrop).toHaveCSS(
+            'box-shadow',
+            'rgba(0, 0, 0, 0.1) 0px 4px 20px 0px',
+        );
+        await expect(button).toHaveCSS('overflow', 'visible');
+        await button.hover();
+        await expect(backdrop).toHaveCSS(
+            'box-shadow',
+            'rgba(0, 0, 0, 0.14) 0px 16px 40px 0px',
+        );
+        await expect(button).toHaveCSS('overflow', 'visible');
+        await expect(button.locator('.t-motion-label').first()).toHaveCSS(
+            'overflow',
+            'hidden',
+        );
+    });
+}

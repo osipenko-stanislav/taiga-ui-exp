@@ -175,6 +175,50 @@ the HTML template in the `.html` file (unless the component is trivial and alrea
 - Briefly explain the plan before significant changes.
 - Summarize trade-offs and verification after implementation.
 
+### Minimal, Complete Changes
+
+These project-specific practices adapt the useful parts of
+[Ponytail](https://github.com/DietrichGebert/ponytail/blob/main/skills/ponytail/SKILL.md):
+
+- Before editing shared code or tokens, trace affected consumers, theme scopes, exports, stories, generated assets, and
+  tests. Inspect the surrounding implementation as well as the diff; check both default and overridden configurations.
+- Reuse existing project mechanisms first, then suitable platform features or installed dependencies. Add a dependency
+  only when its benefit justifies the maintenance cost; do not replace a Taiga component with a native widget merely
+  to reduce code size.
+- Do not add speculative abstractions, options, configuration, or extension points. Solve the requested use case fully,
+  including affected examples and tests, while preserving existing architecture and error handling.
+- Fix a shared root cause once after checking its consumers, rather than adding compensating overrides at each usage.
+  Change the source of generated styles or catalogs and regenerate through the existing tooling.
+- Prefer readable, maintainable solutions over the fewest lines. Remove obsolete code made redundant by the change
+  only after checking its consumers; keep unrelated cleanup separate.
+- New non-trivial logic needs a focused automated check of its behavior or invariant using existing test tooling.
+  Report material verification gaps and known limitations when handing off the change.
+
+## Experimental Design System: Safe Taiga UI Restyling
+
+The project favors safe visual customization with minimal divergence from upstream Taiga UI. Apply these rules when
+restyling components:
+
+- **Use Taiga first.** Look for an existing component, directive, appearance, or DI configuration before adding a custom
+  implementation. Add wrappers only for a reusable composition or a distinct contract, not just visual changes.
+- **Customize through tokens.** Configure shared colors, typography, dimensions, radii, and motion centrally through
+  existing theme mechanisms. Use local styles for component-specific details. Prefer theme tokens, supported options,
+  and appearances before changing component implementation.
+- **Preserve the contract.** Visual changes must preserve inputs/outputs, form integration, state management, keyboard
+  interaction, focus, and accessibility semantics. Treat necessary behavior or public API changes as separate work.
+- **Contain exceptions.** Do not treat internal Taiga DOM or classes as a public customization API. When an internal
+  selector dependency is unavoidable, scope it narrowly, document why it exists and when it can be removed, and verify
+  the affected behavior. Do not propagate a workaround into a system-wide convention.
+- **Verify in Storybook.** Make applicable hover, focus, disabled, loading, invalid, long-content, and theme scenarios
+  reproducible for changed components. Check relevant contrast, sizing, overflow, and portalled content. Automate checks
+  for concrete regression risks; test observable behavior using component or integration tests where appropriate.
+- **Keep the change focused.** Follow existing repository conventions and test tooling. Do not bundle restyling with
+  naming changes, framework migrations, architecture changes, or test-runner replacement. Keep product API calls,
+  authorization, analytics, and domain rules outside design-system components.
+
+Prefer simple conditions, shallow CSS selectors, and tests of observable behavior. Judge a change by both the resulting
+appearance and how easily Taiga UI can be updated afterward; a small diff alone does not guarantee a safe change.
+
 ## Deprecated APIs
 
 - Never use deprecated methods, utilities, or constants from libraries, frameworks, or project code.

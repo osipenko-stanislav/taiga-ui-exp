@@ -1,0 +1,313 @@
+:host {
+    display: block;
+    max-inline-size: 100rem;
+    margin: auto;
+    color: var(--tui-text-primary);
+    font: var(--tui-typography-body-m);
+}
+
+header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-block-end: 1.5rem;
+}
+
+h1 {
+    margin-block: 0 0.5rem;
+    font: var(--tui-typography-heading-h3);
+}
+
+p {
+    max-inline-size: 75ch;
+    margin-block: 0.5rem 1rem;
+}
+
+.t-intro {
+    font-weight: 500;
+}
+
+small {
+    display: block;
+    margin-block-start: 0.5rem;
+    color: var(--tui-text-secondary);
+    font: var(--tui-typography-body-xs);
+}
+
+summary {
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+}
+
+pre {
+    padding: 1rem;
+    overflow: auto;
+    background: var(--tui-background-neutral-1);
+}
+
+.t-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    gap: 1rem;
+    margin-block: 2rem 1rem;
+}
+
+label,
+.t-field {
+    display: grid;
+    gap: 0.5rem;
+}
+
+input,
+select {
+    box-sizing: border-box;
+    max-inline-size: 100%;
+    padding: 0.625rem;
+    border: 1px solid var(--tui-border-normal);
+    border-radius: var(--tui-radius-m);
+    background: var(--tui-background-base);
+    color: inherit;
+    font: inherit;
+}
+
+.t-scroll {
+    overflow: auto;
+    max-block-size: 70vh;
+    border: 1px solid var(--tui-border-normal);
+}
+
+table {
+    inline-size: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    text-align: start;
+    font: var(--tui-typography-body-s);
+}
+
+th,
+td {
+    min-inline-size: 15rem;
+    padding: 1rem;
+    vertical-align: top;
+    text-align: start;
+    border-block-end: 1px solid var(--tui-border-normal);
+    border-inline-end: 1px solid var(--tui-border-normal);
+}
+
+th {
+    font-weight: 500;
+}
+
+thead th {
+    position: sticky;
+    z-index: 2;
+    inset-block-start: 0;
+    background: var(--tui-background-base-alt);
+}
+
+tbody th {
+    position: sticky;
+    z-index: 1;
+    inset-inline-start: 0;
+    max-inline-size: 20rem;
+    background: var(--tui-background-base);
+}
+
+.t-selected {
+    background: var(--tui-background-neutral-1);
+}
+
+thead .t-selected {
+    background: var(--tui-background-base-alt);
+    box-shadow: inset 0 -2px var(--tui-text-primary);
+}
+
+.t-path,
+.t-expression,
+th code {
+    overflow-wrap: anywhere;
+}
+
+.t-current {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-block: 0.75rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.t-swatch {
+    display: inline-block;
+    flex: 0 0 1.5rem;
+    block-size: 1.5rem;
+    border: 1px solid var(--tui-border-normal);
+    border-radius: 0.25rem;
+}
+
+.t-expression {
+    display: block;
+    margin-block: 0.75rem;
+}
+
+@media (max-width: 40rem) {
+    tbody th {
+        position: static;
+    }
+
+    tbody th,
+    thead th:first-child {
+        min-inline-size: 10rem;
+        max-inline-size: 10rem;
+    }
+}
+
+.t-audit {
+    margin-block: 1.5rem;
+}
+
+.t-check-filter {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-block: 1rem;
+}
+
+.t-contrast-preview {
+    display: inline-block;
+    margin-inline-end: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--tui-radius-xs);
+    font: var(--tui-typography-body-s);
+    font-weight: 500;
+}
+
+.t-editor-status,
+.t-editor {
+    margin-block: 1.5rem;
+    padding: 1rem;
+    border: 1px solid var(--tui-border-normal);
+    border-radius: var(--tui-radius-l);
+}
+
+.t-editor {
+    display: grid;
+    gap: 1rem;
+
+    h2 {
+        margin: 0;
+        font: var(--tui-typography-heading-h5);
+    }
+}
+
+.t-editor-actions,
+.t-live-preview {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+}
+
+.t-color-choice {
+    padding: 0.375rem 0.5rem;
+    border: 1px solid var(--tui-border-normal);
+    border-radius: var(--tui-radius-s);
+    background: var(--tui-background-neutral-1);
+    color: var(--tui-text-action);
+    font: var(--tui-typography-body-xs);
+    cursor: pointer;
+
+    &:hover {
+        background: var(--tui-background-neutral-1-hover);
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--tui-border-focus);
+        outline-offset: 2px;
+    }
+}
+
+.t-palette {
+    min-inline-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+
+    legend {
+        margin-block-end: 0.75rem;
+    }
+}
+
+.t-palette-options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+    max-block-size: 22rem;
+    overflow: auto;
+    padding: 0.25rem;
+    border: 1px solid var(--tui-border-normal);
+    border-radius: var(--tui-radius-m);
+}
+
+.t-palette-option {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-inline-size: 0;
+    padding: 0.75rem;
+    border: 1px solid var(--tui-border-normal);
+    border-radius: var(--tui-radius-s);
+    cursor: pointer;
+
+    input {
+        flex: 0 0 1rem;
+        inline-size: 1rem;
+        block-size: 1rem;
+        margin: 0;
+        padding: 0;
+        accent-color: var(--tui-text-action);
+    }
+
+    &:hover {
+        background: var(--tui-background-neutral-1-hover);
+    }
+
+    &:focus-within {
+        outline: 2px solid var(--tui-border-focus);
+        outline-offset: -2px;
+    }
+}
+
+.t-palette-selected {
+    border-color: var(--tui-text-action);
+    background: var(--tui-background-neutral-1);
+}
+
+.t-palette-swatch {
+    flex: 0 0 2.5rem;
+    block-size: 2.5rem;
+    border: 1px solid var(--tui-border-normal);
+    border-radius: var(--tui-radius-s);
+}
+
+.t-palette-description {
+    display: grid;
+    gap: 0.25rem;
+    min-inline-size: 0;
+    overflow-wrap: anywhere;
+    font: var(--tui-typography-body-s);
+
+    code {
+        color: var(--tui-text-secondary);
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 40rem) {
+    .t-palette-options {
+        grid-template-columns: 1fr;
+    }
+}

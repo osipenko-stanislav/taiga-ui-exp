@@ -13,7 +13,6 @@ test('OTUS presets resize the iframe independently of Brand mode', async ({page}
     for (const [preset, width, height] of [
         ['otus-mobile', 390, 844],
         ['otus-tablet', 768, 1024],
-        ['otus-desktop', 1280, 720],
     ] as const) {
         await page.getByTitle('Change the size of the preview', {exact: true}).click();
         await page.getByText(preset, {exact: true}).click();
@@ -25,6 +24,44 @@ test('OTUS presets resize the iframe independently of Brand mode', async ({page}
         await expect
             .poll(async () => preview.locator('body').evaluate(() => innerHeight))
             .toBe(height);
+    }
+
+    await page.getByTitle('Change the size of the preview', {exact: true}).click();
+    await page.getByText('otus-desktop', {exact: true}).click();
+
+    for (const [width, height] of [
+        [1800, 1100],
+        [1400, 900],
+    ] as const) {
+        await page.setViewportSize({width, height});
+        await expect
+            .poll(async () => {
+                const canvasWidth = await page
+                    .locator('#storybook-preview-wrapper')
+                    .evaluate((element) => element.closest('main')!.clientWidth);
+
+                const previewWidth = await preview
+                    .locator('body')
+                    .evaluate(() => innerWidth);
+
+                return Math.abs(previewWidth - canvasWidth);
+            })
+            .toBeLessThanOrEqual(1);
+        await expect(root).toHaveAttribute('data-breakpoint', 'otus-desktop');
+        await expect(root).toHaveAttribute('data-direction', 'otus-brand');
+        await expect
+            .poll(async () => {
+                const canvasHeight = await page
+                    .locator('#storybook-preview-wrapper')
+                    .evaluate((element) => element.clientHeight);
+
+                const previewHeight = await preview
+                    .locator('body')
+                    .evaluate(() => innerHeight);
+
+                return Math.abs(previewHeight - canvasHeight);
+            })
+            .toBeLessThanOrEqual(1);
     }
 
     await page.reload();

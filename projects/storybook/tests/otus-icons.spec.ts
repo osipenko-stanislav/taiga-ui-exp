@@ -4,7 +4,7 @@ test('catalog filters all four OTUS sets and serves their SVGs', async ({
     page,
     request,
 }) => {
-    await page.goto('/iframe.html?id=foundations-tokens--icons&viewMode=story');
+    await page.goto('/iframe.html?id=foundations-icons--gallery&viewMode=story');
 
     for (const [set, count] of [
         ['outline', 1211],

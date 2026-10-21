@@ -33,7 +33,7 @@ test('all button sizes use Graphik Medium while body and headings keep their wei
         ),
     ).toBe(true);
 
-    await page.goto('/iframe.html?id=foundations-tokens--typography&viewMode=story');
+    await page.goto('/iframe.html?id=foundations-typography--tokens&viewMode=story');
     await expect(
         page.locator('[data-token="--tui-typography-heading-h1"] .t-type-sample'),
     ).toHaveCSS('font-weight', '600');

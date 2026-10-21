@@ -1,14 +1,15 @@
 .t-motion-button {
     isolation: isolate;
-    transition-property: color, opacity, border-color, border-radius;
+    transition-property: color, opacity, border-color, border-radius, filter;
 
     &:not(.t-motion-measure) {
         background: transparent !important;
         box-shadow: none !important;
     }
 
-    &.t-motion-measure {
-        transition: none !important;
+    &[data-appearance='floating'] {
+        // The shadow lives on the animated backdrop and must escape the button.
+        overflow: visible;
     }
 
     &::before,

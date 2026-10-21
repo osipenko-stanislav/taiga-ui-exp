@@ -23,15 +23,48 @@ test('sidebar follows the website sections and omits the old catalog hierarchy',
         'Overview',
         'Tools',
     ]);
-    expect(CATALOG.some((page) => page.title === 'Documentation/Styles/Typography')).toBe(
-        true,
-    );
+    expect(
+        CATALOG.some(
+            (page) => page.title === 'Documentation/Styles/Typography/Text styles',
+        ),
+    ).toBe(true);
     expect(
         CATALOG.some((page) => page.title === 'Documentation/Customization/Appearances'),
     ).toBe(true);
     expect(
         CATALOG.some((page) => page.stories.some((story) => story.kind === 'api')),
     ).toBe(true);
+});
+
+test('style pages are grouped by subject and existing gallery links stay valid', async ({
+    request,
+}) => {
+    const response = await request.get('/index.json');
+    const index: {entries: Record<string, {title: string}>} = await response.json();
+    const pages = {
+        'documentation-styles-otus-global-colors--palette': 'Colors/Otus global colors',
+        'documentation-styles-colors--text': 'Colors/Semantic colors',
+        'foundations-colors--tokens': 'Colors/Tokens',
+        'documentation-styles-typography--gallery': 'Typography/Text styles',
+        'documentation-styles-control-typography--gallery':
+            'Typography/Control typography',
+        'foundations-typography--tokens': 'Typography/Tokens',
+        'documentation-styles-breakpoints--example-1': 'Layout/Breakpoints',
+        'foundations-dimensions--tokens': 'Layout/Sizes and radii',
+        'documentation-styles-shadows--gallery': 'Effects/Shadows',
+        'foundations-shadows--tokens': 'Effects/Shadow tokens',
+        'foundations-motion--tokens': 'Effects/Motion',
+        'foundations-icons--gallery': 'Icons',
+        'foundations-tokens--other': 'CSS tokens',
+    };
+
+    for (const [id, title] of Object.entries(pages)) {
+        expect(index.entries[id]?.title).toBe(`Documentation/Styles/${title}`);
+    }
+
+    expect(index.entries['foundations-injection--tokens']?.title).toBe(
+        'Documentation/Customization/Injection tokens',
+    );
 });
 
 test('API preview controls update the original button', async ({page}) => {

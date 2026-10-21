@@ -3,7 +3,8 @@ import {type Meta, type StoryObj} from '@storybook/angular';
 import {TuiControlTypography} from './control-typography.component';
 
 const meta = {
-    title: 'Documentation/Styles/Control Typography',
+    id: 'documentation-styles-control-typography',
+    title: 'Documentation/Styles/Typography/Control typography',
     component: TuiControlTypography,
     parameters: {controls: {disable: true}},
 } satisfies Meta<TuiControlTypography>;

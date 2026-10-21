@@ -30,7 +30,7 @@ test('heading gallery uses tighter Graphik tracking without changing the font sc
         'letter-spacing',
         'normal',
     );
-    await page.goto('/iframe.html?id=foundations-tokens--typography&viewMode=story');
+    await page.goto('/iframe.html?id=foundations-typography--tokens&viewMode=story');
     await expect(
         page.locator('.t-type-sample[data-font="--tui-typography-heading-h1"]'),
     ).toHaveCSS('letter-spacing', '-1.25px');

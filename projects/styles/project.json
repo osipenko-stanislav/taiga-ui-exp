@@ -7,11 +7,18 @@
     "sourceRoot": "projects/{projectName}",
     "targets": {
         "build": {
+            "dependsOn": ["generate-colors"],
             "executor": "nx:run-commands",
             "options": {
                 "command": "cd {projectRoot} && npx cpy ./* '!project.json' '../../dist/{projectName}'"
             },
             "outputs": ["{workspaceRoot}/dist/{projectName}"]
+        },
+        "generate-colors": {
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "node projects/styles/scripts/generate-otus-colors.mjs"
+            }
         },
         "publish": {
             "dependsOn": [

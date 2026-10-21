@@ -1,0 +1,70 @@
+<h1>Otus global dimensions</h1>
+<p>{{ count }} базовых токенов размеров. Одна шкала для всех брендов, core/brand и брейкпоинтов.</p>
+<p>
+    Значения rem рассчитаны точно при 1 rem = 16 px. Числовые значения взяты из
+    <a
+        href="https://www.figma.com/design/zJQbRO0SE1jsVOB9IdI4vm/"
+        rel="noopener noreferrer"
+        target="_blank"
+    >
+        библиотеки Figma
+    </a>
+    . Подписи rem в Figma могут содержать округления и опечатки.
+</p>
+<p>
+    Использование:
+    <code>gap: var(--otus-dimension-16)</code>
+    . Infinite хранит исходные 100000 px (6250 rem); это конечное значение, а не CSS infinity. Шкала добавлена в общую
+    тему. Назначения размеров в компонентах задаются отдельно.
+</p>
+<label class="t-search">
+    Поиск токена или размера
+    <input
+        #search
+        type="search"
+        [value]="query()"
+        (input)="query.set(search.value)"
+    />
+</label>
+<div
+    aria-label="Токены размеров OTUS"
+    role="region"
+    tabindex="0"
+    class="t-table-scroll"
+>
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">CSS-токен</th>
+                <th scope="col">px при 16 px/rem</th>
+                <th scope="col">rem</th>
+                <th scope="col">Размер · 1:1</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (token of tokens(); track token.name) {
+                <tr [attr.data-token]="token.name">
+                    <th scope="row">
+                        <code>{{ token.name }}</code>
+                    </th>
+                    <td>{{ token.px }}</td>
+                    <td>{{ token.rem }}</td>
+                    <td>
+                        @if (token.name.endsWith('infinite')) {
+                            <span class="t-note">∞ · вне масштаба</span>
+                        } @else if (token.px === 0) {
+                            <span class="t-note">0 · без размера</span>
+                        } @else {
+                            <span
+                                class="t-sample"
+                                [style.inline-size]="'var(' + token.name + ')'"
+                            ></span>
+                        }
+                    </td>
+                </tr>
+            } @empty {
+                <tr><td colspan="4">Ничего не найдено</td></tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,3 +1,5 @@
+@import 'otus-colors.generated.less';
+
 .tui-theme-dark() {
     // Backgrounds
     --tui-background-base: #222;
@@ -47,6 +49,7 @@
     --tui-text-positive-hover: #3aa981;
     --tui-text-negative: #ff4d4d;
     --tui-text-negative-hover: #f66;
+    .otus-color-theme('dark');
 }
 
 .tui-theme-light() {
@@ -134,4 +137,5 @@
     --tui-shadow-medium: 0 0.375rem 2rem rgba(0, 0, 0, 0.12);
     --tui-shadow-medium-hover: 0 1.25rem 4rem rgba(0, 0, 0, 0.18);
     --tui-shadow-popup: 0 1.25rem 3rem rgba(0, 0, 0, 0.2);
+    .otus-color-theme('light');
 }

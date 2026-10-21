@@ -9,11 +9,21 @@ OTUS icon resolution and `otus-core` button motion are library defaults. The Sto
 signal only to demonstrate `otus-brand`; applications can provide `TUI_BUTTON_MOTION` with their own signal to switch
 these modes. Colors, fonts, typography, tracking, stroke and motion styles live in the shared library sources.
 
-Documentation / Styles / Control Typography is a separate gallery of 35 live control text samples: buttons, field values
-and placeholders, labels, checkbox/radio/switch labels, badges, chips, segmented controls, links, tabs and data lists.
-The table reads the rendered font family, weight, size, line height and letter spacing directly from each sample. The
-original Typography gallery contains only Heading, Body and UI tokens. Buttons use the existing Body tokens with their
-component weight (Graphik Medium 500; XS/S: 14/20px, M/L: 16/24px); no separate button typography tokens are defined.
+Documentation / Styles / Layout / Otus global dimensions documents the 38 Figma dimension primitives.
+`--otus-dimension-*` variables ship with the shared theme via `projects/styles/mixins/theme/otus-dimensions.less`.
+Values use exact rem conversions at a 16px root size; `--otus-dimension-1-5` is 1.5px and `--otus-dimension-infinite`
+preserves Figma's finite 100000px value. The shared theme links the 13 fixed TUI dimensions (radii, control heights,
+input padding and stroke width) to exact OTUS primitives, for example `--tui-height-m: var(--otus-dimension-44)`.
+Component references keep the existing `--tui-*` names. `--tui-lh` remains relative to font line height. Override
+primitive values where the theme aliases are declared (for example `:root`); CSS resolves inherited aliases at their
+declaration scope.
+
+Documentation / Styles / Typography / Control typography is a separate gallery of 35 live control text samples: buttons,
+field values and placeholders, labels, checkbox/radio/switch labels, badges, chips, segmented controls, links, tabs and
+data lists. The table reads the rendered font family, weight, size, line height and letter spacing directly from each
+sample. The Text styles gallery contains only Heading, Body and UI tokens. Buttons use the existing Body tokens with
+their component weight (Graphik Medium 500; XS/S: 14/20px, M/L: 16/24px); no separate button typography tokens are
+defined.
 
 Separate Nx application using Angular 19.2, Nx 22.1.1 and Storybook 10.0.0. Imports resolve to this repository's
 `projects/core`, `projects/kit` and `projects/cdk` through the inherited root TypeScript paths. No published Taiga
@@ -29,11 +39,17 @@ Open <http://127.0.0.1:6006>. Switch Light/Dark using the preview toolbar. The d
 both the document and portalled dropdowns use the selected theme. In Textfield / With Dropdown, focus the input and
 press ArrowDown; select an option or press Escape to close it.
 
-The viewport toolbar offers `otus-mobile` (390 × 844), `otus-tablet` (768 × 1024) and `otus-desktop` (1280 × 720,
-default). These widths follow the LESS breakpoints: mobile below 768px, tablet from 768px to below 1024px, desktop from
-1024px. The selector resizes the actual story iframe, including portals, and is independent of school,
-otus-core/otus-brand and theme. `tui-root` exposes the selected preset through `data-breakpoint` for future custom
-tokens and layouts. No new typography or layout overrides are applied; iOS and Android patterns remain available.
+Styles is grouped by subject: Colors (OTUS palette, semantic colors and tokens), Typography (text styles, control
+samples and tokens), Layout (breakpoints, sizes and radii), Effects (shadows and motion), Icons and remaining CSS
+tokens. Angular DI tokens live in Documentation / Customization. The original palette and typography gallery URLs remain
+valid.
+
+The viewport toolbar offers `otus-mobile` (390 × 844), `otus-tablet` (768 × 1024) and `otus-desktop` (100% of the
+available preview canvas width and height, default). Desktop accounts for the Storybook sidebar, toolbar and addon panel
+and follows window/panel resizing. The library LESS breakpoints remain: mobile below 768px, tablet from 768px to below
+1024px, desktop from 1024px. The selector resizes the actual story iframe, including portals, and is independent of
+school, otus-core/otus-brand and theme. `tui-root` exposes the selected preset through `data-breakpoint` for future
+custom tokens and layouts. No new typography or layout overrides are applied; iOS and Android patterns remain available.
 
 Button, Textfield and Checkbox expose controls for their supported inputs and stories for disabled, focus, validation,
 loading, checked and indeterminate states where applicable. Values in the Textfield and Checkbox controls initialize the
@@ -92,3 +108,58 @@ npx playwright test --config projects/storybook/playwright.config.ts --workers 4
 ```
 
 Set `STORYBOOK_URL` to check a served static build instead of the development server.
+
+## OTUS color mapping
+
+The library theme maps the existing TUI semantic colors to OTUS primitives. Components keep their existing `--tui-*`
+references. Color mapping is shared by `otus-core` and `otus-brand`.
+
+The source palette is `projects/styles/tokens/otus-global-colors.json`. The rules and contrast calculations live in
+`projects/styles/scripts/otus-color-mapping.mjs` and `otus-color-contrast.mjs`. The generator
+`projects/styles/scripts/generate-otus-colors.mjs` creates the shipped LESS aliases and runs before the styles build and
+Storybook catalog generation. Figma communication guides provide context only; their colors are not imported.
+
+Use the shared `@taiga-ui/styles/taiga-ui-theme.less` entry point, or `.taiga-ui-theme()` for scoped applications. Put
+the selected school and explicit theme on the same theme boundary, including nested theme boundaries:
+
+```html
+<tui-root
+  data-brand="otus-design"
+  tuiTheme="dark"
+>
+  ...
+</tui-root>
+```
+
+Schools: `otus-university`, `otus-tech`, `otus-design`, `otus-nature`. Without a school on the container or any
+ancestor, the default is `otus-university`. Taiga's light/dark theme mechanism remains in place. Popups inside
+`tui-root` inherit the same aliases. Storybook binds its school and theme toolbar selections on that root.
+
+`Documentation / Styles / Colors / Taiga to Otus mapping` and its JSON download use the same generator as the library.
+The manifest has `appliedToRuntime: true`; filters never limit the export. It includes primitive values, TUI aliases,
+source paths, the checked-negative contextual override and the measured contrast report. The 360 listed
+appearance/theme/school/state combinations meet 4.5:1, including alpha compositing on background-base. This is not a
+full conformance audit: filters (primary-destructive), custom/image backgrounds, focus and non-text contrast are
+excluded. Changing palette or mappings requires regeneration and rerunning these checks.
+
+### Editing the color mapping
+
+The color mapping table lets you choose any existing OTUS primitive for a token, school and theme. The original alpha is
+preserved. TUI → TUI aliases remain linked; edit their source token instead. The checked-negative context override
+remains separate and is included in the contrast report.
+
+Edits are a browser-local draft shared with other Storybook examples on the same origin. You can disable live preview
+without losing the draft, reset one cell or reset all edits. Contrast is recalculated for the existing report recipes;
+hover/pressed direction and chart distinguishability still need a separate check. Source files are never written by the
+browser. JSON export includes every school/theme and `configuration.overrides` when there are edits.
+
+To apply the downloaded draft to the shared library, run from the repository root:
+
+```sh
+node projects/styles/scripts/import-otus-color-mapping.mjs /path/to/otus-taiga-color-mapping.json
+```
+
+This validates references against the existing palette, writes `projects/styles/tokens/otus-color-overrides.json` and
+regenerates the shared LESS aliases. Rebuild Storybook and the library afterward. To restore the library defaults, use
+`{"schemaVersion": 1, "overrides": []}` in that configuration file and regenerate colors. After importing a draft, reset
+the browser-local draft so the table shows the new library values.

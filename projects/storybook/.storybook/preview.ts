@@ -108,7 +108,7 @@ const preview: Preview = {
                 },
                 'otus-desktop': {
                     name: 'otus-desktop',
-                    styles: {width: '1280px', height: '720px'},
+                    styles: {width: '100%', height: '100%'},
                     type: 'desktop',
                 },
             },
@@ -121,7 +121,19 @@ const preview: Preview = {
                 order: [
                     'Overview',
                     'Documentation',
-                    ['Styles', 'Customization'],
+                    [
+                        'Styles',
+                        [
+                            'Colors',
+                            'Typography',
+                            ['Text styles', 'Control typography', 'Tokens'],
+                            'Layout',
+                            'Effects',
+                            'Icons',
+                            'CSS tokens',
+                        ],
+                        'Customization',
+                    ],
                     'Components',
                     'Form',
                     'Layout',
