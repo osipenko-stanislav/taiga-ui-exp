@@ -83,6 +83,26 @@ describe('TUI_BREAKPOINT', () => {
         });
     });
 
+    it.each([
+        {width: 1023, expected: 'mobile'},
+        {width: 1024, expected: 'desktopSmall'},
+    ])('classifies $width px as $expected at the OTUS boundary', ({width, expected}) => {
+        TestBed.configureTestingModule({
+            providers: [
+                {
+                    provide: WA_WINDOW,
+                    useValue: {
+                        ...windowMock,
+                        innerWidth: width,
+                        document: {documentElement: {clientWidth: width}},
+                    },
+                },
+            ],
+        });
+
+        expect(TestBed.inject(TUI_BREAKPOINT)()).toBe(expected);
+    });
+
     afterEach(() => {
         jest.clearAllMocks();
     });

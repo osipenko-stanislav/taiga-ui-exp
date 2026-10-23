@@ -79,5 +79,5 @@ test('Control Typography has live samples and reports their actual styles', asyn
     await page.goto(
         '/iframe.html?id=documentation-styles-typography--gallery&viewMode=story',
     );
-    await expect(page.locator('tui-font, tr[ng-reflect-tui-font]')).toHaveCount(15);
+    await expect(page.locator('tr[data-font]')).toHaveCount(15);
 });

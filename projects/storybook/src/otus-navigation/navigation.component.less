@@ -1,0 +1,275 @@
+@import '@taiga-ui/styles/utils';
+
+.t-otus-navigation {
+    margin: -2rem;
+    min-inline-size: 0;
+    min-block-size: 100vh;
+    background: var(--tui-background-base);
+    color: var(--tui-text-primary);
+    font: var(--tui-typography-body-m);
+
+    &_configurable {
+        margin-block-start: var(--otus-dimension-24);
+    }
+
+    &__skip {
+        position: fixed;
+        z-index: 2;
+        inset-block-start: var(--otus-dimension-8);
+        inset-inline-start: var(--otus-dimension-24);
+        padding: var(--otus-dimension-12);
+        border-radius: var(--tui-radius-s);
+        background: var(--tui-background-elevation-1);
+        color: var(--tui-text-primary);
+        transform: translateY(-200%);
+
+        &:focus {
+            transform: none;
+        }
+    }
+
+    &__header {
+        position: sticky;
+        z-index: 1;
+        display: grid;
+        inset-block-start: 0;
+        grid-template-columns: minmax(max-content, 1fr) minmax(0, auto) minmax(max-content, 1fr);
+        align-items: center;
+        gap: var(--otus-dimension-16);
+        block-size: var(--otus-dimension-80);
+        padding-inline: var(--otus-dimension-24);
+        isolation: isolate;
+
+        &::before {
+            content: '';
+            position: absolute;
+            inset: 0 0 calc(-1 * var(--otus-dimension-40));
+            z-index: -1;
+            background: var(--tui-background-base-alt);
+            mask-image: url('../../../demo/src/assets/storybook/otus-navigation/header-mask.svg');
+            mask-position: center;
+            mask-size: 100% 100%;
+            transform: scaleY(-1);
+            pointer-events: none;
+        }
+    }
+
+    &__logo {
+        display: block;
+        inline-size: 3rem;
+        block-size: 2rem;
+        color: var(--tui-text-primary);
+
+        span {
+            display: block;
+            inline-size: 100%;
+            block-size: 100%;
+            background: currentColor;
+            mask-image: url('../../../demo/src/assets/storybook/otus-navigation/cu-logo.svg');
+            mask-repeat: no-repeat;
+            mask-position: center;
+            mask-size: contain;
+        }
+    }
+
+    &__center,
+    &__utilities,
+    &__sections,
+    &__island {
+        display: flex;
+        align-items: center;
+    }
+
+    &__center {
+        min-inline-size: 0;
+        max-inline-size: 100%;
+        gap: var(--otus-dimension-8);
+    }
+
+    &__utilities {
+        grid-column: 3;
+        justify-self: end;
+        gap: var(--otus-dimension-4);
+    }
+
+    &__island {
+        padding: var(--otus-dimension-4);
+        border-radius: var(--tui-radius-l);
+        background: var(--tui-background-elevation-1);
+    }
+
+    &__island_round {
+        border-radius: var(--otus-dimension-infinite);
+
+        > [tuiButton] {
+            border-radius: inherit;
+        }
+    }
+
+    &__sections {
+        min-inline-size: 0;
+        overflow: auto;
+        gap: var(--otus-dimension-4);
+    }
+
+    &__search-label {
+        color: var(--tui-text-tertiary);
+    }
+
+    kbd {
+        padding-inline: var(--otus-dimension-4);
+        border: 1px solid var(--tui-border-normal);
+        border-radius: var(--tui-radius-xs);
+        font: var(--tui-typography-body-xs);
+    }
+
+    &__workspace {
+        display: flex;
+        align-items: flex-start;
+    }
+
+    &__content {
+        flex: 1;
+        min-inline-size: 0;
+        box-sizing: border-box;
+        max-inline-size: 72rem;
+        min-block-size: 90rem;
+        margin: 0 auto;
+        padding: var(--otus-dimension-64) var(--otus-dimension-32);
+        outline: none;
+    }
+
+    &__placeholders {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: var(--otus-dimension-24);
+    }
+
+    &__placeholder {
+        aspect-ratio: 1;
+        border-radius: var(--tui-radius-l);
+    }
+
+    @media @tui-mobile {
+        &__content {
+            padding: var(--otus-dimension-24) var(--otus-dimension-16)
+                calc(var(--otus-dimension-128) + env(safe-area-inset-bottom));
+        }
+
+        &__placeholders {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: var(--otus-dimension-16);
+        }
+    }
+
+    @media (max-width: 75rem) {
+        &__center {
+            justify-self: center;
+        }
+
+        kbd,
+        &__search-label {
+            display: none;
+        }
+    }
+}
+
+.t-otus-navigation-popover {
+    box-sizing: border-box;
+    padding: var(--otus-dimension-16);
+    inline-size: min(48rem, calc(100vw - var(--otus-dimension-48)));
+    color: var(--tui-text-primary);
+    font: var(--tui-typography-body-m);
+
+    &_compact {
+        inline-size: min(28rem, calc(100vw - var(--otus-dimension-48)));
+    }
+
+    &__heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--otus-dimension-24);
+        padding: var(--otus-dimension-8) var(--otus-dimension-8) var(--otus-dimension-16);
+        border-block-end: 1px solid var(--tui-border-normal);
+
+        h2 {
+            margin: 0;
+            font: var(--tui-typography-heading-h6);
+        }
+    }
+
+    &__groups {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--otus-dimension-24);
+        padding-block-start: var(--otus-dimension-24);
+
+        h3 {
+            margin: 0 var(--otus-dimension-12) var(--otus-dimension-8);
+            font: var(--tui-typography-body-s);
+            color: var(--tui-text-secondary);
+        }
+    }
+
+    &_compact &__groups {
+        grid-template-columns: 1fr;
+    }
+
+    &__link[tuiButton] {
+        justify-content: flex-start;
+        inline-size: 100%;
+        block-size: auto;
+        min-block-size: var(--tui-height-l);
+        padding: var(--otus-dimension-16) var(--otus-dimension-12);
+        gap: var(--otus-dimension-16);
+        white-space: normal;
+        text-align: start;
+        font: var(--tui-typography-body-m);
+
+        [tuiTitle] {
+            flex: 1;
+            align-items: flex-start;
+        }
+    }
+
+    &__search {
+        display: grid;
+        gap: var(--otus-dimension-8);
+        padding-block: var(--otus-dimension-24) var(--otus-dimension-16);
+        font: var(--tui-typography-body-s);
+    }
+
+    &__results {
+        max-block-size: 24rem;
+        overflow: auto;
+    }
+}
+
+.t-otus-navigation-settings {
+    &__options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--otus-dimension-24);
+        margin-block-start: var(--otus-dimension-16);
+
+        label {
+            display: flex;
+            align-items: center;
+            gap: var(--otus-dimension-8);
+        }
+    }
+}
+
+@media @tui-mobile {
+    .t-otus-navigation-popover {
+        inline-size: min(28rem, calc(100vw - var(--otus-dimension-24)));
+        max-block-size: calc(100dvh - var(--otus-dimension-128) - env(safe-area-inset-bottom));
+        overflow: auto;
+    }
+
+    .t-otus-navigation-settings {
+        max-inline-size: 100%;
+        overflow-x: auto;
+    }
+}

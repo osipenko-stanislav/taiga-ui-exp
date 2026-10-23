@@ -10,11 +10,9 @@ test('OTUS presets resize the iframe independently of Brand mode', async ({page}
 
     await expect(root).toHaveAttribute('data-breakpoint', 'otus-desktop');
 
-    for (const [preset, width, height] of [
-        ['otus-mobile', 390, 844],
-        ['otus-tablet', 768, 1024],
-    ] as const) {
+    for (const [preset, width, height] of [['otus-mobile', 390, 844]] as const) {
         await page.getByTitle('Change the size of the preview', {exact: true}).click();
+        await expect(page.getByText('otus-tablet', {exact: true})).toHaveCount(0);
         await page.getByText(preset, {exact: true}).click();
         await expect(root).toHaveAttribute('data-breakpoint', preset);
         await expect(root).toHaveAttribute('data-direction', 'otus-brand');

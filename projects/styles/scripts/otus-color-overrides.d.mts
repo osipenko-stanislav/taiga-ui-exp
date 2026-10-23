@@ -26,6 +26,7 @@ export interface ColorTarget {
 
 export interface ColorRow {
     readonly tui: string;
+    readonly otus: string;
     readonly category: string;
     readonly status: string;
     readonly variants: Record<

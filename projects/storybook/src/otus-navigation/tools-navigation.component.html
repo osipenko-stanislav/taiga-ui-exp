@@ -1,0 +1,58 @@
+<aside
+    aria-label="Сервисы и инструменты"
+    class="t-otus-tools-navigation"
+    [attr.tuiTheme]="theme()"
+    [style.--tui-theme-color]="'var(--tui-background-elevation-1)'"
+    [tuiNavigationAside]="expanded()"
+>
+    <header>
+        <button
+            tuiAsideItem
+            type="button"
+            [attr.aria-label]="expanded() ? 'Свернуть навигацию' : 'Развернуть навигацию'"
+            [iconStart]="
+                expanded() ? '@otus.outline.chevron-left-double-lined' : '@otus.outline.chevron-right-double-lined'
+            "
+            (click)="expanded.set(!expanded())"
+        >
+            Сервисы
+        </button>
+    </header>
+    @for (group of groups(); track group.id) {
+        @if (group.items.length) {
+            <tui-aside-group>
+                <button
+                    tuiChevron
+                    type="button"
+                    [attr.aria-label]="group.title"
+                    [iconStart]="group.icon"
+                    [tuiAsideItem]="group.title"
+                >
+                    {{ group.title }}
+                    <ng-template>
+                        @for (item of group.items; track item) {
+                            <button
+                                tuiAsideItem
+                                type="button"
+                                [attr.aria-current]="selected() === `${group.id}/${item}` ? 'page' : null"
+                                (click)="selected.set(`${group.id}/${item}`)"
+                            >
+                                {{ item }}
+                            </button>
+                        }
+                    </ng-template>
+                </button>
+            </tui-aside-group>
+        } @else {
+            <button
+                type="button"
+                [attr.aria-current]="selected() === group.id ? 'page' : null"
+                [iconStart]="group.icon"
+                [tuiAsideItem]="group.title"
+                (click)="selected.set(group.id)"
+            >
+                {{ group.title }}
+            </button>
+        }
+    }
+</aside>

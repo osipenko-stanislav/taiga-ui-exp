@@ -40,9 +40,12 @@ export async function generateOtusColors(root) {
 
         for (const row of mapping.mappings) {
             const target = row.variants[theme].schools[mapping.schoolAssignments[0].id];
-            const value = target.alias ? `var(${target.alias})` : `var(--t-otus-${theme}-${row.tui.slice(6)})`;
+            const value = target.alias
+                ? `var(${target.alias.replace('--tui-', '--otus-')})`
+                : `var(--t-otus-${theme}-${row.tui.slice(6)})`;
 
-            lines.push(`    ${row.tui}: ${value};`);
+            lines.push(`    ${row.tui.replace('--tui-', '--otus-')}: ${value};`);
+            lines.push(`    ${row.tui}: var(${row.tui.replace('--tui-', '--otus-')});`);
         }
 
         const localOverride = mapping.contextOverrides.find((item) => item.theme === theme);

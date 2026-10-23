@@ -80,12 +80,8 @@ export class TuiTabsHorizontal implements AfterViewChecked {
         this.tabs.moveFocus(current, step);
     }
 
-    // TODO: Remove when anchor positioning will be available in all modern browsers: https://caniuse.com/css-anchor-positioning
     protected refresh(): void {
-        if ('anchorName' in this.el.style) {
-            return;
-        }
-
+        // Measured values interpolate reliably when the active tab changes; CSS anchors do not.
         const {activeElement} = this.tabs;
 
         if (activeElement && !activeElement.isConnected) {
@@ -94,7 +90,16 @@ export class TuiTabsHorizontal implements AfterViewChecked {
 
         const {offsetLeft = 0, offsetWidth = 0} = activeElement || {};
 
-        this.el.style.setProperty('--t-left', tuiPx(offsetLeft));
+        const rtl =
+            this.el.ownerDocument.defaultView?.getComputedStyle(this.el).direction ===
+            'rtl';
+
+        const start =
+            activeElement && rtl
+                ? this.el.clientWidth - offsetLeft - offsetWidth
+                : offsetLeft;
+
+        this.el.style.setProperty('--t-left', tuiPx(start));
         this.el.style.setProperty('--t-width', tuiPx(offsetWidth));
     }
 }

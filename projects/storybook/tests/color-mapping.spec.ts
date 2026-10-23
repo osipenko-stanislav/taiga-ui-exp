@@ -11,16 +11,16 @@ test('draft mapping compares schools and follows Storybook theme and school', as
     page,
 }) => {
     await page.goto(`${story}&globals=theme:light;brand:otus-tech;direction:otus-brand`);
-    await expect(
-        page.locator('otus-color-mapping .t-mapping-table tbody tr'),
-    ).toHaveCount(OTUS_COLOR_MAPPING.mappings.length);
+    await expect(page.locator('.t-mapping-table tbody tr')).toHaveCount(
+        OTUS_COLOR_MAPPING.mappings.length,
+    );
     await page.getByRole('searchbox').fill('--tui-background-accent-1');
-    await expect(
-        page.locator('otus-color-mapping .t-mapping-table tbody tr'),
-    ).toHaveCount(4);
+    await expect(page.locator('.t-mapping-table tbody tr')).toHaveCount(4);
     const row = page.locator('[data-token="--tui-background-accent-1"]');
 
-    await expect(row.locator('td')).toHaveCount(4);
+    await expect(row).toContainText('--otus-background-accent-1');
+    await row.getByText('Связи и школы', {exact: true}).click();
+    await expect(row.locator('[data-school]')).toHaveCount(4);
     await page.getByRole('searchbox').fill('#141414');
     await expect(row).toBeVisible();
     await expect(row.locator('[data-school="otus-tech"]')).toHaveClass('t-selected');
@@ -31,12 +31,13 @@ test('draft mapping compares schools and follows Storybook theme and school', as
         'graphite-black-925',
     );
     await page.goto(`${story}&globals=theme:dark;brand:otus-nature`);
+    await row.getByText('Связи и школы', {exact: true}).click();
     await expect(row.locator('[data-school="otus-nature"]')).toHaveClass('t-selected');
     await expect(row.locator('[data-school="otus-university"]')).toContainText(
         'graphite-black-50',
     );
     await page.getByRole('searchbox').fill('no-such-color');
-    await expect(page.locator('otus-color-mapping .t-mapping-table tbody')).toContainText(
+    await expect(page.locator('.t-mapping-table tbody')).toContainText(
         'Ничего не найдено',
     );
 });
@@ -92,18 +93,16 @@ test('JSON download is complete and preserves primitive references and CSS alias
 test('mapping table contains its overflow at mobile width', async ({page}) => {
     await page.setViewportSize({width: 390, height: 844});
     await page.goto(story);
-    await expect(
-        page.locator('otus-color-mapping .t-mapping-table tbody tr'),
-    ).toHaveCount(OTUS_COLOR_MAPPING.mappings.length);
+    await expect(page.locator('.t-mapping-table tbody tr')).toHaveCount(
+        OTUS_COLOR_MAPPING.mappings.length,
+    );
     expect(
         await page.evaluate(
             () => document.documentElement.scrollWidth <= window.innerWidth,
         ),
     ).toBe(true);
     await page.getByLabel('Группа', {exact: true}).selectOption('status');
-    const rows = await page
-        .locator('otus-color-mapping .t-mapping-table tbody tr')
-        .allTextContents();
+    const rows = await page.locator('.t-mapping-table tbody tr').allTextContents();
 
     expect(rows.length).toBeGreaterThan(0);
     expect(rows.every((row) => row.includes('--tui-status-'))).toBe(true);

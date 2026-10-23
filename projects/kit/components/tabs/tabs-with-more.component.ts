@@ -233,15 +233,27 @@ export class TuiTabsWithMore implements AfterViewChecked, AfterViewInit {
         return -1;
     }
 
-    // TODO: Remove when anchor positioning will be available in all modern browsers: https://caniuse.com/css-anchor-positioning
     private refresh(): void {
-        if ('anchorName' in this.el.style) {
+        const element: HTMLElement | undefined = this.dir()?.nativeElement;
+
+        if (!element) {
             return;
         }
 
-        const {offsetLeft = 0, offsetWidth = 0} = this.activeElement || {};
+        const active = this.activeElement;
+        const {offsetLeft = 0, offsetWidth = 0} = active || {};
+        const left =
+            active && active.offsetParent !== element
+                ? offsetLeft - element.offsetLeft
+                : offsetLeft;
 
-        this.dir()?.nativeElement.style.setProperty('--t-left', tuiPx(offsetLeft));
-        this.dir()?.nativeElement.style.setProperty('--t-width', tuiPx(offsetWidth));
+        const rtl =
+            element.ownerDocument.defaultView?.getComputedStyle(element).direction ===
+            'rtl';
+
+        const start = active && rtl ? element.clientWidth - left - offsetWidth : left;
+
+        element.style.setProperty('--t-left', tuiPx(start));
+        element.style.setProperty('--t-width', tuiPx(offsetWidth));
     }
 }

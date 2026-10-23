@@ -48,7 +48,9 @@ test('renders every story without Angular errors', async ({page, request}) => {
         }
 
         await page.goto(`/iframe.html?id=${entry.id}&viewMode=story`);
-        await expect(page.locator('tui-root main > :first-child')).toBeAttached();
+        await expect(
+            page.locator('tui-root main').first().locator(':scope > :first-child'),
+        ).toBeAttached();
         await expect(page.locator('.sb-errordisplay')).not.toBeVisible();
     }
 
@@ -106,7 +108,7 @@ for (const theme of ['light', 'dark']) {
 
         await expect(page.locator('body')).toHaveCSS(
             'background-color',
-            theme === 'dark' ? 'rgb(34, 34, 34)' : 'rgb(255, 255, 255)',
+            theme === 'dark' ? 'rgb(10, 10, 11)' : 'rgb(255, 255, 255)',
         );
         await dropdown.getByRole('option', {name: 'Angular', exact: true}).click();
         await expect(input).toHaveValue('Angular');

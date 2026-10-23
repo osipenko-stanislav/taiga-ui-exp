@@ -1,0 +1,214 @@
+@import '@taiga-ui/styles/utils';
+
+:host {
+    display: block;
+    max-inline-size: 70rem;
+    margin: auto;
+    padding: var(--otus-dimension-32);
+    color: var(--tui-text-primary);
+    box-sizing: border-box;
+}
+
+header {
+    margin-block-end: var(--otus-dimension-40);
+}
+
+h1 {
+    font: var(--tui-typography-heading-h4);
+}
+
+h2 {
+    font: var(--tui-typography-heading-h6);
+    margin-block: 0 var(--otus-dimension-20);
+}
+
+section {
+    margin-block: var(--otus-dimension-40);
+}
+
+p {
+    font: var(--tui-typography-body-m);
+}
+
+.t-note {
+    color: var(--tui-text-secondary);
+    font: var(--tui-typography-body-s);
+}
+
+.t-floating-container {
+    justify-items: center;
+    pointer-events: none;
+
+    &:has(.t-entering) {
+        filter: drop-shadow(var(--tui-shadow-small));
+    }
+
+    // The replay owns the entrance; a concurrent native slide changes its destination.
+    &.tui-enter {
+        animation: none;
+    }
+}
+
+.t-floating-group {
+    --t-floating-circle: calc(var(--otus-dimension-48) + var(--otus-dimension-8) * 2);
+
+    box-sizing: border-box;
+    max-inline-size: 100%;
+    padding: var(--otus-dimension-8);
+    border-radius: var(--otus-dimension-16);
+    pointer-events: auto;
+
+    > tui-tabs {
+        min-inline-size: 0;
+        max-inline-size: 100%;
+    }
+
+    [tuiOtusTab] {
+        flex: none;
+        flex-direction: row;
+        min-block-size: 0;
+        max-inline-size: none;
+        clip-path: none;
+
+        &:not([data-icon-start])::before,
+        &:not([data-icon-end])::after {
+            content: none;
+        }
+    }
+}
+
+@media @tui-mobile {
+    :host {
+        padding: var(--otus-dimension-16);
+    }
+}
+
+.t-floating-group:has(> tui-tabs[data-size='m']) {
+    --t-floating-circle: calc(var(--otus-dimension-40) + var(--otus-dimension-8) * 2);
+}
+
+.t-floating-group.t-entering {
+    animation:
+        otusFloatingRise calc(var(--otus-floating-enter-duration) * 2 / 5) var(--otus-curve-floating-spring) both,
+        otusFloatingBall calc(var(--otus-floating-enter-duration) * 3 / 5) var(--tui-curve-productive-entrance) both,
+        otusFloatingShape calc(var(--otus-floating-enter-duration) * 7 / 20) var(--otus-curve-floating-spring)
+            calc(var(--otus-floating-enter-duration) * 13 / 20) forwards;
+
+    > tui-tabs {
+        animation:
+            otusFloatingInnerBall calc(var(--otus-floating-enter-duration) * 3 / 5) var(--tui-curve-productive-entrance)
+                both,
+            otusFloatingInner calc(var(--otus-floating-enter-duration) * 7 / 20) var(--otus-curve-floating-spring)
+                calc(var(--otus-floating-enter-duration) * 13 / 20) forwards;
+    }
+
+    [tuiOtusTab] {
+        --t-floating-label-color: var(--tui-text-primary);
+
+        animation: otusFloatingContent calc(var(--otus-floating-enter-duration) * 3 / 14)
+            var(--tui-curve-productive-entrance) calc(var(--otus-floating-enter-duration) * 11 / 14) both;
+
+        &[data-appearance='primary'] {
+            --t-floating-label-color: var(--tui-text-primary-on-accent-1);
+        }
+
+        &[data-appearance='accent'] {
+            --t-floating-label-color: var(--tui-text-primary-on-accent-2);
+        }
+    }
+}
+
+@keyframes otusFloatingRise {
+    from {
+        transform: translateY(var(--otus-floating-enter-offset));
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes otusFloatingBall {
+    0% {
+        opacity: 0;
+        clip-path: inset(
+            calc(50% - var(--otus-floating-enter-seed) / 2) calc(50% - var(--otus-floating-enter-seed) / 2) round
+                var(--otus-floating-enter-seed)
+        );
+    }
+
+    66.6667% {
+        opacity: 1;
+        clip-path: inset(
+            calc(50% - var(--otus-floating-enter-seed) / 2) calc(50% - var(--otus-floating-enter-seed) / 2) round
+                var(--otus-floating-enter-seed)
+        );
+    }
+
+    100% {
+        opacity: 1;
+        clip-path: inset(0 calc(50% - var(--t-floating-circle) / 2) round var(--t-floating-circle));
+    }
+}
+
+@keyframes otusFloatingShape {
+    from {
+        clip-path: inset(0 calc(50% - var(--t-floating-circle) / 2) round var(--t-floating-circle));
+    }
+
+    to {
+        clip-path: inset(0 round var(--otus-dimension-16));
+    }
+}
+
+@keyframes otusFloatingInnerBall {
+    0%,
+    66.6667% {
+        clip-path: inset(
+            calc(50% - var(--otus-dimension-8) / 2) calc(50% - var(--otus-dimension-8) / 2) round
+                var(--otus-dimension-8)
+        );
+    }
+
+    100% {
+        clip-path: inset(
+            0 calc(50% - (var(--t-floating-circle) - var(--otus-dimension-8) * 2) / 2) round var(--t-floating-circle)
+        );
+    }
+}
+
+@keyframes otusFloatingInner {
+    from {
+        clip-path: inset(
+            0 calc(50% - (var(--t-floating-circle) - var(--otus-dimension-8) * 2) / 2) round var(--t-floating-circle)
+        );
+    }
+
+    to {
+        clip-path: inset(0 round var(--tui-radius-s));
+    }
+}
+
+@keyframes otusFloatingContent {
+    from {
+        color: transparent;
+    }
+
+    to {
+        color: var(--t-floating-label-color);
+    }
+}
+
+@media @tui-mobile {
+    .t-floating-group {
+        --t-floating-circle: calc(var(--otus-dimension-40) + var(--otus-dimension-8) * 2);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .t-floating-group.t-entering,
+    .t-floating-group.t-entering > tui-tabs,
+    .t-floating-group.t-entering [tuiOtusTab] {
+        animation: none;
+    }
+}

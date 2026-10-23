@@ -1,0 +1,36 @@
+.t-mobile-navigation[tuiFloatingContainer] {
+    position: fixed;
+    inset-inline: 0;
+    inset-block-end: 0;
+    padding: var(--otus-dimension-24) var(--otus-dimension-12)
+        max(var(--otus-dimension-24), env(safe-area-inset-bottom));
+
+    &::before {
+        inset-inline: 0;
+    }
+}
+
+.t-mobile-navigation {
+    &__bar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: var(--otus-dimension-8);
+    }
+
+    &__island {
+        display: flex;
+        padding: var(--otus-dimension-4);
+        background: var(--tui-background-elevation-1);
+        border-radius: var(--tui-radius-l);
+    }
+
+    &__island_round {
+        border-radius: var(--otus-dimension-infinite);
+
+        > [tuiButton],
+        > [tuiIconButton] {
+            border-radius: inherit;
+        }
+    }
+}

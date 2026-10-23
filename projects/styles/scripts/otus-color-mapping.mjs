@@ -269,7 +269,13 @@ export async function colorMapping(root) {
             }
         }
 
-        return {tui, category: tui.split('-')[3], status: 'experimental', variants};
+        return {
+            tui,
+            otus: tui.replace('--tui-', '--otus-'),
+            category: tui.split('-')[3],
+            status: 'experimental',
+            variants,
+        };
     });
 
     const negativeChecked = pick('service/red', '700');
@@ -343,8 +349,8 @@ export async function colorMapping(root) {
         example: {
             selector: '[data-brand="otus-university"][tuiTheme="light"]',
             declarations: {
-                '--tui-background-accent-1': 'var(--otus-color-graphite-black-graphite-black-925)',
-                '--tui-background-accent-2': 'var(--otus-color-brand-expert-blue-expert-blue-700)',
+                '--tui-background-accent-1': 'var(--otus-background-accent-1)',
+                '--tui-background-accent-2': 'var(--otus-background-accent-2)',
             },
         },
         primitives,

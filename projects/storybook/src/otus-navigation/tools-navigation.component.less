@@ -1,0 +1,15 @@
+:host {
+    position: sticky;
+    display: block;
+    inset-block-start: var(--otus-dimension-80);
+    align-self: flex-start;
+    flex-shrink: 0;
+}
+
+.t-otus-tools-navigation {
+    block-size: calc(100vh - var(--otus-dimension-80));
+}
+
+[tuiAsideItem][aria-current='page'] {
+    background: var(--tui-background-neutral-1-hover);
+}

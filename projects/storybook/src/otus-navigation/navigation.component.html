@@ -1,0 +1,404 @@
+@if (configurable()) {
+    <section
+        aria-label="Настройки навигации"
+        class="t-otus-navigation-settings"
+    >
+        <table tuiDocAPI>
+            <tr
+                name="[zone]"
+                tuiDocAPIItem
+                type="public | applicant | student | employee"
+                [items]="zones"
+                [(value)]="zone"
+            >
+                Зона: сайт, абитуриент, студент или сотрудник
+            </tr>
+            <tr
+                name="[layout]"
+                tuiDocAPIItem
+                type="header | sidebar"
+                [items]="layouts"
+                [(value)]="layout"
+            >
+                Верхняя навигация или сервисы в сайдбаре
+            </tr>
+            <tr
+                name="[size]"
+                tuiDocAPIItem
+                type="s | m | l"
+                [items]="sizes"
+                [(value)]="size"
+            >
+                Нативный размер кнопок: S — 32 px, M — 44 px, L — 56 px
+            </tr>
+        </table>
+        <div class="t-otus-navigation-settings__options">
+            <label>
+                <input
+                    tuiSwitch
+                    type="checkbox"
+                    [disabled]="!utilityIds().has('search')"
+                    [(ngModel)]="showSearch"
+                />
+                Поиск
+            </label>
+            <label>
+                <input
+                    tuiSwitch
+                    type="checkbox"
+                    [disabled]="!utilityIds().has('notifications')"
+                    [(ngModel)]="showNotifications"
+                />
+                Уведомления
+            </label>
+            <label>
+                <input
+                    tuiSwitch
+                    type="checkbox"
+                    [disabled]="!utilityIds().has('language')"
+                    [(ngModel)]="showLanguage"
+                />
+                Язык
+            </label>
+        </div>
+    </section>
+}
+<div
+    class="t-otus-navigation"
+    [class.t-otus-navigation_configurable]="configurable()"
+>
+    <a
+        href="#navigation-content"
+        class="t-otus-navigation__skip"
+    >
+        К содержимому
+    </a>
+    @if (!isMobile()) {
+        <header class="t-otus-navigation__header">
+            <a
+                aria-label="Центральный университет"
+                href="#navigation-content"
+                class="t-otus-navigation__logo"
+            >
+                <span aria-hidden="true"></span>
+            </a>
+            @if (zone() !== 'public' && layout() === 'header') {
+                <nav
+                    aria-label="Основная навигация"
+                    class="t-otus-navigation__center"
+                >
+                    <div class="t-otus-navigation__island t-otus-navigation__sections">
+                        @for (menu of navigation(); track menu.id) {
+                            @if (menu.groups.length) {
+                                <button
+                                    tuiButton
+                                    tuiDropdownAlign="center"
+                                    tuiDropdownDirection="bottom"
+                                    tuiDropdownRole="dialog"
+                                    type="button"
+                                    [appearance]="
+                                        opened() === menu.id || (!opened() && selected() === menu.id)
+                                            ? 'primary'
+                                            : 'flat-grayscale'
+                                    "
+                                    [attr.aria-current]="selected() === menu.id ? 'page' : null"
+                                    [iconEnd]="menu.id === 'more' ? '@otus.outline.chevron-down-lined' : ''"
+                                    [iconStart]="menu.icon"
+                                    [size]="size()"
+                                    [tuiDropdown]="popover"
+                                    [tuiDropdownMaxHeight]="640"
+                                    [tuiDropdownOffset]="16"
+                                    [tuiDropdownOpen]="opened() === menu.id"
+                                    (tuiDropdownOpenChange)="onOpenChange(menu.id, $event)"
+                                >
+                                    {{ menu.title }}
+                                    <ng-template
+                                        #popover
+                                        let-close
+                                    >
+                                        <ng-container
+                                            [ngTemplateOutlet]="popoverContent"
+                                            [ngTemplateOutletContext]="{menu: menu, close: close}"
+                                        />
+                                    </ng-template>
+                                </button>
+                            } @else {
+                                <button
+                                    tuiButton
+                                    type="button"
+                                    [appearance]="selected() === menu.id ? 'primary' : 'flat-grayscale'"
+                                    [attr.aria-current]="selected() === menu.id ? 'page' : null"
+                                    [size]="size()"
+                                    (click)="selectSection(menu.id)"
+                                >
+                                    {{ menu.title }}
+                                </button>
+                            }
+                        }
+                    </div>
+                    @if (preset().bookmarks) {
+                        <div class="t-otus-navigation__island">
+                            <button
+                                appearance="flat-grayscale"
+                                tuiDropdownAlign="center"
+                                tuiDropdownRole="dialog"
+                                tuiIconButton
+                                type="button"
+                                [iconStart]="bookmarks.icon"
+                                [size]="size()"
+                                [tuiDropdown]="popover"
+                                [tuiDropdownOffset]="16"
+                                [tuiDropdownOpen]="opened() === bookmarks.id"
+                                (tuiDropdownOpenChange)="onOpenChange(bookmarks.id, $event)"
+                            >
+                                Избранное
+                                <ng-template
+                                    #popover
+                                    let-close
+                                >
+                                    <ng-container
+                                        [ngTemplateOutlet]="popoverContent"
+                                        [ngTemplateOutletContext]="{menu: bookmarks, close: close}"
+                                    />
+                                </ng-template>
+                            </button>
+                        </div>
+                    }
+                </nav>
+            }
+            <nav
+                aria-label="Личный кабинет"
+                class="t-otus-navigation__utilities"
+            >
+                @if (zone() === 'public') {
+                    <div class="t-otus-navigation__island">
+                        <a
+                            appearance="primary"
+                            href="https://my.centraluniversity.ru/"
+                            iconStart="@otus.outline.user-01-lined"
+                            tuiButton
+                            [size]="size()"
+                        >
+                            Личный кабинет
+                        </a>
+                    </div>
+                    <div class="t-otus-navigation__island">
+                        <button
+                            appearance="flat-grayscale"
+                            aria-disabled="true"
+                            iconStart="@otus.outline.menu-01-lined"
+                            tuiIconButton
+                            type="button"
+                            [size]="size()"
+                        >
+                            Меню сайта
+                        </button>
+                    </div>
+                }
+                @for (menu of utilities(); track menu.id) {
+                    <div
+                        class="t-otus-navigation__island"
+                        [class.t-otus-navigation__island_round]="menu.id === 'profile'"
+                    >
+                        <button
+                            #utilityTrigger
+                            appearance="flat-grayscale"
+                            tuiButton
+                            tuiDropdownAlign="end"
+                            tuiDropdownDirection="bottom"
+                            tuiDropdownRole="dialog"
+                            type="button"
+                            class="t-otus-navigation__trigger"
+                            [attr.aria-label]="menu.title"
+                            [attr.data-menu-id]="menu.id"
+                            [attr.tuiIconButton]="menu.id === 'notifications' || menu.id === 'profile' ? '' : null"
+                            [iconStart]="menu.id === 'profile' ? '' : menu.icon"
+                            [size]="size()"
+                            [tuiDropdown]="popover"
+                            [tuiDropdownMaxHeight]="640"
+                            [tuiDropdownOffset]="16"
+                            [tuiDropdownOpen]="opened() === menu.id"
+                            (tuiDropdownOpenChange)="onOpenChange(menu.id, $event)"
+                        >
+                            @switch (menu.id) {
+                                @case ('search') {
+                                    <span class="t-otus-navigation__search-label">Поиск</span>
+                                    <kbd>⌘ K</kbd>
+                                }
+                                @case ('language') {
+                                    {{ language() }}
+                                }
+                                @case ('days') {
+                                    32
+                                }
+                                @case ('notifications') {
+                                    <tui-badge-notification
+                                        size="xs"
+                                        class="t-otus-navigation__notification"
+                                    />
+                                }
+                                @case ('profile') {
+                                    <span
+                                        size="s"
+                                        tuiAvatar
+                                        class="t-otus-navigation__avatar"
+                                    >
+                                        <img
+                                            alt=""
+                                            src="assets/storybook/otus-navigation/avatar.png"
+                                        />
+                                    </span>
+                                }
+                            }
+                            <ng-template
+                                #popover
+                                let-close
+                            >
+                                <ng-container
+                                    [ngTemplateOutlet]="popoverContent"
+                                    [ngTemplateOutletContext]="{menu: menu, close: close}"
+                                />
+                            </ng-template>
+                        </button>
+                    </div>
+                }
+            </nav>
+        </header>
+    }
+
+    <div class="t-otus-navigation__workspace">
+        @if (layout() === 'sidebar' && !isMobile()) {
+            <otus-tools-navigation
+                [groups]="toolGroups()"
+                [theme]="currentTheme()"
+                [(expanded)]="sidebarExpanded"
+            />
+        }
+        <main
+            id="navigation-content"
+            tabindex="-1"
+            class="t-otus-navigation__content"
+        >
+            <div
+                aria-hidden="true"
+                class="t-otus-navigation__placeholders"
+            >
+                @for (placeholder of placeholders; track placeholder) {
+                    <div
+                        class="t-otus-navigation__placeholder"
+                        [tuiSkeleton]="true"
+                    ></div>
+                }
+            </div>
+        </main>
+    </div>
+    @if (isMobile()) {
+        <otus-mobile-navigation
+            [size]="size()"
+            [utilities]="utilities()"
+        />
+    }
+</div>
+
+<ng-template
+    #popoverContent
+    let-close="close"
+    let-menu="menu"
+>
+    <section
+        class="t-otus-navigation-popover"
+        [attr.aria-label]="menu.title"
+        [class.t-otus-navigation-popover_compact]="menu.groups.length < 2"
+    >
+        <header class="t-otus-navigation-popover__heading">
+            <h2>{{ menu.title }}</h2>
+            <button
+                appearance="flat-grayscale"
+                iconStart="@otus.outline.x-close-lined"
+                size="m"
+                tuiIconButton
+                type="button"
+                (click)="close()"
+            >
+                Закрыть меню
+            </button>
+        </header>
+        @if (menu.id === 'search') {
+            <label class="t-otus-navigation-popover__search">
+                Найти в личном кабинете
+                <tui-textfield>
+                    <input
+                        #searchInput
+                        placeholder="Дисциплина, сервис или раздел"
+                        tuiInput
+                        type="search"
+                        [value]="query()"
+                        (input)="query.set(searchInput.value)"
+                    />
+                </tui-textfield>
+            </label>
+            <div
+                aria-live="polite"
+                class="t-otus-navigation-popover__results"
+            >
+                @for (link of searchResults(); track link.title) {
+                    <ng-container
+                        [ngTemplateOutlet]="menuLink"
+                        [ngTemplateOutletContext]="{link: link, section: link.section, close: close}"
+                    />
+                } @empty {
+                    <p>Ничего не нашли. Попробуйте другой запрос.</p>
+                }
+            </div>
+        } @else {
+            <div class="t-otus-navigation-popover__groups">
+                @for (group of menu.groups; track group.title) {
+                    <section>
+                        <h3>{{ group.title }}</h3>
+                        @for (link of group.links; track link.title) {
+                            <ng-container
+                                [ngTemplateOutlet]="menuLink"
+                                [ngTemplateOutletContext]="{link: link, section: menu.id, close: close}"
+                            />
+                        }
+                    </section>
+                }
+            </div>
+        }
+        @if (menu.id === 'profile') {
+            <button
+                appearance="flat-grayscale"
+                size="m"
+                tuiButton
+                type="button"
+                class="t-otus-navigation-popover__link"
+                [iconStart]="currentTheme() === 'dark' ? '@otus.outline.sun-lined' : '@otus.outline.moon-02-lined'"
+                (click)="toggleTheme(); close()"
+            >
+                {{ currentTheme() === 'dark' ? 'Включить светлую тему' : 'Включить тёмную тему' }}
+            </button>
+        }
+    </section>
+</ng-template>
+
+<ng-template
+    #menuLink
+    let-close="close"
+    let-link="link"
+    let-section="section"
+>
+    <button
+        appearance="flat-grayscale"
+        size="m"
+        tuiButton
+        type="button"
+        class="t-otus-navigation-popover__link"
+        [iconStart]="link.icon"
+        (click)="navigate(section, link.title, close)"
+    >
+        <span tuiTitle>
+            {{ link.title }}
+            <span tuiSubtitle>{{ link.description }}</span>
+        </span>
+    </button>
+</ng-template>

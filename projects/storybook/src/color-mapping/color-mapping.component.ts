@@ -4,12 +4,13 @@ import {
     ChangeDetectionStrategy,
     Component,
     computed,
+    effect,
     type ElementRef,
     inject,
     signal,
     viewChild,
 } from '@angular/core';
-import {TuiButton} from '@taiga-ui/core';
+import {TuiButton, TuiInput} from '@taiga-ui/core';
 
 import {
     type ColorOverride,
@@ -21,10 +22,11 @@ import {TuiColorMappingEditor} from './color-mapping-editor.service';
 
 @Component({
     selector: 'otus-color-mapping',
-    imports: [TuiButton],
+    imports: [TuiButton, TuiInput],
     templateUrl: './color-mapping.component.html',
     styleUrl: './color-mapping.component.less',
     changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {'(keydown.escape)': 'closeEditor()'},
 })
 export class TuiOtusColorMapping {
     private readonly paletteInput =
@@ -61,7 +63,13 @@ export class TuiOtusColorMapping {
         const input = this.paletteInput()?.nativeElement;
 
         input?.focus();
-        input?.scrollIntoView({block: 'center'});
+        input?.scrollIntoView({block: 'nearest'});
+    });
+
+    protected readonly followModes = effect(() => {
+        this.root.theme();
+        this.root.brand();
+        this.editing.set(null);
     });
 
     protected readonly query = signal('');
@@ -101,6 +109,8 @@ export class TuiOtusColorMapping {
 
                     return {
                         ...target,
+                        declaration: target.css.replaceAll('--tui-', '--otus-'),
+                        aliasOtus: target.alias?.replace('--tui-', '--otus-'),
                         modified: this.editor
                             .overrides()
                             .some(
@@ -131,17 +141,45 @@ export class TuiOtusColorMapping {
 
                 return {
                     ...row,
+                    target: cells.find((cell) => cell.school === this.school())!,
+                    otus: row.tui.replace('--tui-', '--otus-'),
                     current: variant.current,
                     inherited: variant.inheritedFromLight,
                     cells,
                 };
             })
             .filter((row) =>
-                `${row.tui} ${row.current} ${row.cells.map((cell) => `${cell.primitive} ${cell.value}`).join(' ')}`
+                `${row.otus} ${row.tui} ${row.current} ${row.cells.map((cell) => `${cell.primitive} ${cell.cssVariable} ${cell.value}`).join(' ')}`
                     .toLowerCase()
                     .includes(query),
             );
     });
+
+    protected search(value: string): void {
+        this.editing.set(null);
+        this.query.set(value);
+    }
+
+    protected filter(value: string): void {
+        this.editing.set(null);
+        this.category.set(value);
+    }
+
+    protected followAlias(token: string): void {
+        this.category.set('all');
+        this.search(token.replace('--tui-', '--otus-'));
+    }
+
+    protected closeEditor(): void {
+        const selected = this.editing();
+
+        if (selected) {
+            this.editing.set(null);
+            this.doc
+                .querySelector<HTMLButtonElement>(`[id="otus-edit-${selected.token}"]`)
+                ?.focus();
+        }
+    }
 
     protected edit(token: string, school: ColorSchool, primitive: string): void {
         this.paletteQuery.set('');
@@ -162,7 +200,7 @@ export class TuiOtusColorMapping {
 
         if (editing) {
             this.editor.reset(editing);
-            this.editing.set(null);
+            this.closeEditor();
         }
     }
 
@@ -191,13 +229,7 @@ export class TuiOtusColorMapping {
                                               OTUS_COLOR_MAPPING.example.declarations,
                                           ).map((token) => [
                                               token,
-                                              this.editor
-                                                  .mapping()
-                                                  .mappings.find(
-                                                      (row) => row.tui === token,
-                                                  )!.variants.light.schools[
-                                                  'otus-university'
-                                              ].css,
+                                              `var(${token.replace('--tui-', '--otus-')})`,
                                           ]),
                                       ),
                                   },

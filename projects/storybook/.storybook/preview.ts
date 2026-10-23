@@ -44,7 +44,10 @@ const preview: Preview = {
             theme: globals.theme,
             brand: globals.brand,
             direction: globals.direction,
-            breakpoint: globals.viewport?.value || 'otus-desktop',
+            breakpoint:
+                globals.viewport?.value === 'otus-mobile'
+                    ? 'otus-mobile'
+                    : 'otus-desktop',
         })),
     ],
     initialGlobals: {
@@ -100,11 +103,6 @@ const preview: Preview = {
                     name: 'otus-mobile',
                     styles: {width: '390px', height: '844px'},
                     type: 'mobile',
-                },
-                'otus-tablet': {
-                    name: 'otus-tablet',
-                    styles: {width: '768px', height: '1024px'},
-                    type: 'tablet',
                 },
                 'otus-desktop': {
                     name: 'otus-desktop',

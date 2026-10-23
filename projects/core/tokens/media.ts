@@ -12,7 +12,7 @@ export interface TuiMedia {
  */
 export const TUI_MEDIA = new InjectionToken<TuiMedia>(ngDevMode ? 'TUI_MEDIA' : '', {
     factory: () => ({
-        mobile: 768,
+        mobile: 1024,
         desktopSmall: 1280,
         desktopLarge: Infinity,
     }),

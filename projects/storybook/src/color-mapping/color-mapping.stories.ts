@@ -3,7 +3,8 @@ import {type Meta, type StoryObj} from '@storybook/angular';
 import {TuiOtusColorMapping} from './color-mapping.component';
 
 const meta = {
-    title: 'Documentation/Styles/Colors/Taiga to Otus mapping',
+    id: 'documentation-styles-colors-taiga-to-otus-mapping',
+    title: 'Documentation/Styles/Colors/Color mapping',
     component: TuiOtusColorMapping,
     parameters: {controls: {disable: true}},
 } satisfies Meta<TuiOtusColorMapping>;

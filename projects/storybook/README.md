@@ -44,12 +44,13 @@ samples and tokens), Layout (breakpoints, sizes and radii), Effects (shadows and
 tokens. Angular DI tokens live in Documentation / Customization. The original palette and typography gallery URLs remain
 valid.
 
-The viewport toolbar offers `otus-mobile` (390 × 844), `otus-tablet` (768 × 1024) and `otus-desktop` (100% of the
-available preview canvas width and height, default). Desktop accounts for the Storybook sidebar, toolbar and addon panel
-and follows window/panel resizing. The library LESS breakpoints remain: mobile below 768px, tablet from 768px to below
-1024px, desktop from 1024px. The selector resizes the actual story iframe, including portals, and is independent of
-school, otus-core/otus-brand and theme. `tui-root` exposes the selected preset through `data-breakpoint` for future
-custom tokens and layouts. No new typography or layout overrides are applied; iOS and Android patterns remain available.
+The viewport toolbar offers `otus-mobile` (390 × 844) and `otus-desktop` (100% of the available preview canvas width and
+height, default). Desktop accounts for the Storybook sidebar, toolbar and addon panel and follows window/panel resizing.
+OTUS uses two layouts: mobile below 1024px and desktop from 1024px, aligned across LESS, SCSS and the default
+`TUI_MEDIA` token. Legacy Taiga tablet variables remain available for compatibility. The selector resizes the actual
+story iframe, including portals, and is independent of school, otus-core/otus-brand and theme. `tui-root` exposes the
+selected preset through `data-breakpoint` for future custom tokens and layouts. No new typography or layout overrides
+are applied; iOS and Android patterns remain available.
 
 Button, Textfield and Checkbox expose controls for their supported inputs and stories for disabled, focus, validation,
 loading, checked and indeterminate states where applicable. Values in the Textfield and Checkbox controls initialize the
@@ -109,10 +110,100 @@ npx playwright test --config projects/storybook/playwright.config.ts --workers 4
 
 Set `STORYBOOK_URL` to check a served static build instead of the development server.
 
+## Experimental OTUS tabs
+
+`Navigation / Tabs / OTUS experimental` compares an opt-in Figma style with the original Taiga tabs. Use the existing
+school, theme and `otus-core` / `otus-brand` toolbar controls; the on-page API table switches all examples between
+regular and compact tabs through the existing `[size]` selector. The design reference is `yJH0kLE9Wh0OCD1LRaa9I0`, nodes
+`1935:5320`, `320:527`, `7592:4130` and `324:164`.
+
+The example composes `TuiTabs`, `TuiAppearance` and the explicitly imported `TuiOtusTab`. Put `tuiOtusTabs` on the
+horizontal `tui-tabs` and bind its existing `[underline]` input to the selected appearance's background CSS variable.
+Put `tuiTab` and `tuiOtusTab` on each button. The native underline becomes a full-height rounded background, retaining
+Taiga's width/position transition. Horizontal indicators use Taiga's existing numeric position/width measurements in
+every browser, including the native underline, the filled style and TabsWithMore. Switching CSS anchors does not
+reliably interpolate used geometry. Vertical tabs measure the active item for a single moving indicator, transitioning
+its top and height and updating on container resize. Bind `tuiAppearance` to the selected `primary` or `accent`
+appearance for the active tab and `outline-grayscale` for the others using the existing `activeItemIndex`. The
+`[appearance]` API selector updates all OTUS examples and preserves selection. The opt-in directive reuses
+`TuiButtonMotion` and `TUI_BUTTON_MOTION`; it adds no selection or keyboard logic.
+
+Regular tabs are 48px high with 18px inline padding; compact tabs and viewports below 1024px use 40px height, 12px
+inline padding and 12/18px text. Both use 8px radii and 4px gaps. Figma's mobile tabline instance still references
+desktop tabs; the experiment follows the separate mobile tab component for compact dimensions. Colors use the existing
+school aliases rather than copying the reference's purple into the theme. Tabs without these opt-in attributes keep
+their existing styles. This experiment covers horizontal tabs; mobile TabBar is a separate component.
+
+The same page includes bottom-floating tabs from Bachelor node `855:10437` in `pqX3ssUw5Loo1xEko2caQG`. They compose the
+existing `TuiButtonGroup` with `tuiAppearance="floating"`, `TuiFloatingContainer` and the same opt-in tabs. The group
+uses 8px padding and a 16px radius; the native floating appearance supplies its theme surface and shadow. Page-local
+layout overrides adapt ButtonGroup's vertical action layout to the horizontal tabline. Selection, keyboard navigation,
+horizontal scrolling, size, Primary/Accent and Core/Brand motion reuse the existing mechanisms.
+
+### Floating tabs entrance
+
+The experiment's “Повторить появление” button replays the entrance without recreating the tabs or resetting selection.
+The supplied `selector.json` Lottie reference uses 100 fps: upward motion at frames 10–90, seed/circle growth at 30–70,
+horizontal expansion at 90–150, and label opacity at 120–150. The preview uses the JSON curves with a sequential
+entrance: rise for the first 40%, grow the circle from 40–60%, then unfold from 65–100%, with labels appearing near the
+end. It stops at the expanded panel; the reference's later exit is not played.
+
+Native `tuiFloatingContainer`, ButtonGroup, colors, typography, size and productive entrance curve remain in use.
+Missing entrance parameters are theme tokens: `--otus-floating-enter-duration` (five native duration units),
+`--otus-floating-enter-offset`, `--otus-floating-enter-seed` and `--otus-curve-floating-spring` (the reference's 0.34,
+1.36, 0.64, 1 curve). Circle geometry follows the tab size and the existing mobile breakpoint. Each replay measures the
+visual viewport bottom and the panel's resting position, subtracting any in-progress translation, so the full panel
+starts below the viewport. The native container's automatic slide is disabled in this experiment to avoid moving that
+destination. The floating background stays native throughout; the parent reuses the native small shadow while masks are
+active. Circle growth uses the bounded productive entrance curve; only travel and horizontal expansion use the
+reference's spring curve, keeping the ball inside its paint bounds. The selected fill is masked separately to preserve
+the circular inset before unfolding, while only labels fade in late. Reduced motion skips the entrance. Tabs are
+temporarily inert during the reveal and become interactive when it completes.
+
+## Experimental navigation
+
+`Navigation / Otus experiment` contains a configurable playground and five presets: public site, applicant, student,
+employee, and services/tools with a sidebar. Open `/story/navigation-otus-experiment--playground` to change zone,
+layout, button size, search, notifications and language on the page. Theme switching lives in the avatar menu.
+Unsupported actions are disabled in settings. Storybook Docs exposes the same inputs plus optional `configuration`
+(menus, utilities, bookmarks) and `toolGroups` (grouped tool destinations) for custom compositions. The previous student
+story URL redirects to `/story/navigation-otus-experiment--student`, preserving theme and school parameters.
+
+The header composes native `TuiButton`, `TuiDropdown`, `TuiTextfield`/`TuiInput`, `TuiAvatar`, `TuiBadgeNotification`
+and `TuiTitle`. Source references describe structure and behavior, while buttons retain the current Taiga appearances,
+typography, padding, icons and radii. Native dimensions are verified in Chrome: S = 32px, M = 44px, L = 56px. The
+default is M. The 80px sticky header keeps its token-based gradient beneath the islands, and content remains six neutral
+`TuiSkeleton` squares. Local classes use the `t-otus-navigation` prefix; shared Taiga components and tokens are
+unchanged.
+
+Below 1024px every preset uses bottom floating navigation composed from `TuiFloatingContainer`, native buttons and
+`TuiAvatar`. Menu and Profile intentionally remain unavailable placeholders without popovers. The public preset shows
+the login link instead of Profile. The native floating-container gradient provides contrast over content. Resize the
+browser or its device viewport to try the layout; the breakpoint follows the Storybook canvas width.
+
+References:
+
+- Public desktop header: https://cu.ru/ — login link and a visible, unavailable burger.
+- Applicant: Figma `yJH0kLE9Wh0OCD1LRaa9I0`, section `7965:7678`, desktop instance `6879:6518`: direct sections, More,
+  language, notifications and profile; theme switching is placed in the avatar menu.
+- Student: Figma `r8stDCVaU8oR9yflSTl9GR`, node `1904:8579`: existing navigator/study/events/services composition.
+- Tools: Figma `a1mIW2dzvDAcWo4jk24DgW`, node `811:15409`: grouped service navigation. It reuses `TuiNavigationAside`,
+  `TuiAsideGroup`, `TuiAsideItem` and `TuiChevron` for expand/collapse, nested groups and icon-rail behavior. The
+  supported local theme attribute and `--tui-theme-color` keep its surface synchronized with light/dark mode.
+- Mobile structure for all presets: Figma `7dn5HSS54i2uX4yQ13AQjS`, node `314:2286`, navigation `314:2624`.
+
+Employee destinations and mega-menu contents are examples, not a product permissions model. Choosing a destination
+updates the selected section; no backend requests or product routes are simulated. Every trigger owns its dropdown
+context; native Dropdown handles click toggling, outside dismissal, Escape and focus return. Search supports Cmd/Ctrl+K
+only when available. Changing configuration clears unavailable popup state. The avatar menu offers light/dark theme
+switching and closes after selection. Local theme switching stays inside the example; global school, direction and theme
+controls remain supported.
+
 ## OTUS color mapping
 
-The library theme maps the existing TUI semantic colors to OTUS primitives. Components keep their existing `--tui-*`
-references. Color mapping is shared by `otus-core` and `otus-brand`.
+The library theme uses three layers: global primitives (`--otus-color-*`) → OTUS semantic roles (`--otus-*`) → Taiga
+aliases (`--tui-*`). Each TUI color role has an OTUS counterpart, including interaction states and role aliases.
+Components keep their existing `--tui-*` references. Color mapping is shared by `otus-core` and `otus-brand`.
 
 The source palette is `projects/styles/tokens/otus-global-colors.json`. The rules and contrast calculations live in
 `projects/styles/scripts/otus-color-mapping.mjs` and `otus-color-contrast.mjs`. The generator
@@ -135,7 +226,16 @@ Schools: `otus-university`, `otus-tech`, `otus-design`, `otus-nature`. Without a
 ancestor, the default is `otus-university`. Taiga's light/dark theme mechanism remains in place. Popups inside
 `tui-root` inherit the same aliases. Storybook binds its school and theme toolbar selections on that root.
 
-`Documentation / Styles / Colors / Taiga to Otus mapping` and its JSON download use the same generator as the library.
+`Documentation / Styles / Colors / Color mapping` shows one chain per row: global primitive → OTUS semantic token → TUI
+alias. The selected Storybook school/theme defines the default view. Search accepts either namespace, primitive paths
+and hex values. Open a row's inline palette to edit it without leaving the mapping; “Связи и школы” exposes comparisons,
+alias expressions and reasons. Linked roles jump to their source token. The complete contrast report and instructions
+follow the table. JSON export, drafts and runtime previews share the library generator.
+
+The original Taiga mapping story ID is retained. Links to the former OTUS-only page redirect to the unified page,
+including iframe links, query parameters and deployment subpaths. Override OTUS roles at the same boundary where TUI
+aliases are declared; inherited aliases are not recomputed in descendants.
+
 The manifest has `appliedToRuntime: true`; filters never limit the export. It includes primitive values, TUI aliases,
 source paths, the checked-negative contextual override and the measured contrast report. The 360 listed
 appearance/theme/school/state combinations meet 4.5:1, including alpha compositing on background-base. This is not a

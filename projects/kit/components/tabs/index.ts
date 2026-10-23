@@ -1,4 +1,5 @@
 export * from './tab.directive';
+export * from './tab-otus.directive';
 export * from './tabs';
 export * from './tabs.directive';
 export * from './tabs.options';

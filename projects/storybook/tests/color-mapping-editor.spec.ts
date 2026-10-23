@@ -76,9 +76,7 @@ test('palette selection persists, reaches component previews, exports and resets
     page,
 }) => {
     await page.goto(story);
-    const cell = page.locator(
-        '[data-token="--tui-background-accent-2"] [data-school="otus-tech"]',
-    );
+    const cell = page.locator('[data-token="--tui-background-accent-2"]');
 
     await cell.getByRole('button', {name: 'Выбрать цвет'}).click();
     await page.getByLabel('Поиск в палитре OTUS').fill('#131315');

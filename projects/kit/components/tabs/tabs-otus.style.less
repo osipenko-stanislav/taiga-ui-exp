@@ -1,0 +1,97 @@
+@import '@taiga-ui/styles/utils';
+@import '@taiga-ui/styles/components/button-motion.less';
+
+tui-tabs[tuiOtusTabs][data-size]:not([data-vertical]):where(*&) {
+    --tui-tab-margin: 0;
+
+    gap: var(--otus-dimension-4);
+    block-size: var(--otus-dimension-48);
+    box-shadow: none;
+
+    &::before {
+        .transition(~'inline-size, inset-inline-start, clip-path, background-color');
+
+        z-index: -1;
+        inset-inline-start: var(--t-left);
+        inline-size: var(--t-width);
+        block-size: 100%;
+        position-anchor: auto;
+        border-radius: var(--tui-radius-s);
+        clip-path: inset(0 round var(--tui-radius-s));
+        pointer-events: none;
+    }
+
+    &:has(> [tuiOtusTab]._active.t-motion-hover)::before {
+        clip-path: inset(2px round var(--tui-radius-s));
+    }
+
+    &:has(> [tuiOtusTab]._active.t-motion-hover[data-appearance='primary'])::before {
+        background-color: var(--tui-background-accent-1-hover);
+    }
+
+    &:has(> [tuiOtusTab]._active.t-motion-hover[data-appearance='accent'])::before {
+        background-color: var(--tui-background-accent-2-hover);
+    }
+
+    &:has(> [tuiOtusTab]._active[data-appearance='primary']:active)::before {
+        background-color: var(--tui-background-accent-1-pressed);
+    }
+
+    &:has(> [tuiOtusTab]._active[data-appearance='accent']:active)::before {
+        background-color: var(--tui-background-accent-2-pressed);
+    }
+
+    &[data-size='m'] {
+        block-size: var(--otus-dimension-40);
+    }
+
+    [tuiTab][tuiOtusTab] {
+        justify-content: center;
+        gap: var(--otus-dimension-8);
+        padding: 0 var(--otus-dimension-18);
+        border-radius: var(--tui-radius-s);
+        font: var(--tui-typography-body-m);
+        font-weight: 600;
+        text-transform: uppercase;
+        overflow: hidden;
+
+        &[data-appearance='primary'] {
+            color: var(--tui-text-primary-on-accent-1);
+        }
+
+        &[data-appearance='accent'] {
+            color: var(--tui-text-primary-on-accent-2);
+        }
+
+        &[data-appearance='outline-grayscale'] {
+            color: var(--tui-text-primary);
+            box-shadow: inset 0 0 0 1px var(--t-bs);
+        }
+
+        &._active > .t-motion-backdrop {
+            opacity: 0;
+        }
+    }
+
+    &[data-size='m'] [tuiTab][tuiOtusTab] {
+        padding-inline: var(--otus-dimension-12);
+        font-size: var(--otus-dimension-12);
+        line-height: var(--otus-dimension-18);
+    }
+
+    @media @tui-mobile {
+        block-size: var(--otus-dimension-40);
+
+        [tuiTab][tuiOtusTab] {
+            padding-inline: var(--otus-dimension-12);
+            font-size: var(--otus-dimension-12);
+            line-height: var(--otus-dimension-18);
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        &::before {
+            transition: none;
+        }
+    }
+}

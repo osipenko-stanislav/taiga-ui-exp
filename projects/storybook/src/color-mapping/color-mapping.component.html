@@ -1,9 +1,10 @@
 <header>
     <div>
-        <h1>Маппинг цветов Taiga → OTUS</h1>
-        <p>Подключено к теме · {{ total }} семантических токенов · 4 школы · светлая и тёмная темы</p>
+        <h1>Маппинг цветов</h1>
+        <p>Глобальная палитра → OTUS → Taiga. Одна цепочка для каждого цвета.</p>
     </div>
     <button
+        appearance="secondary"
         size="m"
         tuiButton
         type="button"
@@ -12,60 +13,401 @@
         Скачать JSON
     </button>
 </header>
-<p class="t-intro">
-    Надстройка OTUS над Taiga: сохраняются её роли, состояния и обращения
-    <code>--tui-*</code>
-    в компонентах. Значения берутся из существующей палитры Otus global colors. В исходной схеме primary общий для школ,
-    различается школьный акцент. Редактор сохраняет локальный черновик; исходники библиотеки меняются только после
-    переноса настроек в проект.
-</p>
-<details>
-    <summary>Как читать таблицу и подключать маппинг</summary>
+<section
+    aria-label="Настройки черновика"
+    class="t-editor-status"
+>
+    <span role="status">
+        {{
+            editor.overrides().length
+                ? `Локальный черновик: ${editor.overrides().length} изменений`
+                : 'Используется маппинг библиотеки'
+        }}
+    </span>
+    <label class="t-check-filter">
+        <input
+            #previewEnabled
+            type="checkbox"
+            [checked]="editor.previewEnabled()"
+            (change)="editor.previewEnabled.set(previewEnabled.checked)"
+        />
+        Применять черновик к примерам
+    </label>
+    <button
+        appearance="flat"
+        size="s"
+        tuiButton
+        type="button"
+        [disabled]="!editor.overrides().length"
+        (click)="editor.reset(); closeEditor()"
+    >
+        Сбросить черновик
+    </button>
+    @if (editor.storageError()) {
+        <p role="alert">{{ editor.storageError() }}</p>
+    }
+</section>
+<div
+    aria-label="Предпросмотр компонентов"
+    class="t-live-preview"
+>
+    <span class="t-mode">{{ school() }} · {{ root.theme() }}</span>
+    <button
+        size="s"
+        tuiButton
+        type="button"
+    >
+        Primary
+    </button>
+    <button
+        appearance="accent"
+        size="s"
+        tuiButton
+        type="button"
+    >
+        Accent
+    </button>
+    <button
+        appearance="secondary"
+        size="s"
+        tuiButton
+        type="button"
+    >
+        Secondary
+    </button>
+    <span class="t-muted">Школа и тема переключаются в панели Storybook</span>
+</div>
+<div class="t-toolbar">
+    <tui-textfield tuiTextfieldSize="m">
+        <label
+            for="otus-token-search"
+            tuiLabel
+        >
+            Поиск токена или цвета
+        </label>
+        <input
+            #searchInput
+            id="otus-token-search"
+            placeholder="accent, --otus-text-primary или #131315"
+            tuiInput
+            type="search"
+            [value]="query()"
+            (input)="search(searchInput.value)"
+        />
+    </tui-textfield>
+    <div class="t-field">
+        <label for="otus-mapping-category">Группа</label>
+        <select
+            #group
+            id="otus-mapping-category"
+            [value]="category()"
+            (change)="filter(group.value)"
+        >
+            <option value="all">Все группы</option>
+            @for (item of categories; track item) {
+                <option [value]="item">{{ item }}</option>
+            }
+        </select>
+    </div>
+    <span role="status">{{ rows().length }} из {{ total }}</span>
+</div>
+<div
+    aria-label="Единый маппинг цветов"
+    class="t-mapping"
+>
+    <table class="t-mapping-table">
+        <thead>
+            <tr>
+                <th scope="col">Глобальный цвет</th>
+                <th scope="col">Семантический токен OTUS</th>
+                <th scope="col">Токен Taiga</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (row of rows(); track row.tui) {
+                <tr
+                    [attr.data-token]="row.tui"
+                    [class.t-editing]="editing()?.token === row.tui"
+                >
+                    <td data-column="Глобальный цвет">
+                        <div class="t-color-value">
+                            <span
+                                aria-hidden="true"
+                                class="t-swatch"
+                                [style.background]="row.target.swatch"
+                            ></span>
+                            <span>
+                                <code class="t-path">{{ row.target.primitive }}</code>
+                                <span class="t-value">
+                                    {{ row.target.value }}
+                                    @if (row.target.opacity !== 1) {
+                                        · α {{ row.target.opacity }}
+                                    }
+                                </span>
+                            </span>
+                        </div>
+                        @if (!row.target.alias) {
+                            <button
+                                appearance="flat"
+                                size="xs"
+                                tuiButton
+                                type="button"
+                                [attr.aria-controls]="editing()?.token === row.tui ? 'otus-color-editor' : null"
+                                [attr.aria-expanded]="editing()?.token === row.tui"
+                                [id]="`otus-edit-${row.tui}`"
+                                (click)="edit(row.tui, school(), row.target.primitive)"
+                            >
+                                Выбрать цвет
+                            </button>
+                        }
+                        @if (row.target.modified) {
+                            <span class="t-modified">Изменено в черновике</span>
+                        }
+                    </td>
+                    <th
+                        data-column="OTUS"
+                        scope="row"
+                    >
+                        <code>{{ row.otus }}</code>
+                        @if (row.target.alias; as alias) {
+                            <small>Наследует значение</small>
+                            <button
+                                appearance="flat"
+                                size="xs"
+                                tuiButton
+                                type="button"
+                                class="t-alias"
+                                [attr.aria-label]="`Перейти к ${row.target.aliasOtus}`"
+                                (click)="followAlias(alias)"
+                            >
+                                {{ row.target.aliasOtus }}
+                            </button>
+                        }
+                        <details class="t-row-details">
+                            <summary>Связи и школы</summary>
+                            <p class="t-muted">{{ row.target.reason }}</p>
+                            <code class="t-expression">{{ row.otus }}: {{ row.target.declaration }};</code>
+                            <div class="t-schools">
+                                @for (cell of row.cells; track cell.school) {
+                                    <div
+                                        [attr.data-school]="cell.school"
+                                        [class.t-selected]="school() === cell.school"
+                                    >
+                                        <span class="t-school">{{ cell.school }}</span>
+                                        <span class="t-current">
+                                            <span
+                                                aria-hidden="true"
+                                                class="t-swatch"
+                                                [style.background]="cell.swatch"
+                                            ></span>
+                                            <code>{{ cell.value }}</code>
+                                        </span>
+                                        <small>{{ cell.primitive }}</small>
+                                        @if (cell.modified) {
+                                            <small>Изменено в черновике</small>
+                                        }
+                                        @if (!cell.alias) {
+                                            <button
+                                                appearance="flat"
+                                                size="xs"
+                                                tuiButton
+                                                type="button"
+                                                (click)="edit(row.tui, cell.school, cell.primitive)"
+                                            >
+                                                Изменить для {{ cell.school }}
+                                            </button>
+                                        }
+                                    </div>
+                                }
+                            </div>
+                        </details>
+                    </th>
+                    <td data-column="Taiga">
+                        <code>{{ row.tui }}</code>
+                        <small>var({{ row.otus }})</small>
+                        @if (row.target.contrasts.length) {
+                            <details class="t-row-details">
+                                <summary>Проверки контраста: {{ row.target.contrasts.length }}</summary>
+                                @for (check of row.target.contrasts; track check.appearance + check.state) {
+                                    <p>
+                                        <span
+                                            class="t-contrast-preview"
+                                            [style.background]="check.effectiveBackground"
+                                            [style.color]="check.effectiveForeground"
+                                        >
+                                            Текст
+                                        </span>
+                                        {{ check.appearance }} / {{ check.state }}: {{ check.ratioLabel }}:1 ·
+                                        {{ check.passes ? 'AA' : 'Не проходит' }}
+                                        @if (check.contextOverride) {
+                                            <small>Учитывает contextOverrides</small>
+                                        }
+                                    </p>
+                                }
+                            </details>
+                        }
+                    </td>
+                </tr>
+                @if (editing()?.token === row.tui) {
+                    <tr class="t-editor-row">
+                        <td colspan="3">
+                            @if (editing(); as selected) {
+                                <section
+                                    id="otus-color-editor"
+                                    aria-labelledby="otus-color-editor-title"
+                                    class="t-editor"
+                                >
+                                    <h2 id="otus-color-editor-title">Выбор цвета</h2>
+                                    <p>
+                                        <code>{{ selected.token.replace('--tui-', '--otus-') }}</code>
+                                        · {{ selected.school }} · {{ selected.theme }}
+                                    </p>
+                                    @if (selectedPrimitive(); as primitive) {
+                                        <div class="t-current">
+                                            <span
+                                                class="t-swatch"
+                                                [style.background]="primitive.value"
+                                            ></span>
+                                            <code class="t-path">{{ primitive.path }} · {{ primitive.value }}</code>
+                                        </div>
+                                    }
+                                    <p role="status">
+                                        Отчёт контраста: {{ auditReport().passed }} проходят /
+                                        {{ auditReport().failed }} не проходят.
+                                    </p>
+                                    <tui-textfield tuiTextfieldSize="m">
+                                        <label
+                                            for="otus-palette-search"
+                                            tuiLabel
+                                        >
+                                            Поиск в палитре OTUS
+                                        </label>
+                                        <input
+                                            #paletteSearch
+                                            id="otus-palette-search"
+                                            tuiInput
+                                            type="search"
+                                            [value]="paletteQuery()"
+                                            (input)="paletteQuery.set(paletteSearch.value)"
+                                        />
+                                    </tui-textfield>
+                                    <fieldset class="t-palette">
+                                        <legend>Цвет OTUS</legend>
+                                        <div class="t-palette-options">
+                                            @for (primitive of palette(); track primitive.path) {
+                                                <label
+                                                    class="t-palette-option"
+                                                    [class.t-palette-selected]="primitive.path === selected.primitive"
+                                                >
+                                                    <input
+                                                        name="otus-palette-color"
+                                                        type="radio"
+                                                        [checked]="primitive.path === selected.primitive"
+                                                        [value]="primitive.path"
+                                                        (change)="choose(primitive.path)"
+                                                    />
+                                                    <span
+                                                        aria-hidden="true"
+                                                        class="t-palette-swatch"
+                                                        [style.background]="primitive.value"
+                                                    ></span>
+                                                    <span class="t-palette-description">
+                                                        <span>{{ primitive.path }}</span>
+                                                        <code>{{ primitive.value }}</code>
+                                                    </span>
+                                                </label>
+                                            }
+                                        </div>
+                                    </fieldset>
+                                    @if (!palette().length) {
+                                        <p>Цветов не найдено. Измените поиск.</p>
+                                    }
+                                    <div class="t-editor-actions">
+                                        <button
+                                            appearance="secondary"
+                                            size="s"
+                                            tuiButton
+                                            type="button"
+                                            (click)="resetCell()"
+                                        >
+                                            Сбросить ячейку
+                                        </button>
+                                        <button
+                                            size="s"
+                                            tuiButton
+                                            type="button"
+                                            (click)="closeEditor()"
+                                        >
+                                            Закрыть выбор
+                                        </button>
+                                    </div>
+                                </section>
+                            }
+                        </td>
+                    </tr>
+                }
+            } @empty {
+                <tr>
+                    <td
+                        colspan="3"
+                        class="t-empty"
+                    >
+                        Ничего не найдено. Измените поиск или группу.
+                        <button
+                            appearance="secondary"
+                            size="s"
+                            tuiButton
+                            type="button"
+                            (click)="search(''); filter('all')"
+                        >
+                            Сбросить фильтры
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<details class="t-guide">
+    <summary>Как устроен маппинг и что меняет редактор</summary>
     <p>
-        Слева — базовые объявления TUI до маппинга, справа — подключённые токены OTUS и цвет с учётом прозрачности. Тема
-        в панели Storybook переключает light/dark, выбор школы подсвечивает её колонку. Школы сравниваются одновременно.
+        Глобальные цвета
+        <code>--otus-color-*</code>
+        задают палитру. Семантические
+        <code>--otus-*</code>
+        определяют роли и состояния. Компоненты Taiga используют
+        <code>--tui-*</code>
+        , связанные с OTUS через
+        <code>var()</code>
+        .
     </p>
     <p>
-        Исходная схема. Единственный источник цветов —
+        «Выбрать цвет» меняет одну школу и тему. Прозрачность сохраняется. Черновик хранится в этом браузере и доступен
+        в других примерах Storybook. Для переноса в исходники скачайте JSON и импортируйте его в проект.
+    </p>
+    <p>
+        Цвета берутся только из
         <a
             href="./?path=/story/documentation-styles-otus-global-colors--palette"
             target="_top"
         >
-            Otus global colors
+            глобальной палитры OTUS
         </a>
-        . Primary и действия: graphite-black-925 (#131315) для всех школ; в тёмной теме — graphite-black-50 (#E9EAEA).
-        Существующий accent-2 связан с expert-blue для university, sure-blue для tech, care-violet для design и
-        education-green для nature.
+        . Primary в исходной схеме общий для школ, accent зависит от школы. Связанные роли редактируются через исходный
+        OTUS-токен.
     </p>
     <p>
-        Коммуникационный
-        <a
-            href="https://www.figma.com/design/qlF1Gy0U6tStKSHpRR2mfz/?node-id=19-26"
-            rel="noopener noreferrer"
-            target="_blank"
-        >
-            гайд Figma
-        </a>
-        используется только как контекст. Цвета из него не добавляются. Тема экспериментальная. Контраст рассчитан для
-        перечисленных ниже пар; для других сочетаний и графиков нужна отдельная проверка. Архитектура и поведение Taiga
-        сохраняются.
-    </p>
-    <p>
-        JSON содержит обе темы, все школы, исходную палитру, CSS-выражения, основания выбора и ручные настройки
-        configuration.overrides при наличии черновика. Экспорт всегда полный и не зависит от поиска. В общей теме уже
-        объявлены переменные OTUS и алиасы TUI. Школа задаётся атрибутом
+        Переопределяйте OTUS-токены на том же контейнере, где объявлены TUI-алиасы и атрибуты
         <code>data-brand</code>
-        , тема —
+        /
         <code>tuiTheme</code>
-        на том же контейнере. Дочерние компоненты и порталы наследуют значения.
+        . Дочерние компоненты наследуют вычисленные значения.
     </p>
-    <pre><code>/* Слой OTUS после темы Taiga */
---otus-color-graphite-black-graphite-black-925: #131315;
---tui-background-accent-1: var(--otus-color-graphite-black-graphite-black-925);
---tui-background-accent-2: var(--otus-color-brand-expert-blue-expert-blue-700);</code></pre>
+    <pre><code>--otus-background-accent-1: var(--otus-color-graphite-black-graphite-black-925);
+--tui-background-accent-1: var(--otus-background-accent-1);</code></pre>
     <p>
-        Таблица охватывает цветовые переопределения проекта из palette.less, включая графики. Токены, определённые
-        только во внешней палитре Taiga, не включены. Источник палитры и генератор алиасов находятся в пакете styles.
+        JSON содержит обе темы, все школы, алиасы, прозрачность, отчёт контраста и локальные изменения. Поиск не
+        ограничивает экспорт. Таблица охватывает 73 цветовых токена текущего маппинга проекта.
     </p>
 </details>
 <details class="t-audit">
@@ -150,274 +492,3 @@
         </table>
     </div>
 </details>
-<section
-    aria-label="Настройки черновика"
-    class="t-editor-status"
->
-    <p role="status">
-        {{
-            editor.overrides().length
-                ? `Локальный черновик: ${editor.overrides().length} изменений`
-                : 'Используется маппинг библиотеки'
-        }}
-    </p>
-    <p>
-        «Выбрать цвет» меняет только указанную школу и тему. Прозрачность сохраняется. Черновик доступен в других
-        примерах Storybook в этом браузере; исходники библиотеки не изменяются.
-    </p>
-    <label class="t-check-filter">
-        <input
-            #previewEnabled
-            type="checkbox"
-            [checked]="editor.previewEnabled()"
-            (change)="editor.previewEnabled.set(previewEnabled.checked)"
-        />
-        Применять черновик к примерам
-    </label>
-    <button
-        appearance="secondary"
-        size="s"
-        tuiButton
-        type="button"
-        [disabled]="!editor.overrides().length"
-        (click)="editor.reset(); editing.set(null)"
-    >
-        Сбросить черновик
-    </button>
-    @if (editor.storageError()) {
-        <p role="alert">{{ editor.storageError() }}</p>
-    }
-</section>
-@if (editing(); as selected) {
-    <section
-        aria-labelledby="otus-color-editor-title"
-        class="t-editor"
-    >
-        <h2 id="otus-color-editor-title">Выбор цвета</h2>
-        <p>
-            <code>{{ selected.token }}</code>
-            · {{ selected.school }} · {{ selected.theme }}
-        </p>
-        @if (selectedPrimitive(); as primitive) {
-            <div class="t-current">
-                <span
-                    class="t-swatch"
-                    [style.background]="primitive.value"
-                ></span>
-                <code class="t-path">{{ primitive.path }} · {{ primitive.value }}</code>
-            </div>
-        }
-        <p role="status">
-            Отчёт контраста: {{ auditReport().passed }} проходят / {{ auditReport().failed }} не проходят.
-        </p>
-        <label>
-            Поиск в палитре OTUS
-            <input
-                #paletteSearch
-                type="search"
-                [value]="paletteQuery()"
-                (input)="paletteQuery.set(paletteSearch.value)"
-            />
-        </label>
-        <fieldset class="t-palette">
-            <legend>Цвет OTUS</legend>
-            <div class="t-palette-options">
-                @for (primitive of palette(); track primitive.path) {
-                    <label
-                        class="t-palette-option"
-                        [class.t-palette-selected]="primitive.path === selected.primitive"
-                    >
-                        <input
-                            name="otus-palette-color"
-                            type="radio"
-                            [checked]="primitive.path === selected.primitive"
-                            [value]="primitive.path"
-                            (change)="choose(primitive.path)"
-                        />
-                        <span
-                            aria-hidden="true"
-                            class="t-palette-swatch"
-                            [style.background]="primitive.value"
-                        ></span>
-                        <span class="t-palette-description">
-                            <span>{{ primitive.path }}</span>
-                            <code>{{ primitive.value }}</code>
-                        </span>
-                    </label>
-                }
-            </div>
-        </fieldset>
-        @if (!palette().length) {
-            <p>Цветов не найдено. Измените поиск.</p>
-        }
-        <div class="t-editor-actions">
-            <button
-                appearance="secondary"
-                size="s"
-                tuiButton
-                type="button"
-                (click)="resetCell()"
-            >
-                Сбросить ячейку
-            </button>
-            <button
-                size="s"
-                tuiButton
-                type="button"
-                (click)="editing.set(null)"
-            >
-                Закрыть выбор
-            </button>
-        </div>
-    </section>
-}
-<div
-    aria-label="Предпросмотр компонентов"
-    class="t-live-preview"
->
-    <button
-        size="m"
-        tuiButton
-        type="button"
-    >
-        Primary
-    </button>
-    <button
-        appearance="accent"
-        size="m"
-        tuiButton
-        type="button"
-    >
-        Accent
-    </button>
-    <button
-        appearance="secondary"
-        size="m"
-        tuiButton
-        type="button"
-    >
-        Secondary
-    </button>
-    <span>Предпросмотр: {{ school() }} · {{ root.theme() }}</span>
-</div>
-<div class="t-toolbar">
-    <label>
-        Поиск токена или цвета
-        <input
-            #search
-            placeholder="Например, accent или #5F30F7"
-            type="search"
-            [value]="query()"
-            (input)="query.set(search.value)"
-        />
-    </label>
-    <div class="t-field">
-        <label for="otus-mapping-category">Группа</label>
-        <select
-            #group
-            id="otus-mapping-category"
-            [value]="category()"
-            (change)="category.set(group.value)"
-        >
-            <option value="all">Все группы</option>
-            @for (item of categories; track item) {
-                <option [value]="item">{{ item }}</option>
-            }
-        </select>
-    </div>
-    <span role="status">{{ rows().length }} из {{ total }} · {{ root.theme() }}</span>
-</div>
-<div
-    aria-label="Таблица маппинга цветов по школам"
-    role="region"
-    tabindex="0"
-    class="t-scroll"
->
-    <table class="t-mapping-table">
-        <thead>
-            <tr>
-                <th scope="col">Токен TUI / базовое объявление</th>
-                @for (item of schools; track item.id) {
-                    <th
-                        scope="col"
-                        [class.t-selected]="school() === item.id"
-                    >
-                        {{ item.id }}
-                        <small>Базовая схема: {{ item.primary }} · акцент {{ item.secondary }}</small>
-                    </th>
-                }
-            </tr>
-        </thead>
-        <tbody>
-            @for (row of rows(); track row.tui) {
-                <tr [attr.data-token]="row.tui">
-                    <th scope="row">
-                        <code>{{ row.tui }}</code>
-                        <div class="t-current">
-                            <span
-                                class="t-swatch"
-                                [style.background]="row.current"
-                            ></span>
-                            <code>{{ row.current }}</code>
-                        </div>
-                        @if (row.inherited) {
-                            <small>Нет dark-переопределения; значение light</small>
-                        }
-                    </th>
-                    @for (cell of row.cells; track cell.school) {
-                        <td
-                            [attr.data-school]="cell.school"
-                            [class.t-selected]="school() === cell.school"
-                        >
-                            <code class="t-path">{{ cell.primitive }}</code>
-                            @if (cell.alias) {
-                                <small>Связь Taiga: {{ cell.alias }}. Цвет меняется через этот токен.</small>
-                            } @else {
-                                <button
-                                    type="button"
-                                    class="t-color-choice"
-                                    (click)="edit(row.tui, cell.school, cell.primitive)"
-                                >
-                                    Выбрать цвет
-                                </button>
-                            }
-                            @if (cell.modified) {
-                                <small>Изменено в черновике</small>
-                            }
-                            <div class="t-current">
-                                <span
-                                    class="t-swatch"
-                                    [style.background]="cell.swatch"
-                                ></span>
-                                <code>{{ cell.value }} · α {{ cell.opacity }}</code>
-                            </div>
-                            <details>
-                                <summary>Алиас и основание</summary>
-                                @for (check of cell.contrasts; track check.appearance + check.state) {
-                                    <p>
-                                        <span
-                                            class="t-contrast-preview"
-                                            [style.background]="check.effectiveBackground"
-                                            [style.color]="check.effectiveForeground"
-                                        >
-                                            Текст
-                                        </span>
-                                        {{ check.appearance }} / {{ check.state }}: {{ check.ratioLabel }}:1 ·
-                                        {{ check.passes ? 'AA' : 'Не проходит' }}
-                                        @if (check.contextOverride) {
-                                            <small>С локальным алиасом из contextOverrides</small>
-                                        }
-                                    </p>
-                                }
-                                <code class="t-expression">{{ row.tui }}: {{ cell.css }};</code>
-                                <p>{{ cell.reason }}</p>
-                            </details>
-                        </td>
-                    }
-                </tr>
-            } @empty {
-                <tr><td colspan="5">Ничего не найдено. Измените поиск или группу.</td></tr>
-            }
-        </tbody>
-    </table>
-</div>

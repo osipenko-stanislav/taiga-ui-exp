@@ -1,0 +1,159 @@
+<header>
+    <h1>Табы OTUS · эксперимент</h1>
+    <p>Дополнительный стиль на базе TuiTabs. Школа и тема меняют цвета, otus-core и otus-brand — движение.</p>
+</header>
+
+<table tuiDocAPI>
+    <tr
+        name="[appearance]"
+        tuiDocAPIItem
+        type="'primary' | 'accent'"
+        [items]="appearances"
+        [(value)]="appearance"
+    >
+        Оформление активного таба
+    </tr>
+    <tr
+        name="[size]"
+        tuiDocAPIItem
+        type="TuiSizeM | TuiSizeL"
+        [items]="sizes"
+        [(value)]="size"
+    >
+        Размер всех табов на странице
+    </tr>
+</table>
+
+<section>
+    <h2>Отдельный таб</h2>
+    <tui-tabs
+        aria-label="Примеры отдельных табов"
+        tuiOtusTabs
+        [size]="size()"
+        [underline]="activeBackground()"
+        [(activeItemIndex)]="singleIndex"
+    >
+        <button
+            tuiOtusTab
+            tuiTab
+            type="button"
+            [tuiAppearance]="singleIndex() === 0 ? appearance() : 'outline-grayscale'"
+        >
+            Basic tab
+        </button>
+        <button
+            tuiOtusTab
+            tuiTab
+            type="button"
+            [tuiAppearance]="singleIndex() === 1 ? appearance() : 'outline-grayscale'"
+        >
+            Basic tab
+        </button>
+    </tui-tabs>
+</section>
+
+<section>
+    <h2>Горизонтальная таблиния</h2>
+    <tui-tabs
+        aria-label="Разделы программы"
+        tuiOtusTabs
+        [size]="size()"
+        [underline]="activeBackground()"
+        [(activeItemIndex)]="activeItemIndex"
+    >
+        @for (tab of tabs; track tab) {
+            <button
+                tuiOtusTab
+                tuiTab
+                type="button"
+                [disabled]="$index === 2"
+                [tuiAppearance]="activeItemIndex() === $index ? appearance() : 'outline-grayscale'"
+            >
+                {{ tab }}
+            </button>
+        }
+    </tui-tabs>
+    <p aria-live="polite">
+        Выбран раздел:
+        <strong>{{ tabs[activeItemIndex()] }}</strong>
+    </p>
+    <p class="t-note">«Стоимость» недоступна. Стрелки перемещают фокус, Enter выбирает вкладку.</p>
+</section>
+
+<section>
+    <h2>Штатные табы Taiga для сравнения</h2>
+    <tui-tabs
+        aria-label="Штатные табы Taiga"
+        [size]="size()"
+        [(activeItemIndex)]="baselineIndex"
+    >
+        @for (tab of tabs; track tab) {
+            <button
+                tuiTab
+                type="button"
+                [disabled]="$index === 2"
+            >
+                {{ tab }}
+            </button>
+        }
+    </tui-tabs>
+</section>
+
+<section>
+    <h2>Плавающая таблиния</h2>
+    <button
+        appearance="secondary"
+        size="m"
+        tuiButton
+        type="button"
+        (click)="replayEntrance()"
+    >
+        Повторить появление
+    </button>
+    <p class="t-note">
+        Точка поднимается снизу, раскрывается в панель, затем появляются подписи. Выбор направления сохраняется.
+    </p>
+    <p>Панель закреплена снизу страницы. Прокрутите страницу, чтобы проверить её положение.</p>
+    <p aria-live="polite">
+        Выбрано направление:
+        <strong>{{ floatingTabs[floatingIndex()] }}</strong>
+    </p>
+</section>
+
+<footer
+    tuiFloatingContainer="transparent"
+    class="t-floating-container"
+>
+    <nav
+        #floatingGroup
+        aria-label="Плавающие направления"
+        tuiAppearance="floating"
+        tuiButtonGroup
+        class="t-floating-group"
+        [attr.aria-busy]="entrancePlaying()"
+        [class.t-entering]="entrancePlaying()"
+        [style.--otus-floating-enter-offset]="entranceOffset()"
+        (animationcancel)="finishEntrance($event)"
+        (animationend)="finishEntrance($event)"
+    >
+        <tui-tabs
+            aria-label="Направления обучения"
+            tuiOtusTabs
+            [inert]="entrancePlaying()"
+            [size]="size()"
+            [underline]="activeBackground()"
+            [(activeItemIndex)]="floatingIndex"
+        >
+            @for (tab of floatingTabs; track tab) {
+                <button
+                    tuiOtusTab
+                    tuiTab
+                    type="button"
+                    [tuiAppearance]="floatingIndex() === $index ? appearance() : 'outline-grayscale'"
+                >
+                    {{ tab }}
+                </button>
+            }
+        </tui-tabs>
+    </nav>
+</footer>

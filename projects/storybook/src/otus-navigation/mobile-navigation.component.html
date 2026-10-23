@@ -1,0 +1,54 @@
+<footer
+    tuiFloatingContainer="var(--tui-background-base-alt)"
+    class="t-mobile-navigation"
+>
+    <nav
+        aria-label="Мобильная навигация"
+        class="t-mobile-navigation__bar"
+    >
+        <div class="t-mobile-navigation__island">
+            <button
+                appearance="flat-grayscale"
+                aria-disabled="true"
+                iconStart="@otus.outline.menu-04-lined"
+                tuiButton
+                type="button"
+                [size]="size()"
+            >
+                Меню
+            </button>
+        </div>
+        <div class="t-mobile-navigation__island t-mobile-navigation__island_round">
+            @if (profile()) {
+                <button
+                    appearance="flat-grayscale"
+                    aria-disabled="true"
+                    tuiIconButton
+                    type="button"
+                    [size]="size()"
+                >
+                    Профиль
+                    <span
+                        size="s"
+                        tuiAvatar
+                    >
+                        <img
+                            alt=""
+                            src="assets/storybook/otus-navigation/avatar.png"
+                        />
+                    </span>
+                </button>
+            } @else {
+                <a
+                    appearance="flat-grayscale"
+                    href="https://my.centraluniversity.ru/"
+                    iconStart="@otus.outline.user-01-lined"
+                    tuiIconButton
+                    [size]="size()"
+                >
+                    Личный кабинет
+                </a>
+            }
+        </div>
+    </nav>
+</footer>

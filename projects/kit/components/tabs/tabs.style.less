@@ -104,12 +104,6 @@ tui-tabs:where(*&) {
         background: var(--t-color);
         animation: tuiPresent 1ms;
         contain: strict;
-
-        @supports (anchor-name: --tui-tab-active) {
-            inset-inline-start: anchor(start);
-            inline-size: anchor-size(inline);
-            position-anchor: --tui-tab-active;
-        }
     }
 
     &._underline::before {
@@ -121,6 +115,17 @@ tui-tabs[data-vertical]:where(*&) {
     flex-direction: column;
     box-shadow: inset calc(-1px * var(--tui-inline)) 0 var(--tui-border-normal);
 
+    &::before {
+        .transition(~'block-size, inset-block-start');
+
+        content: '';
+        inset-block: var(--t-top) auto;
+        inset-inline: auto 0;
+        block-size: var(--t-height);
+        inline-size: 0.125rem;
+        background: var(--tui-background-accent-1);
+    }
+
     [tuiTab] {
         min-block-size: 2.75rem;
         block-size: auto;
@@ -129,28 +134,8 @@ tui-tabs[data-vertical]:where(*&) {
         text-align: start;
         padding: 0.25rem 1.25rem;
 
-        &::after {
-            .transition(transform);
-
-            content: '';
-            position: absolute;
-            display: block;
-            inset-block-start: 0;
-            inset-inline-end: 0;
-            block-size: 100%;
-            inline-size: 0.125rem;
-            background: var(--tui-background-accent-1);
-            transform: scaleX(0);
-            transform-origin: right;
-            margin: 0;
-        }
-
         &:hover {
             box-shadow: inset calc(-0.125rem * var(--tui-inline)) 0 var(--tui-border-normal);
-        }
-
-        &._active::after {
-            transform: none;
         }
     }
 
@@ -160,15 +145,14 @@ tui-tabs[data-vertical]:where(*&) {
     }
 
     &[data-vertical='end'] {
+        &::before {
+            inset-inline: 0 auto;
+        }
+
         box-shadow: inset calc(1px * var(--tui-inline)) 0 var(--tui-border-normal);
 
         [tuiTab] {
             text-align: end;
-
-            &::after {
-                inset-inline: 0 auto;
-                transform-origin: left;
-            }
 
             &:hover {
                 box-shadow: inset calc(0.125rem * var(--tui-inline)) 0 var(--tui-border-normal);

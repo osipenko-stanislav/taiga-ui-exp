@@ -76,8 +76,5 @@ export class TuiStorybookRoot {
     >('otus-tech');
 
     public readonly direction = input<'otus-brand' | 'otus-core'>('otus-core');
-
-    public readonly breakpoint = input<'otus-desktop' | 'otus-mobile' | 'otus-tablet'>(
-        'otus-desktop',
-    );
+    public readonly breakpoint = input<'otus-desktop' | 'otus-mobile'>('otus-desktop');
 }
