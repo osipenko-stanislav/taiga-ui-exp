@@ -1,4 +1,43 @@
+import {execFileSync} from 'node:child_process';
+import {resolve} from 'node:path';
+
 import {expect, test} from '@playwright/test';
+
+test('Universita keeps normal spacing when its container inherits Graphik tracking', async ({
+    page,
+}) => {
+    const styles = execFileSync(
+        process.execPath,
+        [
+            require.resolve('less/bin/lessc'),
+            resolve('projects/demo/src/pages/markup/typography/index.less'),
+            '--include-path=node_modules',
+        ],
+        {encoding: 'utf8'},
+    );
+
+    await page.setContent(`
+        <style>
+            :root {
+                --tui-typography-heading-h4: 600 28px / 32px Graphik;
+                --t-typeface-font: 400 20px / 24px Universita;
+            }
+            ${styles}
+        </style>
+        <h2>Graphik</h2>
+        <div class="t-typeface-samples" style="letter-spacing: -1.25px">
+            <p class="t-typeface-heading">Universita heading</p>
+            <p class="t-typeface-body">Universita body</p>
+        </div>
+    `);
+
+    await expect(page.locator('h2')).toHaveCSS('letter-spacing', '-0.42px');
+    await expect(page.locator('.t-typeface-heading')).toHaveCSS(
+        'letter-spacing',
+        'normal',
+    );
+    await expect(page.locator('.t-typeface-body')).toHaveCSS('letter-spacing', 'normal');
+});
 
 test('Universita typefaces load real faces for headings and body text', async ({
     page,
@@ -23,6 +62,7 @@ test('Universita typefaces load real faces for headings and body text', async ({
             await expect(sample).toHaveCSS('font-family', new RegExp(family));
             await expect(sample).toHaveCSS('font-style', style);
             await expect(sample).toHaveCSS('font-weight', '400');
+            await expect(sample).toHaveCSS('letter-spacing', 'normal');
             const loaded = await sample.evaluate(async (element) => {
                 const {fontStyle, fontFamily} = getComputedStyle(element);
                 const faces = await document.fonts.load(
