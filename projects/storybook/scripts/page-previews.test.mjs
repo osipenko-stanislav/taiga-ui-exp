@@ -5,6 +5,16 @@ import ts from 'typescript';
 
 import {pagePreviews, previewSource} from './page-previews.mjs';
 
+test('typography gallery includes named typeface tabs without template wrappers', () => {
+    const template =
+        '<tui-doc-page>@for (tab of tabs; track tab) {<ng-template [pageTab]="tab"><p>Graphik</p></ng-template>}<ng-template pageTab="Universita"><p>Universita</p></ng-template></tui-doc-page>';
+    const [gallery] = pagePreviews(template, {directory: '/demo/typography', route: '/typography'});
+
+    assert.ok(gallery.template.includes('<p>Graphik</p>'));
+    assert.ok(gallery.template.includes('<p>Universita</p>'));
+    assert.ok(!gallery.template.includes('ng-template'));
+});
+
 test('Array-based API pages declare a zero-argument constructor for Angular JIT', () => {
     const source = previewSource(
         "export default class Page extends Array { protected value = 'Button'; }",

@@ -53,7 +53,7 @@ export function pagePreviews(template, page) {
     if (['/shadows', '/typography'].includes(page.route)) {
         const container = parsed.nodes.find((node) => node.name === 'tui-doc-page');
         const contents = tabContents(template, container)
-            .replaceAll(/<ng-template\s+\[pageTab\]="tab"\s*>/g, '')
+            .replaceAll(/<ng-template\s+(?:\[pageTab\]="tab"|pageTab="[^"]+")\s*>/g, '')
             .replaceAll('</ng-template>', '');
 
         previews.push({name: 'Gallery', exportName: 'Gallery', template: contents});

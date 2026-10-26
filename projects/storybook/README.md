@@ -21,9 +21,12 @@ declaration scope.
 Documentation / Styles / Typography / Control typography is a separate gallery of 35 live control text samples: buttons,
 field values and placeholders, labels, checkbox/radio/switch labels, badges, chips, segmented controls, links, tabs and
 data lists. The table reads the rendered font family, weight, size, line height and letter spacing directly from each
-sample. The Text styles gallery contains only Heading, Body and UI tokens. Buttons use the existing Body tokens with
-their component weight (Graphik Medium 500; XS/S: 14/20px, M/L: 16/24px); no separate button typography tokens are
-defined.
+sample. The Text styles gallery contains Heading, Body and UI tokens, plus Universita, Universita Italic and Universita
+Mono specimens for H1–H6 and Body L–XS. These static faces have weight 400; specimens disable synthetic bold and italic.
+The shared font stylesheet registers Universita normal/italic and Universita Mono, exposed through
+`--tui-typography-family-universita` and `--tui-typography-family-universita-mono`. Graphik remains the default for text
+and headings. Buttons use the existing Body tokens with their component weight (Graphik Medium 500; XS/S: 14/20px, M/L:
+16/24px); no separate button typography tokens are defined.
 
 Separate Nx application using Angular 19.2, Nx 22.1.1 and Storybook 10.0.0. Imports resolve to this repository's
 `projects/core`, `projects/kit` and `projects/cdk` through the inherited root TypeScript paths. No published Taiga

@@ -27,7 +27,7 @@ export type TuiFoundationSection =
 const SECTION_TITLES: Record<TuiFoundationSection, string> = {
     overview: 'Каталог Taiga UI',
     colors: 'Цвета и градиенты',
-    typography: 'Типографика · Graphik',
+    typography: 'Типографика',
     dimensions: 'Размеры и скругления',
     shadows: 'Тени',
     motion: 'Анимация',

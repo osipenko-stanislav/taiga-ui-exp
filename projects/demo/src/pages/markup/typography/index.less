@@ -100,3 +100,45 @@ th {
     margin: 0;
     font: var(--tui-typography-ui-m);
 }
+
+.t-typeface {
+    margin-block: 3rem;
+    padding-block-start: 2rem;
+    border-block-start: 1px solid var(--tui-border-normal);
+}
+
+.t-typeface-samples {
+    /* stylelint-disable-next-line plugin/use-baseline -- Static specimens must use the supplied faces without synthetic weights or styles. */
+    font-synthesis: none;
+}
+
+.t-typeface-label {
+    margin: 2rem 0 1rem;
+    font: var(--tui-typography-body-m);
+    font-weight: 500;
+}
+
+.t-typeface-row {
+    padding-block: 1rem;
+    border-block-end: 1px solid var(--tui-border-normal);
+
+    code {
+        font-size: 0.8125rem;
+        color: var(--tui-text-secondary);
+        overflow-wrap: anywhere;
+    }
+}
+
+.t-typeface-heading,
+.t-typeface-body {
+    margin: 0.75rem 0 0;
+    font: var(--t-typeface-font);
+    font-family: inherit;
+    font-style: inherit;
+    font-weight: normal;
+    overflow-wrap: anywhere;
+}
+
+.t-typeface-body {
+    max-inline-size: 70ch;
+}

@@ -98,4 +98,46 @@
             </section>
         </ng-template>
     }
+    <ng-template pageTab="Universita">
+        @for (typeface of typefaces; track typeface.name) {
+            <section
+                class="t-typeface"
+                [attr.aria-label]="typeface.name"
+            >
+                <h2>{{ typeface.name }}</h2>
+                <p class="t-description">Вес 400. Заголовки и наборный текст в существующей размерной шкале.</p>
+                <div
+                    class="t-typeface-samples"
+                    [style.font-family]="typeface.family"
+                    [style.font-style]="typeface.style"
+                >
+                    <h3 class="t-typeface-label">Заголовки</h3>
+                    @for (font of groups.Headings; track font) {
+                        <div class="t-typeface-row">
+                            <code>{{ font }}</code>
+                            <p
+                                class="t-typeface-heading"
+                                [style.--t-typeface-font]="'var(' + font + ')'"
+                            >
+                                Образование начинается с&nbsp;любопытства
+                            </p>
+                        </div>
+                    }
+                    <h3 class="t-typeface-label">Наборный текст</h3>
+                    @for (font of groups.Body; track font) {
+                        <div class="t-typeface-row">
+                            <code>{{ font }}</code>
+                            <p
+                                class="t-typeface-body"
+                                [style.--t-typeface-font]="'var(' + font + ')'"
+                            >
+                                Учимся новому каждый день. Обмениваемся идеями и находим решения вместе. Образование
+                                помогает задавать вопросы, исследовать мир и создавать новое.
+                            </p>
+                        </div>
+                    }
+                </div>
+            </section>
+        }
+    </ng-template>
 </tui-doc-page>

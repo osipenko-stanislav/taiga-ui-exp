@@ -4,6 +4,8 @@
     "ignorePaths": ["**/projects/i18n/languages/**"],
     "files": ["*/*.*"],
     "ignoreWords": [
+        "Graphik",
+        "Universita",
         "yellin",
         "callin",
         "spittin",

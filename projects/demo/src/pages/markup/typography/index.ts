@@ -10,6 +10,24 @@ import {TuiTable} from '@taiga-ui/addon-table';
     changeDetection,
 })
 export default class Page {
+    protected readonly typefaces = [
+        {
+            name: 'Universita',
+            family: 'var(--tui-typography-family-universita)',
+            style: 'normal',
+        },
+        {
+            name: 'Universita Italic',
+            family: 'var(--tui-typography-family-universita)',
+            style: 'italic',
+        },
+        {
+            name: 'Universita Mono',
+            family: 'var(--tui-typography-family-universita-mono)',
+            style: 'normal',
+        },
+    ] as const;
+
     protected readonly tabs = ['Headings', 'Body', 'UI'] as const;
 
     protected readonly sections = {

@@ -1,5 +1,50 @@
 import {expect, test} from '@playwright/test';
 
+test('Universita typefaces load real faces for headings and body text', async ({
+    page,
+}) => {
+    await page.goto(
+        '/iframe.html?id=documentation-styles-typography--gallery&viewMode=story',
+    );
+
+    for (const {name, family, style} of [
+        {name: 'Universita', family: 'Universita', style: 'normal'},
+        {name: 'Universita Italic', family: 'Universita', style: 'italic'},
+        {name: 'Universita Mono', family: '"Universita Mono"', style: 'normal'},
+    ]) {
+        const section = page.getByRole('region', {name, exact: true});
+        const headings = section.locator('.t-typeface-heading');
+        const body = section.locator('.t-typeface-body');
+
+        await expect(headings).toHaveCount(6);
+        await expect(body).toHaveCount(4);
+
+        for (const sample of [headings.first(), body.first()]) {
+            await expect(sample).toHaveCSS('font-family', new RegExp(family));
+            await expect(sample).toHaveCSS('font-style', style);
+            await expect(sample).toHaveCSS('font-weight', '400');
+            const loaded = await sample.evaluate(async (element) => {
+                const {fontStyle, fontFamily} = getComputedStyle(element);
+                const faces = await document.fonts.load(
+                    `${fontStyle} 400 16px ${fontFamily}`,
+                    'Образование',
+                );
+
+                return (
+                    faces.length > 0 && faces.every((face) => face.status === 'loaded')
+                );
+            });
+
+            expect(loaded).toBe(true);
+        }
+    }
+
+    await page.setViewportSize({width: 390, height: 844});
+    expect(
+        await page.evaluate(() => document.documentElement.scrollWidth - innerWidth),
+    ).toBe(0);
+});
+
 test('typography has three aligned sections with actual tracking values', async ({
     page,
 }) => {
