@@ -1,0 +1,69 @@
+<otus-page-shell
+    description="Русскоязычная точка входа в OTUS: устройство библиотеки, темы, токены и путь от первого примера до готовой композиции."
+    title="Начало работы"
+    version="OTUS · документация"
+    [related]="[
+        {title: 'Обзор системы', href: './?path=/story/overview-system--all'},
+        {title: 'Основы и токены', href: './?path=/story/foundations-overview--all'},
+        {title: 'Навигация OTUS', href: './?path=/story/navigation-otus-experiment--playground'},
+    ]"
+>
+    <div
+        id="overview"
+        class="t-started"
+    >
+        <section>
+            <h2>Что такое OTUS</h2>
+            <p>
+                OTUS — слой визуальных решений и темизации поверх Taiga UI. Компоненты сохраняют публичные API и
+                поведение Taiga, а цвета, типографика, размеры и motion подключаются через общие токены проекта.
+            </p>
+        </section>
+        <section id="api">
+            <h2>Как устроена система</h2>
+            <div class="t-started__grid">
+                <article>
+                    <h3>Компоненты</h3>
+                    <p>Готовые элементы интерфейса Taiga UI с OTUS-темой и состояниями.</p>
+                </article>
+                <article>
+                    <h3>Основы</h3>
+                    <p>Цвета, типографика, размеры, эффекты, иконки и CSS-токены.</p>
+                </article>
+                <article>
+                    <h3>Паттерны</h3>
+                    <p>Составные решения: навигация, вкладки и адаптивные shell-композиции.</p>
+                </article>
+                <article>
+                    <h3>Эксперименты</h3>
+                    <p>Новые визуальные решения, которые проходят проверку до стабилизации API.</p>
+                </article>
+            </div>
+        </section>
+        <section id="variations">
+            <h2>Быстрый маршрут</h2>
+            <ol>
+                <li>
+                    Откройте
+                    <a href="./?path=/story/overview-system--all">обзор системы</a>
+                    , чтобы увидеть карту возможностей.
+                </li>
+                <li>
+                    Проверьте
+                    <a href="./?path=/story/foundations-overview--all">основы и токены</a>
+                    в светлой и тёмной теме.
+                </li>
+                <li>Выберите компонент в каталоге и измените его публичные свойства в Controls.</li>
+                <li>Для составных сценариев используйте раздел «Паттерны» и экспериментальные страницы.</li>
+            </ol>
+        </section>
+        <section>
+            <h2>Темы и бренды</h2>
+            <p>
+                Тема, школа и направление переключаются в верхней панели Storybook. Эти параметры применяются к preview
+                и портальным компонентам.
+            </p>
+            <p class="t-started__note">Ссылки на Figma подключаются к сущностям по мере подтверждения макетов.</p>
+        </section>
+    </div>
+</otus-page-shell>

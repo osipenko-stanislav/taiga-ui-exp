@@ -1,0 +1,84 @@
+:host {
+    display: block;
+}
+
+.t-page-shell {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 13rem;
+    gap: 3rem;
+    max-width: 88rem;
+    margin: 0 auto;
+}
+
+.t-page-shell__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2rem;
+    padding-block: 1rem 2.5rem;
+    border-bottom: 1px solid var(--tui-border-normal);
+}
+
+.t-page-shell__eyebrow,
+.t-page-shell__aside-title {
+    margin: 0 0 0.5rem;
+    color: var(--tui-text-secondary);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.t-page-shell h1 {
+    margin: 0;
+    font: var(--tui-typography-heading-h2);
+}
+.t-page-shell__description {
+    max-width: 62ch;
+    margin: 1rem 0 0;
+    color: var(--tui-text-secondary);
+    font: var(--tui-typography-body-l);
+}
+.t-page-shell__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+.t-page-shell__content {
+    padding-block: 2rem;
+}
+.t-page-shell__aside {
+    position: sticky;
+    top: 1rem;
+    align-self: start;
+    padding-top: 2rem;
+}
+.t-page-shell__aside nav + nav {
+    margin-top: 2rem;
+}
+.t-page-shell__aside a {
+    display: block;
+    padding: 0.35rem 0;
+    color: var(--tui-text-secondary);
+    text-decoration: none;
+}
+.t-page-shell__aside a:hover {
+    color: var(--tui-text-primary);
+}
+
+@media (max-width: 60rem) {
+    .t-page-shell {
+        display: block;
+    }
+    .t-page-shell__aside {
+        display: none;
+    }
+    .t-page-shell__header {
+        display: block;
+    }
+    .t-page-shell__actions {
+        justify-content: flex-start;
+        margin-top: 1.25rem;
+    }
+}

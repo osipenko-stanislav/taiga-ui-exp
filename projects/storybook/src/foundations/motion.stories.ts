@@ -4,7 +4,7 @@ import {TuiFoundationsStory} from './foundations.component';
 
 const meta = {
     id: 'foundations-motion',
-    title: 'Documentation/Styles/Effects/Motion',
+    title: 'Основы/Effects/Motion',
     component: TuiFoundationsStory,
     args: {section: 'motion'},
     parameters: {controls: {disable: true}},

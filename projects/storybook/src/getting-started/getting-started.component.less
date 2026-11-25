@@ -1,0 +1,45 @@
+.t-started {
+    max-width: 68rem;
+}
+.t-started section {
+    padding-block: 1.5rem 2rem;
+    border-bottom: 1px solid var(--tui-border-normal);
+}
+.t-started h2 {
+    margin: 0 0 0.75rem;
+    font: var(--tui-typography-heading-h4);
+}
+.t-started h3 {
+    margin: 0 0 0.5rem;
+    font: var(--tui-typography-heading-h6);
+}
+.t-started p {
+    max-width: 68ch;
+    margin: 0;
+    color: var(--tui-text-secondary);
+}
+.t-started__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+.t-started__grid article {
+    padding: 1.25rem;
+    background: var(--tui-background-neutral-1);
+    border-radius: var(--tui-radius-l);
+}
+.t-started ol {
+    margin: 0;
+    padding-inline-start: 1.5rem;
+}
+.t-started li + li {
+    margin-top: 0.75rem;
+}
+.t-started__note {
+    font-size: 0.875rem;
+}
+@media (max-width: 40rem) {
+    .t-started__grid {
+        grid-template-columns: 1fr;
+    }
+}

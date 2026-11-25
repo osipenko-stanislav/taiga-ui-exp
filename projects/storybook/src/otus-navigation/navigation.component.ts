@@ -38,6 +38,7 @@ import {
     type TuiOtusNavigationZone,
 } from './navigation.data';
 import {TuiOtusToolsNavigation} from './tools-navigation.component';
+import {TuiPageShell} from '../page-shell/page-shell.component';
 
 @Component({
     selector: 'otus-navigation-story',
@@ -53,6 +54,7 @@ import {TuiOtusToolsNavigation} from './tools-navigation.component';
         TuiInput,
         TuiOtusMobileNavigation,
         TuiOtusToolsNavigation,
+        TuiPageShell,
         TuiSkeleton,
         TuiSwitch,
         TuiTextfield,

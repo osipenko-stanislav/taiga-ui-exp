@@ -4,7 +4,7 @@ import {TuiCheckboxStory} from './checkbox.component';
 
 const meta = {
     id: 'components-checkbox',
-    title: 'Form/Toggles/Checkbox/Controls',
+    title: 'Компоненты/Переключатели/Checkbox/Настройки',
     component: TuiCheckboxStory,
     tags: ['autodocs'],
     args: {

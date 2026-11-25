@@ -3,7 +3,8 @@ import {type Meta, type StoryObj} from '@storybook/angular';
 import {TuiOtusNavigationStory} from './navigation.component';
 
 const meta = {
-    title: 'Navigation/Otus experiment',
+    id: 'navigation-otus-experiment',
+    title: 'Эксперименты/Навигация/OTUS',
     component: TuiOtusNavigationStory,
     tags: ['autodocs'],
     args: {

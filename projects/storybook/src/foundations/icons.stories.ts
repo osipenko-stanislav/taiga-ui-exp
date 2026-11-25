@@ -4,7 +4,7 @@ import {TuiFoundationsStory} from './foundations.component';
 
 const meta = {
     id: 'foundations-icons',
-    title: 'Documentation/Styles/Icons',
+    title: 'Основы/Icons',
     component: TuiFoundationsStory,
     args: {section: 'icons'},
     parameters: {controls: {disable: true}},

@@ -4,7 +4,7 @@ import {TuiTextfieldStory} from './textfield.component';
 
 const meta = {
     id: 'components-textfield',
-    title: 'Form/Inputs/Input/Controls',
+    title: 'Компоненты/Поля ввода/Input/Настройки',
     component: TuiTextfieldStory,
     tags: ['autodocs'],
     args: {

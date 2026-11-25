@@ -19,10 +19,11 @@ import {
 import {OTUS_COLOR_MAPPING} from '../generated/catalog';
 import {TuiStorybookRoot} from '../root/root.component';
 import {TuiColorMappingEditor} from './color-mapping-editor.service';
+import {TuiPageShell} from '../page-shell/page-shell.component';
 
 @Component({
     selector: 'otus-color-mapping',
-    imports: [TuiButton, TuiInput],
+    imports: [TuiButton, TuiInput, TuiPageShell],
     templateUrl: './color-mapping.component.html',
     styleUrl: './color-mapping.component.less',
     changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,0 +1,178 @@
+// The supported Docs wrapper is adjusted only around the OTUS template.
+.sbdocs-wrapper:has(.t-otus-docs-page) {
+    padding: 0;
+    background: transparent;
+}
+.sbdocs-content:has(.t-otus-docs-page) {
+    max-width: none;
+    width: 100%;
+}
+.t-otus-docs-page {
+    box-sizing: border-box;
+    min-block-size: 100vh;
+    padding: 2.5rem 3rem 5rem;
+    background: var(--tui-background-base);
+    color: var(--tui-text-primary);
+    font: var(--tui-typography-body-m);
+    .t-page-shell {
+        max-width: 88rem;
+        grid-template-columns: minmax(0, 1fr) 12rem;
+        gap: 2.5rem;
+    }
+    .t-page-shell__header {
+        padding: 0 0 2rem;
+        gap: 1rem;
+        border: 0;
+    }
+    .t-page-shell__eyebrow {
+        display: none;
+    }
+    .t-page-shell__description {
+        font: var(--tui-typography-body-m);
+        max-width: 68ch;
+        margin-top: 1rem;
+    }
+    h1 {
+        font: var(--tui-typography-heading-h2);
+        margin: 0;
+        color: var(--tui-text-primary);
+    }
+    h2 {
+        font: var(--tui-typography-heading-h4);
+        margin: 0 0 1rem;
+        border: 0;
+        color: var(--tui-text-primary);
+    }
+    h3 {
+        font: var(--tui-typography-heading-h6);
+        color: var(--tui-text-primary);
+    }
+    .t-page-shell__content {
+        padding: 0;
+    }
+    .t-page-shell__aside {
+        padding-top: 0.25rem;
+        top: 2rem;
+    }
+    .t-page-shell__aside-title {
+        text-transform: none;
+        letter-spacing: normal;
+    }
+    .t-page-shell__actions {
+        flex-wrap: nowrap;
+    }
+    section {
+        scroll-margin-top: 1.5rem;
+    }
+    section + section {
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--tui-border-normal);
+    }
+    #overview {
+        padding: 1.5rem;
+        border: 1px solid var(--tui-border-normal);
+        border-radius: var(--tui-radius-l);
+    }
+    .t-page-shell__action {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 2.5rem;
+        padding: 0 0.75rem;
+        border: 1px solid var(--tui-border-normal);
+        border-radius: var(--tui-radius-m);
+        background: var(--tui-background-base);
+        color: var(--tui-text-primary);
+        font: inherit;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    .t-page-shell__action:disabled {
+        opacity: 0.5;
+        cursor: default;
+    }
+    a:focus-visible,
+    button:focus-visible {
+        outline: 2px solid var(--tui-border-focus);
+        outline-offset: 3px;
+    }
+    .t-otus-docs-page__controls {
+        padding-top: 1rem;
+        border-top: 1px solid var(--tui-border-normal);
+        overflow: auto;
+    }
+}
+@media (max-width: 60rem) {
+    .t-otus-docs-page {
+        padding: 1.5rem;
+    }
+}
+.t-otus-docs-page {
+    #overview {
+        padding: 0;
+        border: 0;
+    }
+    .t-page-shell__aside a[aria-current] {
+        font-weight: 600;
+        color: var(--tui-text-primary);
+    }
+}
+.t-otus-docs-page__hint {
+    margin: 0 0 1.25rem;
+    color: var(--tui-text-secondary);
+}
+.t-otus-docs-page__playground {
+    border: 1px solid var(--tui-border-normal);
+    border-radius: var(--tui-radius-l);
+    overflow: clip;
+}
+.t-otus-docs-page__preview {
+    background: var(--tui-background-base-alt);
+}
+.t-otus-docs-page__controls {
+    padding: 1.25rem;
+}
+.t-otus-docs-page__matrix {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+.t-otus-docs-page__matrix article {
+    min-width: 0;
+}
+.t-otus-docs-page__copy-status {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+}
+@media (max-width: 60rem) {
+    .t-otus-docs-page .t-page-shell {
+        display: flex;
+        flex-direction: column;
+    }
+    .t-otus-docs-page .t-page-shell__aside {
+        display: block;
+        position: static;
+        order: -1;
+    }
+    .t-otus-docs-page .t-page-shell__aside nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem 1rem;
+    }
+    .t-otus-docs-page .t-page-shell__aside-title {
+        flex-basis: 100%;
+    }
+    .t-otus-docs-page .t-page-shell__aside nav + nav {
+        display: none;
+    }
+}
+@media (max-width: 40rem) {
+    .t-otus-docs-page__matrix {
+        grid-template-columns: 1fr;
+    }
+}

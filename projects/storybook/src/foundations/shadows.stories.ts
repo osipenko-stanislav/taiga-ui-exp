@@ -4,7 +4,7 @@ import {TuiFoundationsStory} from './foundations.component';
 
 const meta = {
     id: 'foundations-shadows',
-    title: 'Documentation/Styles/Effects/Shadow tokens',
+    title: 'Основы/Effects/Shadow tokens',
     component: TuiFoundationsStory,
     args: {section: 'shadows'},
     parameters: {controls: {disable: true}},

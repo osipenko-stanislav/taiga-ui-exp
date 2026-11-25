@@ -3,7 +3,8 @@ import {type Meta, type StoryObj} from '@storybook/angular';
 import {TuiFoundationsStory} from './foundations.component';
 
 const meta = {
-    title: 'Overview/Catalog',
+    id: 'overview-catalog',
+    title: 'Компоненты/Каталог',
     component: TuiFoundationsStory,
     args: {section: 'overview'},
     parameters: {controls: {disable: true}},

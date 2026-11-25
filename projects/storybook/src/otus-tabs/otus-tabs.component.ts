@@ -13,6 +13,7 @@ import {TuiDocAPI, TuiDocAPIItem} from '@taiga-ui/addon-doc';
 import {TuiAppearance, TuiButton, type TuiSizeL} from '@taiga-ui/core';
 import {TuiButtonGroup, TuiOtusTab, TuiTabs} from '@taiga-ui/kit';
 import {TuiFloatingContainer} from '@taiga-ui/layout';
+import {TuiPageShell} from '../page-shell/page-shell.component';
 
 @Component({
     selector: 'otus-tabs-story',
@@ -24,6 +25,7 @@ import {TuiFloatingContainer} from '@taiga-ui/layout';
         TuiDocAPIItem,
         TuiFloatingContainer,
         TuiOtusTab,
+        TuiPageShell,
         TuiTabs,
     ],
     templateUrl: './otus-tabs.component.html',

@@ -4,7 +4,7 @@ import {TuiFoundationsStory} from './foundations.component';
 
 const meta = {
     id: 'foundations-injection',
-    title: 'Documentation/Customization/Injection tokens',
+    title: 'Основы/Настройка/Injection tokens',
     component: TuiFoundationsStory,
     args: {section: 'injection'},
     parameters: {controls: {disable: true}},

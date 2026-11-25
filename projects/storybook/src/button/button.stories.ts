@@ -4,7 +4,7 @@ import {TuiButtonStory} from './button.component';
 
 const meta = {
     id: 'components-button',
-    title: 'Components/Buttons/Button/Controls',
+    title: 'Компоненты/Кнопки/Button/Настройки',
     component: TuiButtonStory,
     tags: ['autodocs'],
     parameters: {

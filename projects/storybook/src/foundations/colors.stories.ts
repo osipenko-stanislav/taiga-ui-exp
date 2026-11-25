@@ -4,7 +4,7 @@ import {TuiFoundationsStory} from './foundations.component';
 
 const meta = {
     id: 'foundations-colors',
-    title: 'Documentation/Styles/Colors/Tokens',
+    title: 'Основы/Colors/Tokens',
     component: TuiFoundationsStory,
     args: {section: 'colors'},
     parameters: {controls: {disable: true}},

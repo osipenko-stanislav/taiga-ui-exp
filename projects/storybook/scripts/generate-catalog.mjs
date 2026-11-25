@@ -9,6 +9,7 @@ import ts from 'typescript';
 import {generateOtusColors} from '../../styles/scripts/generate-otus-colors.mjs';
 import {readNavigation} from './catalog-navigation.mjs';
 import {pagePreviews, previewSource} from './page-previews.mjs';
+import {pageMetadata} from './catalog-metadata.mjs';
 
 const root = fileURLToPath(new URL('../../../', import.meta.url));
 const storyRoot = path.join(root, 'projects/storybook/src');
@@ -18,10 +19,10 @@ const generatedFiles = new Set();
 const otusColorMapping = await generateOtusColors(root);
 const quote = (value) => JSON.stringify(value);
 const stylePageTitles = new Map([
-    ['/breakpoints', 'Documentation/Styles/Layout/Breakpoints'],
-    ['/colors', 'Documentation/Styles/Colors/Semantic colors'],
-    ['/shadows', 'Documentation/Styles/Effects/Shadows'],
-    ['/typography', 'Documentation/Styles/Typography/Text styles'],
+    ['/breakpoints', ['Основы', 'Сетка/Брейкпоинты']],
+    ['/colors', ['Основы', 'Цвета/Семантические цвета']],
+    ['/shadows', ['Основы', 'Эффекты/Тени']],
+    ['/typography', ['Основы', 'Типографика/Текстовые стили']],
 ]);
 
 async function files(directory) {
@@ -107,7 +108,8 @@ for (const page of navigation.filter((page) => page.directory)) {
     const template = await readOptional(path.join(group, 'index.html'));
     const source = await readOptional(path.join(group, 'index.ts'));
     const id = toId(page.path.join('/'));
-    const title = stylePageTitles.get(page.route) ?? page.path.join('/');
+    const metadata = pageMetadata(page);
+    const title = stylePageTitles.has(page.route) ? stylePageTitles.get(page.route).join('/') : metadata.title;
     const names = exampleNames(source);
     const definitions = [];
     const previewDefinitions = pagePreviews(template, page);
@@ -132,6 +134,8 @@ for (const page of navigation.filter((page) => page.directory)) {
             html: preview.template,
             source: path.relative(root, path.join(group, 'index.ts')),
             kind: preview.exportName === 'ApiPreview' ? 'api' : 'gallery',
+            sections:
+                preview.exportName === 'ApiPreview' ? ['overview', 'api', 'variations'] : ['overview', 'variations'],
         });
     }
 
@@ -145,6 +149,7 @@ for (const page of navigation.filter((page) => page.directory)) {
             html: await readOptional(filename.replace(/\.ts$/, '.html')),
             source: path.relative(root, filename),
             kind: 'example',
+            sections: ['overview', 'variations'],
         });
     }
 
@@ -156,6 +161,13 @@ for (const page of navigation.filter((page) => page.directory)) {
         (definition) => `export const ${definition.exportName}: Story = {
     name: ${quote(definition.name)},
     loaders: [async () => ({example: (await import(${quote(definition.importPath)})).default})],
+    args: {
+        pageTitle: ${quote(title.split('/').at(-1))},
+        pageDescription: ${quote(metadata.description)},
+        figmaUrl: ${quote(metadata.figmaUrl)},
+        related: ${quote(metadata.related)},
+        sections: ${quote(definition.sections)},
+    },
     parameters: {
         catalog: {source: ${quote(definition.source)}, kind: ${quote(definition.kind)}, route: ${quote(page.route)}},
         docs: {source: {code: ${quote(definition.html)}, language: 'html'}},
@@ -172,7 +184,19 @@ const meta = {
     id: ${quote(id)},
     title: ${quote(title)},
     component: TuiExampleStory,
-    parameters: {controls: {disable: true}},
+    tags: ['autodocs'],
+    parameters: {
+        controls: {disable: true},
+        otus: {
+            description: ${quote(metadata.description)},
+            figmaUrl: ${quote(metadata.figmaUrl)},
+            related: ${quote([
+                {title: 'Обзор системы', href: './?path=/story/обзор-системы--all'},
+                {title: 'Начало работы', href: './?path=/story/начало-работы--all'},
+            ])},
+            sections: ['overview', 'api', 'variations'],
+        },
+    },
     render: (args, {loaded}) => ({props: {...args, example: loaded['example']}}),
 } satisfies Meta<TuiExampleStory>;
 

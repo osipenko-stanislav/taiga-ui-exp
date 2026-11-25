@@ -16,6 +16,8 @@ import {loadStorybookLanguage} from '../src/example/languages';
 import {STORYBOOK_ROUTES} from '../src/example/routes';
 import {TuiStorybookButtonMotion} from '../src/root/button-motion.service';
 import {TuiStorybookRoot} from '../src/root/root.component';
+import {OtusDocsContainer} from '../src/docs/otus-docs-container';
+import {OtusDocsPage} from '../src/docs/otus-docs-page';
 
 const preview: Preview = {
     decorators: [
@@ -84,19 +86,28 @@ const preview: Preview = {
             },
         },
         theme: {
-            description: 'Taiga UI theme, including portalled dropdowns and hints',
+            description: 'Тема Taiga UI, включая выпадающие меню и портальные подсказки',
             toolbar: {
-                title: 'Theme',
+                title: 'Тема',
                 icon: 'circlehollow',
                 items: [
-                    {value: 'light', title: 'Light'},
-                    {value: 'dark', title: 'Dark'},
+                    {value: 'light', title: 'Светлая'},
+                    {value: 'dark', title: 'Тёмная'},
                 ],
                 dynamicTitle: true,
             },
         },
     },
     parameters: {
+        docs: {
+            page: OtusDocsPage,
+            container: OtusDocsContainer,
+            canvas: {
+                layout: 'padded',
+                story: {height: 'auto'},
+                withToolbar: false,
+            },
+        },
         viewport: {
             options: {
                 'otus-mobile': {
@@ -117,27 +128,12 @@ const preview: Preview = {
         options: {
             storySort: {
                 order: [
-                    'Overview',
-                    'Documentation',
-                    [
-                        'Styles',
-                        [
-                            'Colors',
-                            'Typography',
-                            ['Text styles', 'Control typography', 'Tokens'],
-                            'Layout',
-                            'Effects',
-                            'Icons',
-                            'CSS tokens',
-                        ],
-                        'Customization',
-                    ],
-                    'Components',
-                    'Form',
-                    'Layout',
-                    'Navigation',
-                    'Charts',
-                    'Tools',
+                    'Начало работы',
+                    'Обзор системы',
+                    'Основы',
+                    'Компоненты',
+                    'Паттерны',
+                    'Эксперименты',
                 ],
                 method: 'alphabetical',
             },

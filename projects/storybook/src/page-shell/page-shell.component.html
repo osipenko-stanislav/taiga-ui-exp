@@ -1,0 +1,75 @@
+<div class="t-page-shell">
+    <div class="t-page-shell__main">
+        <header class="t-page-shell__header">
+            <div>
+                <p class="t-page-shell__eyebrow">{{ version() }}</p>
+                <h1>{{ title() }}</h1>
+                <p class="t-page-shell__description">{{ description() }}</p>
+            </div>
+            <div class="t-page-shell__actions">
+                <button
+                    appearance="secondary"
+                    size="s"
+                    tuiButton
+                    type="button"
+                    (click)="copyLink()"
+                >
+                    {{ copied() ? 'Ссылка скопирована' : 'Копировать ссылку' }}
+                </button>
+                @if (figmaUrl(); as url) {
+                    <a
+                        appearance="flat"
+                        rel="noreferrer"
+                        size="s"
+                        target="_blank"
+                        tuiButton
+                        [href]="url"
+                    >
+                        Открыть в Figma
+                    </a>
+                } @else {
+                    <button
+                        appearance="flat"
+                        aria-disabled="true"
+                        disabled
+                        size="s"
+                        tuiButton
+                        type="button"
+                    >
+                        Figma скоро
+                    </button>
+                }
+            </div>
+        </header>
+
+        <div class="t-page-shell__content">
+            <ng-content />
+        </div>
+    </div>
+
+    <aside
+        aria-label="Навигация по странице"
+        class="t-page-shell__aside"
+    >
+        <nav>
+            <p class="t-page-shell__aside-title">На этой странице</p>
+            @if (sections().includes('overview')) {
+                <a href="#overview">Обзор</a>
+            }
+            @if (sections().includes('api')) {
+                <a href="#api">API и настройки</a>
+            }
+            @if (sections().includes('variations')) {
+                <a href="#variations">Вариации</a>
+            }
+        </nav>
+        @if (related().length) {
+            <nav>
+                <p class="t-page-shell__aside-title">Смотрите также</p>
+                @for (item of related(); track item.href) {
+                    <a [href]="item.href">{{ item.title }}</a>
+                }
+            </nav>
+        }
+    </aside>
+</div>

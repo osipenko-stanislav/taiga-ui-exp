@@ -4,7 +4,7 @@ import {TuiFoundationsStory} from './foundations.component';
 
 const meta = {
     id: 'foundations-typography',
-    title: 'Documentation/Styles/Typography/Tokens',
+    title: 'Основы/Typography/Tokens',
     component: TuiFoundationsStory,
     args: {section: 'typography'},
     parameters: {controls: {disable: true}},

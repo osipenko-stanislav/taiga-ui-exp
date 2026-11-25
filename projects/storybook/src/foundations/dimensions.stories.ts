@@ -4,7 +4,7 @@ import {TuiFoundationsStory} from './foundations.component';
 
 const meta = {
     id: 'foundations-dimensions',
-    title: 'Documentation/Styles/Layout/Sizes and radii',
+    title: 'Основы/Layout/Sizes and radii',
     component: TuiFoundationsStory,
     args: {section: 'dimensions'},
     parameters: {controls: {disable: true}},

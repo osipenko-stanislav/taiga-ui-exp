@@ -23,4 +23,14 @@ import {ChangeDetectionStrategy, Component, input, type Type} from '@angular/cor
 })
 export class TuiExampleStory {
     public readonly example = input.required<Type<unknown>>();
+    public readonly pageTitle = input('Компонент');
+    public readonly pageDescription = input(
+        'Интерактивный пример компонента Taiga UI и OTUS.',
+    );
+    public readonly figmaUrl = input<string | null>(null);
+    public readonly related = input<ReadonlyArray<{title: string; href: string}>>([]);
+    public readonly sections = input<ReadonlyArray<'overview' | 'api' | 'variations'>>([
+        'overview',
+        'variations',
+    ]);
 }

@@ -3,7 +3,8 @@ import {type Meta, type StoryObj} from '@storybook/angular';
 import {TuiOtusTabsStory} from './otus-tabs.component';
 
 const meta = {
-    title: 'Navigation/Tabs/OTUS experimental',
+    id: 'navigation-tabs-otus-experimental',
+    title: 'Эксперименты/Вкладки/OTUS',
     component: TuiOtusTabsStory,
     args: {size: 'l'},
     parameters: {
